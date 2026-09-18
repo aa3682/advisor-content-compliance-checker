@@ -1,2 +1,2 @@
 # Open questions
-- 2026-09-18 · perf-d-reference-scope — PERF-03, PERF-04, PERF-10, PERF-11 are cited to 206(4)-1(a) as the alerts gave them, but their substance is (d)(1)–(d)(2) gross/net and time-period requirements. Phase 4 decides whether to write a (d)(1)–(d)(2) reference file on the strength of those four, or keep (d)(6) as the only (d) file until an action cites (d)(1)/(d)(2) directly. Lean: write it. Closes by a ruling in Phase 4.
+None open.
