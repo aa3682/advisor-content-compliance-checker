@@ -9,7 +9,8 @@ Executes nothing. Per RULINGS.md phase6-run-method and phase6-pass-criteria:
   Creates tests/runs/<run-id>/ with MANIFEST.md, RUNLIST.tsv (fixture_id, k, scratch_path,
   output_path; entry fixtures first in ID order, then adversarial) and SUBAGENT_PROMPT.md
   (a copy of tests/harness/SUBAGENT_PROMPT.md, so the run records the prompt it used).
-  Stages every fixture into tests/.scratch/<fixture-id>/ with the stage_fixture logic.
+  Stages one scratch directory per sample, tests/.scratch/<fixture-id>.<k>/, with the
+  stage_fixture logic (phase6-run-model).
 --dry-run does everything except create the run directory and prints what it would write.
 """
 import argparse
@@ -38,9 +39,9 @@ def git(*args):
     return subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
 
 
-def stage(fixture_id):
+def stage(fixture_id, k):
     src = FIXTURES / f"{fixture_id}.md"
-    dest = SCRATCH / fixture_id
+    dest = SCRATCH / f"{fixture_id}.{k}"
     if dest.exists():
         shutil.rmtree(dest)
     dest.mkdir(parents=True)
@@ -51,7 +52,8 @@ def stage(fixture_id):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--model", required=True, help="subagent model id pinned for this run")
+    ap.add_argument("--model", required=True, help="subagent model alias pinned for this run")
+    ap.add_argument("--model-reported", default="", help="model identifier the subagent reports for that alias")
     ap.add_argument("--n-entry", type=int, default=1)
     ap.add_argument("--n-adversarial", type=int, default=3)
     ap.add_argument("--dry-run", action="store_true")
@@ -98,21 +100,22 @@ def main():
     rel = lambda p: str(p.relative_to(ROOT))  # noqa: E731
     runlist = ["fixture_id\tk\tscratch_path\toutput_path"]
     for fid, k in rows:
-        runlist.append(f"{fid}\t{k}\t{rel(SCRATCH / fid)}\t{rel(run_dir / f'{fid}.{k}.md')}")
+        runlist.append(f"{fid}\t{k}\t{rel(SCRATCH / f'{fid}.{k}')}\t{rel(run_dir / f'{fid}.{k}.md')}")
     manifest = "\n".join([
         "# Manifest",
         f"- run_id: {run_id}",
         f"- date: {dt.date.today().isoformat()}",
         f"- skill_commit: {short}",
         f"- model: {a.model}",
+        f"- model_reported: {a.model_reported}",
         f"- fixtures: {len(entry) + len(adversarial)}",
         f"- n_entry: {a.n_entry}",
         f"- n_adversarial: {a.n_adversarial}",
         "- notes: ",
     ]) + "\n"
 
-    for fid in entry + adversarial:
-        stage(fid)
+    for fid, k in rows:
+        stage(fid, k)
 
     if a.dry_run:
         print(f"dry run: would create {rel(run_dir)}/ with MANIFEST.md, RUNLIST.tsv, SUBAGENT_PROMPT.md")
@@ -128,7 +131,7 @@ def main():
         shutil.copyfile(PROMPT, run_dir / "SUBAGENT_PROMPT.md")
     print(f"run_id: {run_id}")
     print(f"samples: {len(rows)} ({len(entry)} entry x {a.n_entry} + {len(adversarial)} adversarial x {a.n_adversarial})")
-    print(f"staged: {len(entry) + len(adversarial)} fixtures under {rel(SCRATCH)}/")
+    print(f"staged: {len(rows)} sample directories under {rel(SCRATCH)}/")
     print(f"runlist: {rel(run_dir / 'RUNLIST.tsv')}")
     return 0
 

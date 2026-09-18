@@ -480,15 +480,25 @@ def score_sample(text, exp, ctx, fixture_id):
 
 def score_dir(run_dir, expected_dir, ctx):
     sample_re = re.compile(r"^(.+)\.(\d+)\.md$")
-    samples = []
+    samples = {}
     for path in sorted(run_dir.iterdir()):
         m = sample_re.match(path.name)
         if m:
-            samples.append((m.group(1), int(m.group(2)), path))
-    samples.sort(key=lambda x: (x[0], x[1]))
+            samples[(m.group(1), int(m.group(2)))] = path
+    runlist = run_dir / "RUNLIST.tsv"
+    if runlist.is_file():  # every listed sample is scored; a missing output is a failed sample
+        for line in runlist.read_text(encoding="utf-8").splitlines()[1:]:
+            parts = line.split("\t")
+            if len(parts) >= 2 and parts[1].isdigit():
+                samples.setdefault((parts[0], int(parts[1])), None)
     rows = []
-    for fid, k, path in samples:
+    for (fid, k), path in sorted(samples.items()):
         exp = load_expected(expected_dir, fid)
+        if path is None:
+            cat = exp["category"] if exp else "?"
+            rows.append({"fixture": fid, "k": k, "class": "entry" if cat == "entry" else "adversarial",
+                         "failed": {"U0": ["missing output"]}, "extras": []})
+            continue
         failed, extras = score_sample(path.read_text(encoding="utf-8"), exp, ctx, fid)
         if exp is None:
             failed["P0"] = [f"no expected file {fid}.yaml"]
