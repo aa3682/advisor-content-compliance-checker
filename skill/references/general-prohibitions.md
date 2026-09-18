@@ -41,7 +41,7 @@ As a means reasonably designed to prevent fraudulent, deceptive, or manipulative
 - GP-15 — Association badges or "member of" lines — EA-2024-09 Callahan
 - PERF-01 — Large dollar/percent profit totals — RA-2024-04
 - PERF-02 — Fund returns without share-class note — RA-2024-04
-- PERF-03 — "Net" figures; fee basis unstated — RA-2024-04; cross-ref FAQ 2026-01-15 (model vs actual fees)
+- PERF-03 — "Net" figures; fee basis unstated or below the audience's fee — RA-2024-04; cross-ref FAQ 2026-01-15 (model vs actual fees)
 - PERF-04 — Returns without fee/expense disclosure — RA-2024-04
 - PERF-13 — Annualized or extrapolated figures; "model" with no method — EA-2023-08 Titan
 - PERF-15 — Model results with no records behind them — EA-2024-04 GeaSphere

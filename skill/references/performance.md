@@ -46,7 +46,7 @@ Paragraphs carried: (d) lead-in, (d)(1), (d)(2), (d)(6). Omitted: (d)(3) SEC-app
 These entries are cited to (a) in the catalog, as the alerts gave them. Their substance is (d)(1)–(d)(2); the reference file, not the catalog, carries the link.
 
 ### (d)(1)
-- PERF-03 — "Net" figures; fee basis unstated — RA-2024-04; cross-ref FAQ 2026-01-15 (model vs actual fees) (catalog cite: (a)(1))
+- PERF-03 — "Net" figures; fee basis unstated or below the audience's fee — RA-2024-04; cross-ref FAQ 2026-01-15 (model vs actual fees) (catalog cite: (a)(1))
 - PERF-04 — Returns without fee/expense disclosure — RA-2024-04 (catalog cite: (a)(1))
 - PERF-11 — "Realized" in the fine print, or no basis given — RA-2024-04 (catalog cite: (a)(6))
 

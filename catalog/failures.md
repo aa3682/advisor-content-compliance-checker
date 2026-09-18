@@ -39,7 +39,7 @@ Entry shape: ID — Observed (what examiners found) — Pattern (what it looks l
 
 - PERF-01 — Cumulative profit claims the adviser believed unachievable or requiring unlimited capital — Large dollar/percent profit totals — (a)(1) — RA-2024-04
 - PERF-02 — Performance shown without disclosing which share classes are included — Fund returns without share-class note — (a)(1) — RA-2024-04
-- PERF-03 — Net returns calculated with lower fees than offered to the intended audience — "Net" figures; fee basis unstated — (a)(1) — RA-2024-04; cross-ref FAQ 2026-01-15 (model vs actual fees)
+- PERF-03 — Net returns calculated with lower fees than offered to the intended audience — "Net" figures; fee basis unstated or below the audience's fee — (a)(1) — RA-2024-04; cross-ref FAQ 2026-01-15 (model vs actual fees)
 - PERF-04 — Fees and expenses used in return calculations omitted — Returns without fee/expense disclosure — (a)(1) — RA-2024-04
 - PERF-05 — Benchmark comparisons that don't define the index, give context for the comparison, or state whether dividends were reinvested — Any "vs. S&P 500" style line — (a)(3) — RA-2024-04; AR p.168
 - PERF-06 — Outdated market data only (5+ years old); products no longer available shown with lower costs than current — Stale figures; discontinued products — (a)(3) — RA-2024-04

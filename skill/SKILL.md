@@ -94,7 +94,7 @@ Generated from catalog/failures.md by tools/build_check_index.py. Never hand-edi
 ### PERF (15)
 - PERF-01 · Large dollar/percent profit totals · (a)(1) · general-prohibitions.md
 - PERF-02 · Fund returns without share-class note · (a)(1) · general-prohibitions.md
-- PERF-03 · "Net" figures; fee basis unstated · (a)(1) · general-prohibitions.md, performance.md
+- PERF-03 · "Net" figures; fee basis unstated or below the audience's fee · (a)(1) · general-prohibitions.md, performance.md
 - PERF-04 · Returns without fee/expense disclosure · (a)(1) · general-prohibitions.md, performance.md
 - PERF-05 · Any "vs. S&P 500" style line · (a)(3) · general-prohibitions.md
 - PERF-06 · Stale figures; discontinued products · (a)(3) · general-prohibitions.md
