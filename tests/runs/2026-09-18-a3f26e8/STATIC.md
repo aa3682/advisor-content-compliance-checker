@@ -1,0 +1,2 @@
+STATIC: PASS
+exit 0
