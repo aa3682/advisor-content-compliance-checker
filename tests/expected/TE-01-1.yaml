@@ -1,0 +1,7 @@
+id: TE-01-1
+category: entry
+targets: [TE-01]
+elements: [testimonial]
+required:
+  - id: TE-01
+    where: "Working with the practice for the past three years"

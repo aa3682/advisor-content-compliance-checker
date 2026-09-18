@@ -1,0 +1,7 @@
+id: TE-13-1
+category: entry
+targets: [TE-13]
+elements: [testimonial, endorsement]
+required:
+  - id: TE-13
+    where: "— Client"

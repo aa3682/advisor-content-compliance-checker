@@ -1,0 +1,7 @@
+id: TE-02-1
+category: entry
+targets: [TE-02]
+elements: [testimonial]
+required:
+  - id: TE-02
+    where: "See disclosures"

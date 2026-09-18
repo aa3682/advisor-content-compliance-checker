@@ -1,0 +1,7 @@
+id: TE-05-1
+category: entry
+targets: [TE-05]
+elements: [endorsement]
+required:
+  - id: TE-05
+    where: "may receive compensation for referrals"

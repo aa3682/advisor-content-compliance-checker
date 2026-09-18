@@ -1,0 +1,7 @@
+id: TE-04-1
+category: entry
+targets: [TE-04]
+elements: [testimonial]
+required:
+  - id: TE-04
+    where: "we'll send you a $25 coffee gift card"

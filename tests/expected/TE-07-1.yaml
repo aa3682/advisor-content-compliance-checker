@@ -1,0 +1,7 @@
+id: TE-07-1
+category: entry
+targets: [TE-07]
+elements: []
+required:
+  - id: TE-07
+    where: "you'll receive a $100 credit toward your next planning fee"

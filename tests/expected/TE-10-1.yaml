@@ -1,0 +1,7 @@
+id: TE-10-1
+category: entry
+targets: [TE-10]
+elements: [endorsement]
+required:
+  - id: TE-10
+    where: "I have not looked into his regulatory history"

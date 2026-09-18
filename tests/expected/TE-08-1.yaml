@@ -1,0 +1,7 @@
+id: TE-08-1
+category: entry
+targets: [TE-08]
+elements: [endorsement]
+required:
+  - id: TE-08
+    where: "there is nothing in writing"

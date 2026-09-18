@@ -1,0 +1,7 @@
+id: TE-06-1
+category: entry
+targets: [TE-06]
+elements: [endorsement]
+required:
+  - id: TE-06
+    where: "there are no conflicts of interest to report"

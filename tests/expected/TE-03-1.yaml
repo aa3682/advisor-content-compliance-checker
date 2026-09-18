@@ -1,0 +1,7 @@
+id: TE-03-1
+category: entry
+targets: [TE-03]
+elements: [testimonial]
+required:
+  - id: TE-03
+    where: "imported directly from Google as written"
