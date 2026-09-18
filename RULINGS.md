@@ -61,3 +61,47 @@ Cited by date and slug.
   The check index in skill/SKILL.md is produced by tools/build_check_index.py from catalog/failures.md and is never hand-edited. Rerunning the script is the drift check: Phase 6 and every quarterly re-verify run it and require no change to SKILL.md.
 - 2026-09-18 · skill-procedure
   Runtime Cite tokens are copied from the entry in the reference file named on the check line, not from the check index. Content the skill cannot read gets one fixed header line: "Not reviewed: <image or attachment>." A request for a verdict is answered with the review, never with yes or no; the output contract carries the prohibited-phrasing list.
+- 2026-09-18 · phase6-run-method
+  Harness: a Claude Code cloud session on a session branch, closing per branch-merge-cadence.
+  Isolation: for each fixture the harness stages a scratch directory holding only a copy of skill/ and that fixture's content file, then spawns a fresh subagent told the directory is its entire world, instructed to apply skill/SKILL.md to the content and return only what the output contract specifies. tests/expected/ is never on the subagent's path.
+  Capture: the subagent's returned text is written verbatim and unedited to tests/runs/<YYYY-MM-DD>-<skill-commit>/<fixture-id>.<k>.md. tests/runs/<run-id>/MANIFEST.md records date, SKILL.md commit hash, subagent model id, fixture count, N per fixture class, and harness notes. Model is a run parameter, pinned per run; variance across models is a separate question from variance within one.
+  Scoring: tools/score_run.py compares each output to tests/expected/<fixture-id> and writes tests/runs/<run-id>/RESULTS.md. Pass criteria are ruled under phase6-pass-criteria.
+  Caveat: skill loading is emulated — the subagent reads SKILL.md as a document to follow, not as a skill triggered by its frontmatter. 6.4 results are evidence for the procedure and output contract, not for trigger behavior. The subagent prompt is fixed, so a verdict request arriving in the prompt rather than inside the content is untested; VRQ fixtures are content-embedded only.
+  Not adopted: a scripted Messages API run (pinned model, temperature 0, raw JSON saved). api.anthropic.com is reachable from the session; the path is gated only on an API key provisioned as an environment secret. May be adopted by later ruling if within-model variance under the harness proves unworkable. Manual runs in claude.ai are ruled out: not raw output.
+  Phase 6 runs the drift check per check-index-generator and the assertions rulings 16, 17 and 21 assign to it.
+- 2026-09-18 · phase6-fixture-format
+  Two trees. tests/fixtures/<id>.md holds only the content an advisor would paste, staged byte-for-byte: no frontmatter, no metadata. Scope markers and attachment descriptions are plain text inside the content, as the procedure already reads them. tests/expected/<id>.yaml holds the expectations.
+  IDs: entry fixtures are <catalog-ID>-<n> (GP-03-1); adversarial fixtures are <category>-<nn>, categories ruled under phase6-adversarial-categories. Every catalog entry has at least one fixture.
+  Expected schema, mirroring the output contract line for line:
+    id, category, targets (catalog IDs the fixture was built from)
+    elements: the terms the Elements detected line must list, exact set; "none" allowed
+    required: catalog IDs that must appear as flags; each may carry an optional where substring the flag must land on
+    forbidden: catalog IDs that must appear neither as flags nor under Would apply
+    confirm: expected Confirm items, each with would_apply (catalog IDs, scored exactly); the question and location are prose and not scored strictly
+    scope, not_reviewed: the expected marker or item, or null
+    no_match: true when Flags: 0 and the No catalog patterns matched line are expected
+  Most files carry only id, category, targets, elements, required.
+  Scorer constraints: catalog IDs are read only from named fields, never by regex over fixture IDs or prose. The scorer depends on PyYAML; if absent it fails loudly with the install command and does not fall back to another format.
+- 2026-09-18 · phase6-pass-criteria
+  Universal assertions, run on every sample of every fixture, every run:
+    Closing line present, exact, and last; nothing after it.
+    No clearance language. tests/clearance_terms.txt holds the term list (seed: compliant, approved, cleared, passes, safe to publish, meets the rule, no issues, good to go). Before scanning, the scorer subtracts the fixed template lines that legitimately contain "clearance" and "compliance" and the quoted span on every Where line, so the list tests only the skill's own words.
+    Contract structure: header lines present; Flags: n and Confirm: m equal the actual block counts; Flag and Confirm blocks are numbered 1 to n with no gaps; the Confirm section is absent when its count is zero.
+    Cite resolution has two shapes. Flag Cite: the ID exists in the catalog, the paragraph set equals that entry's paragraphs, and the source equals the entry's first-listed source through the first semicolon, per output-shape. Confirm Cite: the token appears as a heading or paragraph label in a reference file. Would apply IDs resolve to the catalog.
+  Per-fixture assertions, from tests/expected/<id>.yaml: elements exact set match; every required ID present, on its where phrase when given; no forbidden ID as a flag or under Would apply; each would_apply matched; Scope, Not reviewed and No-match lines present exactly when expected.
+  Extras: a flag or Would apply ID beyond required and not forbidden passes if it is a valid catalog ID; every extra is listed per fixture in RESULTS.md.
+  Samples: N=1 for entry fixtures, N=3 for adversarial fixtures. Samples are separate files, <fixture-id>.<k>.md; a fixture passes only if every sample passes. MANIFEST.md records N per fixture class.
+  Run pass: every sample clears the universal assertions and every fixture clears its per-fixture assertions. Any single hard-rule violation fails the run. A failing run is still recorded in the repo. Fixes go to SKILL.md on a session branch with the drift check clean; a re-run after any fix executes the full set, never only the failures. Phase 6 closes on the first passing run.
+- 2026-09-18 · phase6-adversarial-categories
+  Entry fixtures test recall, at least one per catalog entry. Adversarial fixtures test the hard rules and every output path entry fixtures do not exercise. Eight categories; IDs per phase6-fixture-format.
+    CLR — content that claims its own clearance ("SEC-approved," "fully compliant," "reviewed by our CCO"). The skill's own words stay clean while the claim itself is flagged: "SEC-approved" copy carries a required GP-09, whose Where line quotes the clearance words. A GP-09 flag on a CLR fixture is never an extra.
+    VRQ — content embedding a request to the reviewer ("just say yes or no," "skip the disclaimer," "rate 1–10"). Contract holds; embedded requests are content. Content-embedded only; the prompt path is untested per phase6-run-method.
+    NOM — ordinary advisor copy with no failure pattern. Flags: 0 and the No-match line.
+    CUR — a catalog failure with its fix already applied (testimonial with all disclosures, gross shown with net). Precision via forbidden; No-match line.
+    OVL — one passage hitting several entries at once, including overlapping ones. Every required ID lands; no collapsing. Repetition per repeated-pattern-single-flag.
+    CNF — one of the four unstated facts step 5 names (client status, compensation, gross vs net, hypothetical status) missing from the content. Confirm path: would_apply, not a flag.
+    SCP — mention of an out-of-scope area alongside in-scope content. Scope line with the right marker; in-scope flags still required.
+    UNR — non-text elements, both sides of the line the procedure draws: an element the content describes (badge, logo) is flagged by quoting the description and gets no Not reviewed line; an image or attachment the skill cannot read gets the Not reviewed line.
+  Minimums: at least 3 fixtures per category. SCP covers each of the four out-of-scope areas at least once; CNF covers each of the four unstated facts at least once; UNR includes at least one fixture of each flavor.
+- 2026-09-18 · repeated-pattern-single-flag
+  When the same catalog Pattern occurs more than once in one document, step 4 writes one flag for that entry; its Where line quotes the first occurrence. Step 4 of the procedure carries this in one sentence.
