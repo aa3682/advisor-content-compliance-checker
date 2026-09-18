@@ -16,3 +16,42 @@ Cited by date and slug.
 - 2026-09-18 · reference-file-layout — skill/references/ holds one file per top-level paragraph of Rule 206(4)-1 that the catalog cites: general-prohibitions.md (a), testimonials-endorsements.md (b), third-party-ratings.md (c), performance.md (d), definitions.md (e). A paragraph or definition with no catalog entry behind it is omitted and named as omitted inside the file; it is added when a documented failure cites it. Current omissions: (d)(3), (d)(4), (d)(5), (d)(7); definitions (e)(6), (e)(12), (e)(14).
 - 2026-09-18 · reference-file-shape — Every reference file is: header (source, Rules last verified date, record pointer, definitions-used pointer, paragraphs carried) → rule text verbatim from eCFR with links and italics stripped → "Catalog entries by paragraph," generated from catalog/failures.md by exact cite-token match, one line per entry as ID — Pattern — Source. Entries placed under a paragraph their catalog cite does not name go in a separate section titled for the ruling that placed them, with the catalog cite shown. The catalog is the record; reference files are lookups and are regenerated, never hand-edited.
 - 2026-09-18 · rules-last-verified — "Rules last verified" is the date the rule text was checked against eCFR, not the date sources were fetched. First verification 2026-09-18 (eCFR current through 2026-09-16; section last amended 87 FR 22447, Apr. 15, 2022). Each reference file carries the date; README carries it in the status line; SKILL.md carries it from Phase 5. Re-verify quarterly.
+- 2026-09-18 · output-shape
+  Fix list = one flag per finding, in document order, no severity tiers, no tables.
+  Header: Elements detected (per unclassifiable-content); flag count; names Rule 206(4)-1 once.
+  Each flag carries four fields:
+    Where — exact phrase quoted verbatim, one sentence max
+    What  — one line naming the pattern, taken from the catalog Pattern field
+    Cite  — <catalog rule paragraphs> · <catalog ID> · <first-listed source, verbatim through the first ";">;
+            every token copied from catalog/failures.md, never re-derived;
+            multi-paragraph entries carry all paragraphs as listed (GP-01 → (a)(1), (a)(2));
+            cross-refs stay in the catalog, the ID is the pointer to them
+    Fix   — rewrite, "remove", or "supply X" when the issue is a missing disclosure
+  Flags are four fields; no fifth line, per state-divergence.
+  No-match case: "No catalog patterns matched. This is not a clearance — the catalog covers documented failures only."
+  Every output ends with the mandatory closing line.
+  Example Cite: (a)(1) · PERF-03 · RA-2024-04
+- 2026-09-18 · entries-to-checks
+  One check per catalog entry, 1:1 with catalog/failures.md. No check without an entry; no entry without a check.
+  SKILL.md body carries a check index grouped by ID series in catalog order (GP, PERF, TE, TPR).
+  Each check is one line: <catalog ID> · <catalog Pattern field> · <catalog rule paragraphs> · <reference file(s) where the entry appears>; every token copied from the catalog; reference file(s) derived from the cite tokens the same way the reference files are.
+  Entry detail stays in skill/references/; the check points there.
+  The index is generated from the catalog by Claude Code, never hand-edited; Phase 6 diffs index against catalog.
+  Overlap: a phrase matching more than one entry produces one flag per entry; no collapsing, no tie-break. Duplicate flags are impossible while no two entries share paragraph set and Pattern; Phase 6 asserts that on the catalog.
+- 2026-09-18 · unclassifiable-content
+  Header "content type" becomes "Elements detected": a fixed list of rule-defined terms — testimonial (e)(17), endorsement (e)(5), third-party rating (e)(18), gross performance (e)(7), net performance (e)(10), hypothetical performance (e)(8) — tokens copied from skill/references/definitions.md. Extracted, predecessor, and related performance join when their definitions do, per reference-file-layout. Formats (blog, email, social post) are never named.
+  Header carries one fixed assumption line: "Reviewed as an advertisement under (e)(1); whether (e)(1) covers this communication is not assessed."
+  Out-of-scope markers (broker-dealer/FINRA, private fund, ERISA/retirement plan, non-US regulator): review proceeds; header carries one fixed scope line naming the marker seen and stating the skill does not cover it.
+  Fact-dependent matches: a check that would fire only on a fact the content does not state (client status, compensation, gross vs net, hypothetical status) becomes a Confirm item, not a flag. Confirm section sits after the flags; omitted when empty.
+  Each Confirm item, four fields:
+    Where       — exact phrase, verbatim
+    Depends on  — the missing fact as one question
+    Cite        — the rule token that decides it: the (e) term, or the (b)/(c)/(d) paragraph that conditions on the fact; copied from the reference file
+    Would apply — the catalog ID(s) that fire if the answer is yes
+  No Confirm item without at least one catalog ID in Would apply.
+  Nothing in the header or a Confirm item states or implies clearance; the no-match sentence and closing line apply unchanged.
+- 2026-09-18 · state-divergence
+  Header carries one fixed state line: "State-registered advisers are subject to their state's rule, which may differ from any flag below; differences are not resolved here."
+  No per-flag state notes in v1. Flags are four fields (Where, What, Cite, Fix); no fifth line.
+  Per-flag state notes require a verified state source in catalog/sources.md and a per-entry marker in the catalog; neither exists, and adding them is a separate sourcing ruling, not a Phase 5 task.
+  The state line never names a state, a state rule, or a direction of divergence.
