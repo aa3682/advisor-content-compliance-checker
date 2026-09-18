@@ -78,7 +78,8 @@ def load_template():
         "elements_prefix": "Elements detected: ",
         "reviewed": find("Reviewed as an advertisement"),
         "state": find("State-registered advisers"),
-        "no_match": find("[No catalog patterns matched").strip("[]"),
+        "no_match": next(l for l in lines if l.startswith("[") and not l.startswith("[Scope:")
+                         and not l.startswith("[Not reviewed:")).strip("[]"),
         "closing": find("Pre-review only."),
     }
     scope = find("[Scope:").strip("[]")
@@ -313,9 +314,16 @@ def check_u3(s, t):
     if m == 0 and confirms:
         r.append("Confirm section present with Confirm: 0")
     if n == 0 and not s["no_match"]:
-        r.append("No-match line absent with Flags: 0")
+        r.append("Zero-flags line absent with Flags: 0")
     if n != 0 and s["no_match"]:
-        r.append(f"No-match line present with Flags: {n}")
+        r.append(f"Zero-flags line present with Flags: {n}")
+    seen = {}
+    for b in flags:
+        if b["id"]:
+            seen.setdefault(b["id"], []).append(b["num"])
+    for cid, nums in seen.items():
+        if len(nums) > 1:
+            r.append(f"{cid} appears in Flag blocks {', '.join(map(str, nums))}; one Flag block per catalog ID")
     for b in flags:
         missing = [f for f in FLAG_FIELDS if f not in b["fields"]]
         if missing:
@@ -441,7 +449,7 @@ def check_per_fixture(s, exp):
     elif s["not_reviewed"]:
         res["P5"].append("Not reviewed line present but not expected")
     if bool(exp["no_match"]) != s["no_match"]:
-        res["P5"].append("No-match line " + ("expected but absent" if exp["no_match"] else "present but not expected"))
+        res["P5"].append("Zero-flags line " + ("expected but absent" if exp["no_match"] else "present but not expected"))
     # extras
     known = {r["id"] for r in exp["required"]} | set(exp["forbidden"]) | {
         cid for c in exp["confirm"] for cid in c["would_apply"]}

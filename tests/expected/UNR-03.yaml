@@ -5,4 +5,4 @@ elements: []
 required:
   - id: GP-07
     where: "As seen on National Business Network"
-not_reviewed: "media-kit.pdf"
+not_reviewed: "pdf"

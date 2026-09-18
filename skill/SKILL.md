@@ -39,7 +39,7 @@ Fixed lines are written verbatim. Bracketed lines appear only under the stated c
 
 The Scope line appears only when a scope marker is present.
 The Not reviewed line appears only when part of the content cannot be read.
-The No catalog patterns matched line appears only when Flags: 0.
+The Zero flags line appears only when Flags: 0.
 
 Never describe content as approved, cleared, passing, safe to publish, meeting the rule, or any equivalent, including the adjective form of the word "compliance". Never state which flags matter most.
 
@@ -64,7 +64,7 @@ Depends on: <one question>
 Cite: <(e) term and token, or the (b)/(c)/(d) paragraph>
 Would apply: <ID(s)>
 
-[No catalog patterns matched. This is not a clearance — the catalog covers documented failures only.]
+[Zero flags is not a clearance — the catalog covers documented failures only.]
 
 Pre-review only. Not legal or compliance advice. Confirm with your CCO or counsel.
 ```
