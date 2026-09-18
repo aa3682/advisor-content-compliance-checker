@@ -1,0 +1,7 @@
+id: TPR-06-1
+category: entry
+targets: [TPR-06]
+elements: [third-party rating]
+required:
+  - id: TPR-06
+    where: "we submitted the $350 application in October"

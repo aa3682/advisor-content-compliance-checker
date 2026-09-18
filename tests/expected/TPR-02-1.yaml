@@ -1,0 +1,9 @@
+id: TPR-02-1
+category: entry
+targets: [TPR-02]
+elements: [third-party rating]
+required:
+  - id: TPR-02
+    where: "See our rating on the Regional Advisor Review site"
+  - id: TPR-03
+    where: "the rating page shows the score and nothing else"

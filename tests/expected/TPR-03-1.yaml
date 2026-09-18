@@ -1,0 +1,7 @@
+id: TPR-03-1
+category: entry
+targets: [TPR-03]
+elements: [third-party rating]
+required:
+  - id: TPR-03
+    where: "We did not receive the rating in 2021 or 2022"

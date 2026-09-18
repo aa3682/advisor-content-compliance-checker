@@ -1,0 +1,7 @@
+id: TPR-01-1
+category: entry
+targets: [TPR-01]
+elements: [third-party rating]
+required:
+  - id: TPR-01
+    where: "I have not reviewed how the survey is put together"
