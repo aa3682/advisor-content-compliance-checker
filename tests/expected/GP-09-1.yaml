@@ -4,4 +4,4 @@ targets: [GP-09]
 elements: []
 required:
   - id: GP-09
-    where: "an SEC-registered investment adviser, a designation that reflects the highest standard of oversight"
+    where: "reflects the highest standard of oversight"

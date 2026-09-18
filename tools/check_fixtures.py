@@ -30,6 +30,7 @@ FIXTURES = ROOT / "tests" / "fixtures"
 EXPECTED = ROOT / "tests" / "expected"
 CATEGORIES = ["CLR", "VRQ", "NOM", "CUR", "OVL", "CNF", "SCP", "UNR"]
 MIN_PER_CATEGORY = 3
+MAX_WHERE = 60  # ruling elements-convention
 ENTRY_ID_RE = re.compile(r"^((?:GP|PERF|TE|TPR)-\d+)-(\d+)$")
 ADV_ID_RE = re.compile(r"^(" + "|".join(CATEGORIES) + r")-(\d{2})$")
 
@@ -42,6 +43,7 @@ def main():
     catalog_ids = [e["id"] for e in parse_catalog()]
     catalog = set(catalog_ids)
     problems = []
+    warnings = []
 
     fixture_ids = {p.stem for p in FIXTURES.glob("*.md")}
     expected_ids = {p.stem for p in EXPECTED.glob("*.yaml")}
@@ -119,9 +121,13 @@ def main():
         for r in required:
             if r["where"] and r["where"] not in content:
                 problems.append(f"{fid}: required {r['id']} where {r['where']!r} is not a substring of the fixture")
+            if r["where"] and len(r["where"]) > MAX_WHERE:
+                warnings.append(f"{fid}: required {r['id']} where is {len(r['where'])} characters, over {MAX_WHERE} (elements-convention)")
 
     for line in problems:
         print(line)
+    for line in warnings:
+        print("warning: " + line)
 
     uncovered = [cid for cid in catalog_ids if entry_cover[cid] == 0]
     shortfalls = []

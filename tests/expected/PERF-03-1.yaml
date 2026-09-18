@@ -4,4 +4,4 @@ targets: [PERF-03]
 elements: [gross performance, net performance]
 required:
   - id: PERF-03
-    where: "the rate available to accounts above $5 million; most clients pay our standard 1.25% fee"
+    where: "most clients pay our standard 1.25% fee"

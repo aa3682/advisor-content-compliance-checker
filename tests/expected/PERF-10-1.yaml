@@ -4,4 +4,4 @@ targets: [PERF-10]
 elements: [gross performance, net performance]
 required:
   - id: PERF-10
-    where: "The five- and ten-year figures end December 31, 2025, while the one-year figure runs through the end of last month"
+    where: "the one-year figure runs through the end of last month"

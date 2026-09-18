@@ -1,7 +1,7 @@
 id: PERF-01-1
 category: entry
 targets: [PERF-01]
-elements: [gross performance, net performance]
+elements: [gross performance, net performance, hypothetical performance]
 required:
   - id: PERF-01
     where: "$4.2 million in total profits, a 312% cumulative gain"
