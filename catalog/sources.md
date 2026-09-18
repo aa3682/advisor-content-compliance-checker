@@ -15,12 +15,12 @@ Inventory date: 2026-09-18
 
 | Date | Action | Failure type | Status |
 |---|---|---|---|
-| 2023-08 | Titan Global Capital Management | hypothetical performance | UNVERIFIED |
+| 2023-08-21 | Titan Global Capital Management USA LLC (Rel. 2023-153; first amended-rule action) | misleading hypothetical performance — 2,700% "annualized" crypto return extrapolated from three weeks, assumptions undisclosed; hypothetical performance without policies; $850K penalty | verified |
 | 2023-09-11 | Nine advisers sweep | hypothetical performance without policies; recordkeeping | verified |
 | 2024-03-18 | Delphia / Global Predictions | false statements about AI use | verified |
 | 2024-04-12 | Five advisers sweep (incl. GeaSphere) | hypothetical performance; misleading model performance; unsubstantiated performance; no written endorser agreements | verified |
 | 2024-09-09 | Nine advisers sweep | untrue/unsubstantiated statements; testimonials, endorsements, ratings without disclosures | verified |
-| 2024-11 | Robo-adviser (athlete endorsements) | paid endorsements lacking disclosures; hypothetical performance without policies | NAME UNVERIFIED |
+| 2024-11-01 | Wahed Invest, LLC (AP File No. 3-22283) | paid athlete endorsements without disclosures — not clients, compensated, one held parent-company equity (undisclosed conflict); hypothetical performance to general public without policies; $250K penalty | verified |
 | 2025-09-04 | Meridian Financial LLC | substantiation — "refuse all conflicts" claim contradicted by Form ADV; Rule 206(4)-1(a)(2) | verified |
 
 ## Staff FAQs
@@ -28,8 +28,8 @@ Inventory date: 2026-09-18
 | Date | Topic | Status |
 |---|---|---|
 | 2026-01-15 | model vs actual advisory fees in performance; SRO-related disqualification for compensated testimonials/endorsements | verified |
-| 2025 (date TBD) | extracted performance and portfolio characteristics gross/net | UNVERIFIED |
-| 2023 (date TBD) | original Marketing Rule FAQs | UNVERIFIED |
+| 2025-03-19 | extracted performance may be shown gross-only under conditions; portfolio/investment characteristics (yield, Sharpe, attribution, etc.) not treated as "performance" under conditions | verified |
+| 2023-01-11 | original extracted-performance FAQ requiring net alongside gross | superseded 2025-03-19; removed from SEC FAQ page |
 
 ## Gaps
 
