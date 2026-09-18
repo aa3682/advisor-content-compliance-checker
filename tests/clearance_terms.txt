@@ -1,0 +1,11 @@
+# clearance-language substrings, lowercase, one per line; scanned per phase6-pass-criteria
+approved
+cleared
+passing
+passes
+safe to publish
+meets the rule
+meeting the rule
+compliant
+no issues
+good to go
