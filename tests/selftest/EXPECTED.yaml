@@ -1,8 +1,8 @@
 # Scorer self-test: verdict and the exact set of checks that must fire, per sample k of GP-01-1.
 samples:
   1: {verdict: pass}                       # correct output
-  2: {verdict: pass}                       # Where quote contains "approved"; proves the Where subtraction
-  3: {verdict: pass}                       # What line contains "approved"; proves the What subtraction
+  2: {verdict: fail, checks: [U5]}         # Where quote containing "approved" is not in the fixture: U5; U2 silent, proving the Where subtraction
+  3: {verdict: fail, checks: [U4]}         # synthetic What line containing "approved": U4 (not the Pattern); U2 silent, proving the What subtraction
   4: {verdict: fail, checks: [U1]}         # closing line missing
   5: {verdict: fail, checks: [U1]}         # a sentence after the closing line
   6: {verdict: fail, checks: [U2]}         # Fix line says the rewrite is compliant
@@ -13,3 +13,4 @@ samples:
   11: {verdict: fail, checks: [U4]}        # Cite paragraph set altered
   12: {verdict: fail, checks: [P2, P3]}    # flag is GP-02 (forbidden) instead of GP-01 (required)
   13: {verdict: fail, checks: [P1]}        # Elements detected lists testimonial
+  14: {verdict: fail, checks: [U5]}        # Where quote is a sentence not in the fixture

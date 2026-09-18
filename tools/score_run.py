@@ -12,6 +12,10 @@ tests/runs/<run-id>/RESULTS.md. Exit code 0 only when the run passes.
 
 The catalog parser is imported from tools/build_check_index.py; there is no
 second parser.
+
+What and Where lines are subtracted from the clearance scan because they carry
+catalog and content text; U4 (What equals the cited Pattern) and U5 (every Where
+quote is a substring of the fixture) make that true.
 """
 import argparse
 import re
@@ -28,6 +32,7 @@ except ImportError:
     sys.exit(2)
 
 TESTS = ROOT / "tests"
+FIXTURES = TESTS / "fixtures"
 RUNS = TESTS / "runs"
 EXPECTED_DEFAULT = TESTS / "expected"
 TERMS = TESTS / "clearance_terms.txt"
@@ -43,7 +48,7 @@ FIELD_RE = re.compile(r"^(Where|What|Cite|Fix|Depends on|Would apply): ?(.*)$")
 QUOTE_RE = re.compile(r'"[^"]*"|“[^”]*”')
 FLAG_FIELDS = ["Where", "What", "Cite", "Fix"]
 CONFIRM_FIELDS = ["Where", "Depends on", "Cite", "Would apply"]
-UNIVERSAL = ["U1", "U2", "U3", "U4"]
+UNIVERSAL = ["U1", "U2", "U3", "U4", "U5"]
 PER_FIXTURE = ["P1", "P2", "P3", "P4", "P5"]
 
 
@@ -347,6 +352,9 @@ def check_u4(s, cat, ref_tokens):
             r.append(f"Flag {b['num']} paragraph set {paras!r} != catalog {', '.join(sorted(cat[cid]['paragraphs']))!r}")
         if source != cat[cid]["source"]:
             r.append(f"Flag {b['num']} source {source!r} != catalog {cat[cid]['source']!r}")
+        what = b["fields"].get("What", "").strip()
+        if what != cat[cid]["pattern"]:
+            r.append(f"Flag {b['num']} What {what[:50]!r} != catalog Pattern for {cid}")
     for b in s["confirms"]:
         cite = b["fields"].get("Cite", "")
         if not any(tok in cite for tok in ref_tokens):
@@ -354,6 +362,32 @@ def check_u4(s, cat, ref_tokens):
         for cid in b["would_apply"]:
             if cid not in cat:
                 r.append(f"Confirm {b['num']} Would apply ID {cid!r} not in catalog")
+    return r
+
+
+def collapse_ws(text):
+    return " ".join(text.split())
+
+
+def check_u5(s, fixture_text):
+    """Provenance: every quoted span on every Where line is a substring of the fixture."""
+    r = []
+    if fixture_text is None:
+        return ["fixture file not found in tests/fixtures/"]
+    hay = collapse_ws(fixture_text)
+    for b in s["flags"] + s["confirms"]:
+        label = f"{b['kind'].capitalize()} {b['num']}"
+        where = b["fields"].get("Where")
+        if where is None:
+            continue  # missing field is U3's finding
+        spans = QUOTE_RE.findall(where)
+        if not spans:
+            r.append(f"{label} Where carries no quoted span")
+            continue
+        for span in spans:
+            needle = collapse_ws(span[1:-1])
+            if needle and needle not in hay:
+                r.append(f"{label} Where quote {needle[:50]!r} is not in the fixture")
     return r
 
 
@@ -417,11 +451,14 @@ def check_per_fixture(s, exp):
 
 # ---------------------------------------------------------------- scoring a run
 
-def score_sample(text, exp, ctx):
+def score_sample(text, exp, ctx, fixture_id):
     s = parse_sample(text, ctx["t"])
+    fixture_path = FIXTURES / f"{fixture_id}.md"
+    fixture_text = fixture_path.read_text(encoding="utf-8") if fixture_path.is_file() else None
     failed = {}
     for name, r in (("U1", check_u1(s, ctx["t"])), ("U2", check_u2(s, ctx["t"], ctx["terms"])),
-                    ("U3", check_u3(s, ctx["t"])), ("U4", check_u4(s, ctx["cat"], ctx["ref_tokens"]))):
+                    ("U3", check_u3(s, ctx["t"])), ("U4", check_u4(s, ctx["cat"], ctx["ref_tokens"])),
+                    ("U5", check_u5(s, fixture_text))):
         if r:
             failed[name] = r
     extras = []
@@ -444,7 +481,7 @@ def score_dir(run_dir, expected_dir, ctx):
     rows = []
     for fid, k, path in samples:
         exp = load_expected(expected_dir, fid)
-        failed, extras = score_sample(path.read_text(encoding="utf-8"), exp, ctx)
+        failed, extras = score_sample(path.read_text(encoding="utf-8"), exp, ctx, fid)
         if exp is None:
             failed["P0"] = [f"no expected file {fid}.yaml"]
         cat = exp["category"] if exp else "?"

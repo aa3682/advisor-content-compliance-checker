@@ -5,15 +5,15 @@
 - skill_commit: d17a00a
 - model: none (crafted samples)
 - fixtures: 1
-- n_entry: 13
+- n_entry: 14
 - n_adversarial: 0
-- notes: scorer self-test; 13 crafted outputs for GP-01-1, see tests/selftest/EXPECTED.yaml
+- notes: scorer self-test; 14 crafted outputs for GP-01-1, see tests/selftest/EXPECTED.yaml
 
 | fixture | k | verdict | failed checks | extras |
 |---|---|---|---|---|
 | GP-01-1 | 1 | PASS |  |  |
-| GP-01-1 | 2 | PASS |  |  |
-| GP-01-1 | 3 | PASS |  |  |
+| GP-01-1 | 2 | FAIL | U5: Flag 1 Where quote 'I am completely free of conflicts of interest, an ' is not in the fixture |  |
+| GP-01-1 | 3 | FAIL | U4: Flag 1 What 'Any absolute no-conflict statement; any claim of a' != catalog Pattern for GP-01 |  |
 | GP-01-1 | 4 | FAIL | U1: closing line missing |  |
 | GP-01-1 | 5 | FAIL | U1: text follows the closing line |  |
 | GP-01-1 | 6 | FAIL | U2: term 'compliant' in line 'Fix: Rewrite: "I am paid only by planning fees; any conflict' |  |
@@ -24,10 +24,11 @@
 | GP-01-1 | 11 | FAIL | U4: Flag 1 paragraph set '(a)(1)' != catalog '(a)(1), (a)(2)' |  |
 | GP-01-1 | 12 | FAIL | P2: required GP-01 not flagged; P3: forbidden GP-02 flagged |  |
 | GP-01-1 | 13 | FAIL | P1: expected 'none', got 'testimonial' |  |
+| GP-01-1 | 14 | FAIL | U5: Flag 1 Where quote 'Being completely free of conflicts of interest is ' is not in the fixture |  |
 
 ## Totals
 
-- entry: samples 3/13 pass; fixtures 0/1 pass
+- entry: samples 1/14 pass; fixtures 0/1 pass
 - adversarial: samples 0/0 pass; fixtures 0/0 pass
 
 RUN: FAIL
