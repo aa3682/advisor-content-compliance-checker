@@ -55,3 +55,5 @@ Cited by date and slug.
   No per-flag state notes in v1. Flags are four fields (Where, What, Cite, Fix); no fifth line.
   Per-flag state notes require a verified state source in catalog/sources.md and a per-entry marker in the catalog; neither exists, and adding them is a separate sourcing ruling, not a Phase 5 task.
   The state line never names a state, a state rule, or a direction of divergence.
+- 2026-09-18 · branch-merge-cadence
+  Cloud sessions commit on session branches; main is fast-forwarded (--ff-only) at every sub-phase close. A sub-phase or phase closes only on a main hash.
