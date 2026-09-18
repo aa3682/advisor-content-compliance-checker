@@ -1,0 +1,7 @@
+id: GP-03-1
+category: entry
+targets: [GP-03]
+elements: []
+required:
+  - id: GP-03
+    where: "a process validated by leading professional institutions"

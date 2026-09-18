@@ -1,0 +1,7 @@
+id: GP-15-1
+category: entry
+targets: [GP-15]
+elements: []
+required:
+  - id: GP-15
+    where: "Proud member of the National Association of Independent Planners"

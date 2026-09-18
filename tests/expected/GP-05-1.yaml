@@ -1,0 +1,7 @@
+id: GP-05-1
+category: entry
+targets: [GP-05]
+elements: []
+required:
+  - id: GP-05
+    where: "I'm legally obligated to act in your best interest, not mine"

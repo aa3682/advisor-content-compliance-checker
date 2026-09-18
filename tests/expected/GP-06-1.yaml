@@ -1,0 +1,7 @@
+id: GP-06-1
+category: entry
+targets: [GP-06]
+elements: []
+required:
+  - id: GP-06
+    where: "the Harbor Ultra-Short Bond Fund is where I'm parking client reserves"

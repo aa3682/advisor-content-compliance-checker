@@ -1,0 +1,7 @@
+id: GP-04-1
+category: entry
+targets: [GP-04]
+elements: []
+required:
+  - id: GP-04
+    where: "Add award-winning to the list of reasons"

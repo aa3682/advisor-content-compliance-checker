@@ -1,0 +1,7 @@
+id: GP-08-1
+category: entry
+targets: [GP-08]
+elements: []
+required:
+  - id: GP-08
+    where: "me with a well-known NFL quarterback"

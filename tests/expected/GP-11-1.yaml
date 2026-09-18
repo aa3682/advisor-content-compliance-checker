@@ -1,0 +1,7 @@
+id: GP-11-1
+category: entry
+targets: [GP-11]
+elements: []
+required:
+  - id: GP-11
+    where: "Those are app-store reviews of the software"

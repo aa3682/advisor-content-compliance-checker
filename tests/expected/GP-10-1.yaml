@@ -1,0 +1,7 @@
+id: GP-10-1
+category: entry
+targets: [GP-10]
+elements: [third-party rating]
+required:
+  - id: GP-10
+    where: "one of the highest ratings any planner in the state has received"

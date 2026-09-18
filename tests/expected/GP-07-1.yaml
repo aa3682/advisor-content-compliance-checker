@@ -1,0 +1,7 @@
+id: GP-07-1
+category: entry
+targets: [GP-07]
+elements: []
+required:
+  - id: GP-07
+    where: "As seen on National Business Network and in Investor Weekly"

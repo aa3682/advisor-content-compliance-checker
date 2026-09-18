@@ -1,0 +1,7 @@
+id: GP-13-1
+category: entry
+targets: [GP-13]
+elements: []
+required:
+  - id: GP-13
+    where: "My AI-powered rebalancing engine"

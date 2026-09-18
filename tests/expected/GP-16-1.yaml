@@ -1,0 +1,7 @@
+id: GP-16-1
+category: entry
+targets: [GP-16]
+elements: []
+required:
+  - id: GP-16
+    where: "I was named 2019 Financial Planner of the Year"

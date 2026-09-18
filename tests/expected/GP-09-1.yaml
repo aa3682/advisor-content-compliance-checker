@@ -1,0 +1,7 @@
+id: GP-09-1
+category: entry
+targets: [GP-09]
+elements: []
+required:
+  - id: GP-09
+    where: "an SEC-registered investment adviser, a designation that reflects the highest standard of oversight"

@@ -1,0 +1,7 @@
+id: GP-12-1
+category: entry
+targets: [GP-12]
+elements: []
+required:
+  - id: GP-12
+    where: "six-point light-gray text at the very bottom of every page"
