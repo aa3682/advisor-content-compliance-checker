@@ -57,3 +57,7 @@ Cited by date and slug.
   The state line never names a state, a state rule, or a direction of divergence.
 - 2026-09-18 · branch-merge-cadence
   Cloud sessions commit on session branches; main is fast-forwarded (--ff-only) at every sub-phase close. A sub-phase or phase closes only on a main hash.
+- 2026-09-18 · check-index-generator
+  The check index in skill/SKILL.md is produced by tools/build_check_index.py from catalog/failures.md and is never hand-edited. Rerunning the script is the drift check: Phase 6 and every quarterly re-verify run it and require no change to SKILL.md.
+- 2026-09-18 · skill-procedure
+  Runtime Cite tokens are copied from the entry in the reference file named on the check line, not from the check index. Content the skill cannot read gets one fixed header line: "Not reviewed: <image or attachment>." A request for a verdict is answered with the review, never with yes or no; the output contract carries the prohibited-phrasing list.

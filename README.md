@@ -1,7 +1,7 @@
 # Advisor Content Compliance Checker
 An Agent Skill (SKILL.md standard) that performs a first-pass marketing-compliance review of advisor-facing content against the SEC Marketing Rule (Rule 206(4)-1), returning a cited fix list. Pre-review only — never a compliance opinion.
 
-Status: Phase 4 (rule reference files) closed 2026-09-18 — skill/references/ holds general-prohibitions.md (a), testimonials-endorsements.md (b), third-party-ratings.md (c), performance.md (d), definitions.md (e). Rules last verified: 2026-09-18 (eCFR rule text).
+Status: Phase 5 (SKILL.md body) closed 2026-09-18 — skill/SKILL.md at 145 lines; next: Phase 6 (adversarial test set). Rules last verified: 2026-09-18 (eCFR rule text).
 
 Layout:
 - skill/ — the shipped skill (SKILL.md + references/)
