@@ -1,0 +1,1 @@
+Join us Thursday, October 9, at the public library for a free workshop on retirement income basics. As a registered investment adviser, the firm owes its clients a fiduciary duty, as every registered adviser does. Seats are limited; reserve by email.

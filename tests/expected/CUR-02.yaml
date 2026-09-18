@@ -1,0 +1,7 @@
+id: CUR-02
+category: CUR
+targets: []
+elements: [gross performance, net performance]
+required: []
+forbidden: [PERF-03, PERF-04, PERF-08, PERF-10]
+no_match: true

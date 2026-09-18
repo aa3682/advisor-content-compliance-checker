@@ -1,0 +1,7 @@
+id: NOM-03
+category: NOM
+targets: []
+elements: []
+required: []
+forbidden: [GP-03, GP-13]
+no_match: true

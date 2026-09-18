@@ -1,0 +1,1 @@
+Photo: me with a well-known NFL quarterback at last spring's children's hospital gala. It was a good night for a good cause. I've spent fifteen years helping families in the region plan for what matters most, and the first conversation is always free of charge.

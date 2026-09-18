@@ -1,0 +1,8 @@
+id: CNF-02
+category: CNF
+targets: [GP-06]
+elements: []
+required: []
+confirm:
+  - would_apply: [GP-06]
+no_match: true

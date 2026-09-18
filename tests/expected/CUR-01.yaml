@@ -1,0 +1,7 @@
+id: CUR-01
+category: CUR
+targets: []
+elements: [testimonial]
+required: []
+forbidden: [TE-01, TE-02, TE-13]
+no_match: true

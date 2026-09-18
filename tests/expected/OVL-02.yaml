@@ -1,0 +1,7 @@
+id: OVL-02
+category: OVL
+targets: [GP-01]
+elements: []
+required:
+  - id: GP-01
+    where: "I have no conflicts of interest, none"

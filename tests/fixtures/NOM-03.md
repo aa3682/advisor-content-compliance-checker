@@ -1,0 +1,1 @@
+Three things to check before you rebalance: your target mix, your tax situation, and whether a cash need is coming in the next twelve months. None of this is advice for your situation; it's a starting point for a conversation with whoever handles your plan. Questions welcome in the comments.

@@ -1,0 +1,1 @@
+"My account is up 14% before fees this year with them, and I've never worried once." That's a note from a family I've worked with since 2022, shared with permission. Grateful for clients like these. Onward.

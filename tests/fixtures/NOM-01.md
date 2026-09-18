@@ -1,0 +1,1 @@
+Fee-only planning for teachers and nurses in the county, run by two planners who answer their own phones. Fees are stated in writing before any work begins, and the first conversation is free of charge. We meet in person or by video, whichever suits you.

@@ -1,0 +1,11 @@
+id: OVL-03
+category: OVL
+targets: [GP-09, TPR-03, TPR-04]
+elements: [third-party rating]
+required:
+  - id: GP-09
+    where: "held to the highest standard"
+  - id: TPR-03
+    where: "with no date on it"
+  - id: TPR-04
+    where: "no name of the organization that produced it"

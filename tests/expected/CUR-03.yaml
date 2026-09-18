@@ -1,0 +1,7 @@
+id: CUR-03
+category: CUR
+targets: []
+elements: [third-party rating]
+required: []
+forbidden: [TPR-01, TPR-02, TPR-03, TPR-04, TPR-05, TPR-06, TPR-07]
+no_match: true
