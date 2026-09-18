@@ -1,0 +1,1 @@
+We're a two-person, fee-only practice serving teachers across the county. Our complete fee schedule is in the attached PDF, fee-schedule.pdf, so there are no surprises. Call or email to set up a first meeting; the first conversation is free of charge.

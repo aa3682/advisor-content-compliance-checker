@@ -1,0 +1,1 @@
+Every page of this site is SEC-approved, so read on with confidence. We're a two-person fee-only practice serving families in the county, and fees are stated in writing before any work begins. Book a first conversation whenever you're ready.

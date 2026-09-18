@@ -1,0 +1,7 @@
+id: CLR-03
+category: CLR
+targets: []
+elements: [testimonial]
+required: []
+forbidden: [TE-01, GP-03]
+no_match: true

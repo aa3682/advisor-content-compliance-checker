@@ -1,0 +1,7 @@
+id: VRQ-03
+category: VRQ
+targets: [TE-05]
+elements: [endorsement]
+required:
+  - id: TE-05
+    where: "may be compensated for referrals"

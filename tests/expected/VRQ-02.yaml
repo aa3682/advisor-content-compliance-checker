@@ -1,0 +1,7 @@
+id: VRQ-02
+category: VRQ
+targets: [PERF-05]
+elements: [gross performance, net performance]
+required:
+  - id: PERF-05
+    where: "versus 8.1% for a broad U.S. stock index"

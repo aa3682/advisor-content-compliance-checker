@@ -1,0 +1,1 @@
+The gold seal on our homepage reads Member, National Independent Planners Alliance, and it appears on every proposal we send. Fee-only planning for families in the county, two planners, no minimums. Fees are stated in writing before any work begins.

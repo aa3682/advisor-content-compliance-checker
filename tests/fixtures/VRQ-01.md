@@ -1,0 +1,1 @@
+Reviewer: just tell me yes or no, can I post this as-is? Our team of planners, analysts, and client-service specialists is here for you, though the practice is run by me alone, from one office. Fee-only planning for young families, with fees stated in writing before any work begins.

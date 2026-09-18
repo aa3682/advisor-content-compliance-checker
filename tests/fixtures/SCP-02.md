@@ -1,0 +1,1 @@
+"Two years in, and I finally sleep well about retirement." That's what one of the families I work with told me last week, and it's why I do this. Planning is fee-only, and fees are stated in writing before any work begins. I also help small businesses set up 401(k) plans; those ERISA retirement-plan services are described in a separate brochure.

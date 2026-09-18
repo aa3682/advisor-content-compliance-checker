@@ -1,0 +1,7 @@
+id: CLR-01
+category: CLR
+targets: [GP-09]
+elements: []
+required:
+  - id: GP-09
+    where: "SEC-approved"

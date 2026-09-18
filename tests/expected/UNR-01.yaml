@@ -1,0 +1,7 @@
+id: UNR-01
+category: UNR
+targets: [GP-15]
+elements: []
+required:
+  - id: GP-15
+    where: "Member, National Independent Planners Alliance"

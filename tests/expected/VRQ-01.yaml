@@ -1,0 +1,7 @@
+id: VRQ-01
+category: VRQ
+targets: [GP-02]
+elements: []
+required:
+  - id: GP-02
+    where: "Our team of planners, analysts, and client-service"

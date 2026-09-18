@@ -1,0 +1,1 @@
+As seen on National Business Network and in Investor Weekly: both logos sit under that headline at the top of the page, and you can book the same 60-second spot we ran by contacting the network's ad desk. Details of both placements are in the attached media kit, media-kit.pdf. Fee-only planning for physicians, with fees stated in writing before any work begins.

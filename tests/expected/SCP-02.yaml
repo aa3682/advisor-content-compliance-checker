@@ -1,0 +1,9 @@
+id: SCP-02
+category: SCP
+targets: [TE-01]
+elements: [testimonial]
+required:
+  - id: TE-01
+    where: "Two years in, and I finally sleep well about retirement"
+forbidden: [GP-03]
+scope: "ERISA"

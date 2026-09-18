@@ -1,0 +1,9 @@
+id: SCP-03
+category: SCP
+targets: [PERF-08]
+elements: [gross performance, net performance]
+required:
+  - id: PERF-08
+    where: "1 year 10.4% gross, 9.3% net"
+forbidden: [GP-03]
+scope: "private fund"
