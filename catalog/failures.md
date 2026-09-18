@@ -6,13 +6,19 @@ Source codes:
 - RA-2024-04 — Division of Examinations Risk Alert, "Initial Observations Regarding Advisers Act Marketing Rule Compliance," Apr 17, 2024
 - RA-2025-12 — Division of Examinations Risk Alert, "Additional Observations Regarding Advisers' Compliance with the Advisers Act Marketing Rule," Dec 16, 2025
 - AR — Marketing Rule Adopting Release, Rel. No. IA-5653 (Dec 22, 2020), page cited
-- EA-YYYY-MM — enforcement action (see catalog/sources.md); enforcement extraction pending
+- EA-2023-08 — Titan Global Capital Management USA LLC, Rel. 2023-153 (Aug 21, 2023)
+- EA-2023-09 — Nine advisers hypothetical-performance sweep, Rel. 2023-173 (Sep 11, 2023)
+- EA-2024-03 — Delphia (USA) Inc. and Global Predictions Inc., AI claims, Rel. 2024-36 (Mar 18, 2024)
+- EA-2024-04 — Five advisers hypothetical-performance sweep incl. GeaSphere LLC, Rel. 2024-46 (Apr 12, 2024)
+- EA-2024-09 — Nine advisers sweep, Rel. 2024-121 (Sep 9, 2024)
+- EA-2024-11 — Wahed Invest, LLC, AP File No. 3-22283 (Nov 1, 2024)
+- EA-2025-09 — Meridian Financial, LLC (Sep 4, 2025)
 
 Entry shape: ID — Observed (what examiners found) — Pattern (what it looks like in content) — Rule — Source
 
 ## GP — General prohibitions, Rule 206(4)-1(a)
 
-- GP-01 — "Free of all conflicts" / "refuse all conflicts" claims when conflicts existed — Any absolute no-conflict statement — (a)(1), (a)(2) — RA-2024-04; cross-ref EA-2025-09 Meridian
+- GP-01 — "Free of all conflicts" / "refuse all conflicts" claims when conflicts existed — Any absolute no-conflict statement — (a)(1), (a)(2) — RA-2024-04; cross-ref EA-2025-09 Meridian; cross-ref EA-2024-09 (four firms, conflict-free claims contradicted by Form ADV)
 - GP-02 — Firm described as a network/team when one person performs services; wrong education, experience, or designations for personnel — Team language for a solo shop; credentials that can't be verified — (a)(1), (a)(2) — RA-2024-04
 - GP-03 — Services/processes that don't exist: ESG mandate not used; process "validated by professional institutions"; risk tolerance "considered" when all clients in one strategy; approved-securities list or screening process that doesn't exist; "private fund adviser" with no private funds — Any named process, mandate, or client type the firm cannot show — (a)(1), (a)(2) — RA-2024-04
 - GP-04 — Awards or accolades advertised that were not received — Award claims without the award — (a)(1) — RA-2024-04
@@ -24,6 +30,10 @@ Entry shape: ID — Observed (what examiners found) — Pattern (what it looks l
 - GP-10 — Ratings framed as sole/top recipient when multiple recipients or not top; "highly rated" without disclosing methodology based on AUM, client count, or self-nomination — Superlatives around awards; methodology absent — (a)(3) — RA-2024-04; AR p.163
 - GP-11 — Testimonials from clients of a third-party product placed on adviser site without context, implying they concern the adviser — Reviews of someone else's product — (a)(3) — RA-2024-04
 - GP-12 — Disclosures in unreadable font on websites or in videos — Tiny/low-contrast/fast-scrolling disclosure text — (a)(7) — RA-2024-04
+- GP-13 — False or misleading claims about use of artificial intelligence in the investment process — "AI-powered," "AI-driven" process language the firm cannot show — (a)(1) — EA-2024-03
+- GP-14 — Third-party rating misstated: "Top 12 Financial Advisor" when rated "Top 1200"; "Top 100 Women's Advisor" when the rating was titled differently — Rating name or rank altered from the source — (a)(1) — EA-2024-09 Abacus
+- GP-15 — Claimed membership in an organization that does not exist — Association badges or "member of" lines — (a)(1) — EA-2024-09 Callahan
+- GP-16 — Claim that a principal received an award, unsubstantiated — Personal award claims without the award — (a)(2) — EA-2024-09
 
 ## PERF — Performance, Rule 206(4)-1(a) and (d)
 
@@ -38,6 +48,10 @@ Entry shape: ID — Observed (what examiners found) — Pattern (what it looks l
 - PERF-09 — Only the most profitable investments shown; losses or write-offs excluded without rationale — Winner lists; "top picks" — (a)(5) — RA-2024-04
 - PERF-10 — Time period not disclosed, or different figures in one ad calculated over different periods — Returns without dates; mixed periods — (a)(6) — RA-2024-04
 - PERF-11 — Total net return built from realized investments only, excluding unrealized — "Realized" in the fine print, or no basis given — (a)(6) — RA-2024-04
+- PERF-12 — Hypothetical performance (model, backtested, projected) on a public website or to a mass audience without policies and procedures to ensure relevance to the intended audience's likely financial situation and objectives — Any model, backtest, or projection in public content — (d)(6)(i) — EA-2023-09 (nine firms); EA-2024-04 (five firms); EA-2023-08 Titan; EA-2024-11 Wahed
+- PERF-13 — Hypothetical performance without the criteria and assumptions used: 2,700% "annualized" extrapolated from three weeks on a hypothetical account with no actual trading — Annualized or extrapolated figures; "model" with no method — (d)(6)(ii), (a)(1) — EA-2023-08 Titan
+- PERF-14 — Hypothetical performance without sufficient information for a retail audience to understand its risks and limitations — Projections with no risk/limitation language — (d)(6)(iii) — EA-2023-08 Titan
+- PERF-15 — Misleading model performance; performance the adviser could not substantiate on demand — Model results with no records behind them — (a)(1), (a)(2) — EA-2024-04 GeaSphere
 
 ## TE — Testimonials and endorsements, Rule 206(4)-1(b)
 
@@ -46,18 +60,20 @@ Entry shape: ID — Observed (what examiners found) — Pattern (what it looks l
 - TE-03 — Reviews imported from third-party sites onto adviser site without disclosing they came from current or former clients — Embedded Google/Yelp-style reviews — (b)(1)(i) — RA-2025-12
 - TE-04 — Gift cards given to clients for third-party reviews without basis to believe the reviewer made paid-testimonial disclosures — Any incentive for reviews — (b)(1), (b)(2)(i) — RA-2025-12
 - TE-05 — Compensation terms disclosed generically; amount, calculation, or duration omitted (e.g., influencer "compensated for referrals") — "Promoter may receive compensation" with no terms — (b)(1)(ii) — RA-2025-12; AR p.96
-- TE-06 — Material conflicts undisclosed: promoter holds a financial interest in the adviser; promoter is a principal of a firm with sub-advisory or other significant arrangements — Endorser relationship not stated — (b)(1)(iii) — RA-2025-12
+- TE-06 — Material conflicts undisclosed: promoter holds a financial interest in the adviser; promoter is a principal of a firm with sub-advisory or other significant arrangements — Endorser relationship not stated — (b)(1)(iii) — RA-2025-12; cross-ref EA-2024-11 (endorser held parent-company equity)
 - TE-07 — Arrangements not recognized as endorsements: lead-generation firms, social media influencers, referral networks, refer-a-friend programs — Referral or affiliate content with no endorsement treatment — (b), (e) definitions — RA-2025-12
-- TE-08 — No written agreement with paid promoters, or agreement missing scope of activities or compensation terms — Paid promotion with no agreement on file — (b)(2)(ii) — RA-2025-12
+- TE-08 — No written agreement with paid promoters, or agreement missing scope of activities or compensation terms — Paid promotion with no agreement on file — (b)(2)(ii) — RA-2025-12; cross-ref EA-2024-04 GeaSphere
 - TE-09 — De minimis exemption claimed because each payment was under $1,000, but total exceeded $1,000 in the preceding 12 months — Repeated small referral payments — (b)(4)(i), (e)(2) — RA-2025-12
 - TE-10 — Compensation paid to ineligible persons (state disciplinary history) when the adviser knew or should have known — Promoter background unchecked — (b)(3), (e)(9) — RA-2025-12
 - TE-11 — Affiliated promoters used without the affiliation readily apparent or disclosed at dissemination (disclosed only at introduction) — Staff or partner quotes without affiliation stated — (b)(4)(ii) — RA-2025-12
+- TE-12 — Sponsorship framed as "Official Wealth Management Partner" of an athletic program that was not a client and was paid; run across social media, video, a jumbotron, and merchandise without endorsement disclosures — Sponsorship or "official partner" language — (b)(1)(i) — EA-2024-09
+- TE-13 — "Testimonials" from former clients, or from persons whose client status could not be verified, presented as current-client testimonials — Undated quotes attributed to "clients" — (b)(1)(i); testimonial definition (e) — EA-2024-09
 
 ## TPR — Third-party ratings, Rule 206(4)-1(c)
 
 - TPR-01 — No reasonable basis on survey/questionnaire design (equally easy to give favorable and unfavorable responses; not predetermined) — Rating used with no methodology review on file — (c)(1) — RA-2025-12
 - TPR-02 — Link to a third-party site carrying the rating; neither the ad nor the linked site has required disclosures — "See our rating on X" links — (c)(2) — RA-2025-12
-- TPR-03 — Date of rating and period covered not clearly and prominently identified; year ranges including years the award wasn't received — Undated badges; "2019–2024" with gaps — (c)(2)(i) — RA-2025-12
+- TPR-03 — Date of rating and period covered not clearly and prominently identified; year ranges including years the award wasn't received — Undated badges; "2019–2024" with gaps — (c)(2)(i) — RA-2025-12; cross-ref EA-2024-09 (ratings 5+ years old, no date/period)
 - TPR-04 — Rating logos that don't identify the third party that created and tabulated the rating — Badge without provider name — (c)(2)(ii) — RA-2025-12
 - TPR-05 — Compensation for logo use, reprints, priority placement, enhanced exposure, or referral links undisclosed where the rating is posted — Paid badges/reprints with no compensation line — (c)(2)(iii) — RA-2025-12; AR p.162
 - TPR-06 — Fees paid to be considered for the rating undisclosed — Nomination/application fees unmentioned — (c)(2)(iii) — RA-2025-12
@@ -69,3 +85,5 @@ Entry shape: ID — Observed (what examiners found) — Pattern (what it looks l
 - No copies of social media posts; no copies of rating questionnaires; no documentation supporting performance claims — Rule 204-2(a)(11), (a)(16) — RA-2024-04
 - Form ADV Part 1A Item 5.L inaccurate on ratings/performance/hypothetical use; Part 2A Item 14 omits referral terms or cites the repealed Cash Solicitation Rule — RA-2024-04
 - No documentation substantiating reasonable basis for testimonial/endorsement compliance — Rule 204-2(a)(15)(ii) — RA-2025-12
+- Copies of advertisements not retained — Rule 204-2(a)(11) — EA-2023-09 (two firms), EA-2025-09
+- Hedge clauses, custody disclosures, unauthorized signatures (Titan); annual compliance review not performed (Meridian) — not Marketing Rule content findings — EA-2023-08, EA-2025-09
