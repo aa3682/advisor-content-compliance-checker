@@ -30,16 +30,16 @@ Follow these steps in order for every review. The wording of every fixed line be
    b. Confirm the content matches the entry's Observed failure. If the match depends on a fact the content does not state, it is a Confirm item (step 5), not a flag.
    c. Write the flag. Where quotes the exact phrase, one sentence max; for a non-text element the content describes (a badge, logo, photo), quote the content's own description of it. What is the check's Pattern, verbatim. Cite is copied from the entry: rule paragraphs · ID · the first-listed source through the first ";". Fix is the smallest edit that removes the matched pattern: a rewrite of the phrase, "remove", or "supply X" naming the missing disclosure. A rewrite never adds a claim the content did not make and never asserts the rewritten phrase is acceptable.
    A phrase matching several entries gets one flag per entry. Never collapse, rank, or tier flags.
-5. Write Confirm items for matches that turn on an unstated fact (compensation, gross vs net, hypothetical status). Figures labeled neither gross nor net are always a Confirm item. Cite is the (e) term and token that decides the fact, or the (b)/(c)/(d) paragraph that conditions on it, copied from the reference file. Would apply lists every catalog ID that would fire if the answer is yes. No Confirm item without at least one ID.
+5. Write Confirm items for matches that turn on an unstated fact. The unstated facts are: compensation, including compensation for a rating; gross vs net; hypothetical status, including performance of a named model, strategy, or allocation where the content does not state whether any client account held it; whether a compensated promoter has a written agreement; whether a promoter was checked for disqualification; the adviser's own basis for believing a rating's survey was not designed to produce a predetermined result. A check that turns on one of these fires as a flag only when the content states the fact; otherwise it is a Confirm item with that check under Would apply. Figures labeled neither gross nor net are always a Confirm item. Cite is the (e) term and token that decides the fact, or the (b)/(c)/(d) paragraph that conditions on it, copied from the reference file: (b)(2)(ii) for the written agreement, (b)(3) for the disqualification check, (c)(1) for the survey basis, (c)(2)(iii) for rating compensation. Would apply lists every catalog ID that would fire if the answer is yes. No Confirm item without at least one ID.
 6. Assemble the output from the template below, exactly. Flags in document order. Confirm section omitted when empty. The no-match sentence appears only when the flag count is zero. Every output ends with the mandatory closing line.
 
 ### Output contract
 
-Fixed lines are written verbatim. Bracketed lines appear only under the stated condition and are written without the brackets; the square brackets themselves are never printed. Nothing is added outside the template: no summary, no overall assessment, no remarks after the mandatory closing line.
+Fixed lines are written verbatim. The template holds only the lines printed on every output. The three conditional lines are shown in the second fence exactly as printed; each appears only under its condition, at its stated position. Nothing is added outside the template: no summary, no overall assessment, no remarks after the mandatory closing line.
 
-The Scope line appears only when a scope marker is present.
-The Not reviewed line appears only when part of the content cannot be read.
-The Zero flags line appears only when Flags: 0.
+The Scope line appears only when a scope marker is present, immediately after the "Reviewed as an advertisement" line.
+The Not reviewed line appears only when part of the content cannot be read, immediately after the "Reviewed as an advertisement" line (after the Scope line when both appear).
+The Zero flags line appears only when Flags: 0, immediately before the closing line.
 
 Never describe content as approved, cleared, passing, safe to publish, meeting the rule, or any equivalent, including the adjective form of the word "compliance". Never state which flags matter most.
 
@@ -47,8 +47,6 @@ Never describe content as approved, cleared, passing, safe to publish, meeting t
 Marketing Rule pre-review — SEC Rule 206(4)-1
 Elements detected: <the six terms present, or "none">
 Reviewed as an advertisement under (e)(1); whether (e)(1) covers this communication is not assessed.
-[Scope: content mentions <marker>; this skill does not cover it.]
-[Not reviewed: <image or attachment>.]
 State-registered advisers are subject to their state's rule, which may differ from any flag below; differences are not resolved here.
 Flags: <n>. Confirm: <m>.
 
@@ -64,9 +62,15 @@ Depends on: <one question>
 Cite: <(e) term and token, or the (b)/(c)/(d) paragraph>
 Would apply: <ID(s)>
 
-[Zero flags is not a clearance — the catalog covers documented failures only.]
-
 Pre-review only. Not legal or compliance advice. Confirm with your CCO or counsel.
+```
+
+Conditional lines:
+
+```
+Scope: content mentions <marker>; this skill does not cover it.
+Not reviewed: <image or attachment>.
+Zero flags is not a clearance — the catalog covers documented failures only.
 ```
 
 ## Checks

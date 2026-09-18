@@ -62,15 +62,18 @@ def fail(msg):
 
 
 def load_template():
-    """Read the fenced output template from skill/SKILL.md; return its fixed lines."""
+    """Read the two fences under Output contract in skill/SKILL.md: the template (lines printed on
+    every output) and the conditional lines (Scope, Not reviewed, Zero flags, exactly as printed)."""
     text = SKILL.read_text(encoding="utf-8")
-    m = re.search(r"^### Output contract\n.*?^```\n(.*?)^```", text, re.S | re.M)
-    if not m:
-        fail("could not locate the fenced output template in skill/SKILL.md")
-    lines = m.group(1).splitlines()
+    sec = re.search(r"^### Output contract\n(.*?)(?=^## |\Z)", text, re.S | re.M)
+    fences = re.findall(r"^```\n(.*?)^```", sec.group(1), re.S | re.M) if sec else []
+    if len(fences) < 2:
+        fail("could not locate the template fence and the conditional-lines fence in skill/SKILL.md")
+    lines = fences[0].splitlines()          # lines printed on every output
+    cond = fences[1].splitlines()           # conditional lines, exactly as printed (template-no-brackets)
 
-    def find(prefix):
-        for l in lines:
+    def find(prefix, pool=None):
+        for l in (lines if pool is None else pool):
             if l.startswith(prefix):
                 return l
         fail(f"template line starting with {prefix!r} not found in skill/SKILL.md")
@@ -80,12 +83,13 @@ def load_template():
         "elements_prefix": "Elements detected: ",
         "reviewed": find("Reviewed as an advertisement"),
         "state": find("State-registered advisers"),
-        "no_match": next(l for l in lines if l.startswith("[") and not l.startswith("[Scope:")
-                         and not l.startswith("[Not reviewed:")).strip("[]"),
+        "no_match": next(l for l in cond if not l.startswith("Scope:") and not l.startswith("Not reviewed:")),
         "closing": find("Pre-review only."),
     }
-    scope = find("[Scope:").strip("[]")
-    nr = find("[Not reviewed:").strip("[]")
+    if any("[" in l or "]" in l for l in lines + cond):
+        fail("square brackets in the SKILL.md fences (template-no-brackets)")
+    scope = find("Scope:", cond)
+    nr = find("Not reviewed:", cond)
     t["scope_re"] = re.compile("^" + re.escape(scope).replace(re.escape("<marker>"), "(.+?)") + "$")
     t["not_reviewed_re"] = re.compile(
         "^" + re.escape(nr).replace(re.escape("<image or attachment>"), "(.+?)") + "$")
