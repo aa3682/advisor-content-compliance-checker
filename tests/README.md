@@ -15,7 +15,10 @@ Adversarial test set for skill/SKILL.md. Specification: RULINGS.md entries phase
   - RESULTS.md — written by the scorer.
 - tests/.scratch/<id>/ — staging directory (git-ignored): a copy of skill/ plus content.md. Created by tools/stage_fixture.py.
 - tools/stage_fixture.py <id> — stages one fixture; prints the scratch path.
-- tools/score_run.py — scores a run directory against tests/expected/ and writes RESULTS.md (next step).
+- tools/score_run.py — scores a run directory against tests/expected/ and writes RESULTS.md (phase6-pass-criteria).
+- tools/check_fixtures.py [--final] — validates the fixture set and coverage without running anything (phase6-fixture-format, phase6-adversarial-categories).
+- tools/check_static.py — the static assertions: index drift (check-index-generator), paragraph-set/Pattern uniqueness (entries-to-checks), reference-file and index consistency (reference-file-shape), closing line and verified date, expected-file IDs.
+- tools/prepare_run.py --model <id> [--dry-run] — creates tests/runs/<run-id>/ with MANIFEST.md, RUNLIST.tsv and the prompt copy, and stages every fixture (phase6-run-method).
 
 ## Fixture IDs
 
