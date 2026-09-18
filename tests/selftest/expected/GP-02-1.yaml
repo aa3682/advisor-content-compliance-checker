@@ -1,0 +1,9 @@
+id: GP-02-1
+category: entry
+targets: [GP-02]
+elements: []
+required:
+  - id: GP-02
+    where: "Our team of analysts and portfolio specialists"
+confirm:
+  - would_apply: [GP-03]

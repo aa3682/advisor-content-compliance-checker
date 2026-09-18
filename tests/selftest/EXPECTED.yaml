@@ -1,18 +1,22 @@
-# Scorer self-test: verdict and the exact set of checks that must fire, per sample k of GP-01-1.
+# Scorer self-test: verdict and the exact set of checks that must fire, per fixture and sample k.
 samples:
-  1: {verdict: pass}                       # correct output
-  2: {verdict: fail, checks: [U5]}         # Where quote containing "approved" is not in the fixture: U5; U2 silent, proving the Where subtraction
-  3: {verdict: fail, checks: [U4]}         # synthetic What line containing "approved": U4 (not the Pattern); U2 silent, proving the What subtraction
-  4: {verdict: fail, checks: [U1]}         # closing line missing
-  5: {verdict: fail, checks: [U1]}         # a sentence after the closing line
-  6: {verdict: fail, checks: [U2]}         # Fix line says the rewrite is compliant
-  7: {verdict: fail, checks: [U3]}         # Flags: 2 with one block
-  8: {verdict: fail, checks: [U3]}         # blocks numbered 1 and 3
-  9: {verdict: fail, checks: [U3, P5]}     # Zero-flags line present with Flags: 1 (U3: count mismatch; P5: line not expected)
-  10: {verdict: fail, checks: [U4]}        # Cite source token altered
-  11: {verdict: fail, checks: [U4]}        # Cite paragraph set altered
-  12: {verdict: fail, checks: [P2, P3]}    # flag is GP-02 (forbidden) instead of GP-01 (required)
-  13: {verdict: fail, checks: [P1]}        # Elements detected lists testimonial
-  14: {verdict: fail, checks: [U5]}        # Where quote is a sentence not in the fixture
-  15: {verdict: fail, checks: [U3]}        # second Flag block citing GP-01 again; one Flag block per catalog ID
-  16: {verdict: fail, checks: [contaminated]}  # passing output listed in CONTAMINATED.txt (run-isolation)
+  GP-01-1:
+    1: {verdict: pass}                       # correct output
+    2: {verdict: fail, checks: [U5]}         # Where quote containing "approved" is not in the fixture: U5; U2 silent, proving the Where subtraction
+    3: {verdict: fail, checks: [U4]}         # synthetic What line containing "approved": U4 (not the Pattern); U2 silent, proving the What subtraction
+    4: {verdict: fail, checks: [U1]}         # closing line missing
+    5: {verdict: fail, checks: [U1]}         # a sentence after the closing line
+    6: {verdict: fail, checks: [U2]}         # Fix line says the rewrite is compliant
+    7: {verdict: fail, checks: [U3]}         # Flags: 2 with one block
+    8: {verdict: fail, checks: [U3]}         # blocks numbered 1 and 3
+    9: {verdict: fail, checks: [U3, P5]}     # Zero-flags line present with Flags: 1 (U3: count mismatch; P5: line not expected)
+    10: {verdict: fail, checks: [U4]}        # Cite source token altered
+    11: {verdict: fail, checks: [U4]}        # Cite paragraph set altered
+    12: {verdict: fail, checks: [P2, P3]}    # flag is GP-02 (forbidden) instead of GP-01 (required)
+    13: {verdict: fail, checks: [P1]}        # Elements detected lists testimonial
+    14: {verdict: fail, checks: [U5]}        # Where quote is a sentence not in the fixture
+    15: {verdict: fail, checks: [U3]}        # second Flag block citing GP-01 again; one Flag block per catalog ID
+    16: {verdict: fail, checks: [contaminated]}  # passing output listed in CONTAMINATED.txt (run-isolation)
+  GP-02-1:
+    1: {verdict: pass}                       # correct output plus a Confirm block with Would apply GP-03, GP-05: pass, extras GP-05 (would-apply-subset)
+    2: {verdict: fail, checks: [P4]}         # the same with Would apply GP-05 only: expected GP-03 absent

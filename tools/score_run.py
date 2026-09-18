@@ -431,11 +431,12 @@ def check_per_fixture(s, exp):
             res["P3"].append(f"forbidden {fid} flagged")
         if fid in wa_ids:
             res["P3"].append(f"forbidden {fid} under Would apply")
-    # P4 confirm
-    got_sets = [frozenset(b["would_apply"]) for b in s["confirms"]]
+    # P4 confirm (would-apply-subset): every expected ID appears on the Would apply
+    # line of some Confirm block; IDs beyond the expected set are extras, not failures
     for c in exp["confirm"]:
-        if frozenset(c["would_apply"]) not in got_sets:
-            res["P4"].append(f"no Confirm block with Would apply {sorted(c['would_apply'])}")
+        missing = [cid for cid in c["would_apply"] if cid not in wa_ids]
+        if missing:
+            res["P4"].append(f"no Confirm block lists Would apply {missing}")
     # P5 lines
     if exp["scope"]:
         if len(s["scope"]) != 1:
@@ -559,21 +560,23 @@ def selftest():
     ctx = build_ctx()
     rows = score_dir(run_dir, expected_dir, ctx)
     write_results(run_dir, load_manifest(run_dir), rows)
-    by_k = {r["k"]: r for r in rows if r["fixture"] == "GP-01-1"}
+    by_key = {(r["fixture"], r["k"]): r for r in rows}
     ok = True
-    for k in sorted(spec):
-        want_v = spec[k]["verdict"]
-        want_c = sorted(spec[k].get("checks") or [])
-        r = by_k.get(int(k))
-        if r is None:
-            print(f"k={k}: expected {want_v} {want_c}; actual: sample missing; MISMATCH")
-            ok = False
-            continue
-        got_v = "fail" if r["failed"] else "pass"
-        got_c = sorted(r["failed"])
-        match = (want_v == got_v) and (want_c == got_c)
-        ok = ok and match
-        print(f"k={k}: expected {want_v} {want_c}; actual {got_v} {got_c}; {'match' if match else 'MISMATCH'}")
+    for fid in spec:
+        for k in sorted(spec[fid]):
+            want_v = spec[fid][k]["verdict"]
+            want_c = sorted(spec[fid][k].get("checks") or [])
+            r = by_key.get((fid, int(k)))
+            if r is None:
+                print(f"{fid} k={k}: expected {want_v} {want_c}; actual: sample missing; MISMATCH")
+                ok = False
+                continue
+            got_v = "fail" if r["failed"] else "pass"
+            got_c = sorted(r["failed"])
+            match = (want_v == got_v) and (want_c == got_c)
+            ok = ok and match
+            extras = f"; extras {r['extras']}" if r["extras"] else ""
+            print(f"{fid} k={k}: expected {want_v} {want_c}; actual {got_v} {got_c}{extras}; {'match' if match else 'MISMATCH'}")
     print("SELFTEST: " + ("PASS" if ok else "FAIL"))
     return 0 if ok else 1
 

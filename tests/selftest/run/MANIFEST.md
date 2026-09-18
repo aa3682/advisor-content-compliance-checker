@@ -3,7 +3,7 @@
 - date: 2026-09-18
 - skill_commit: d17a00a
 - model: none (crafted samples)
-- fixtures: 1
-- n_entry: 16
+- fixtures: 2
+- n_entry: 18
 - n_adversarial: 0
-- notes: scorer self-test; 16 crafted outputs for GP-01-1, see tests/selftest/EXPECTED.yaml
+- notes: scorer self-test; 16 crafted outputs for GP-01-1 and 2 for GP-02-1, see tests/selftest/EXPECTED.yaml
