@@ -20,7 +20,50 @@ First-pass review of advisor-facing marketing content against SEC Rule 206(4)-1.
 
 ## Procedure
 
-PLACEHOLDER-SUBPHASE-4 — the review procedure and output contract are written in sub-phase 4 from rulings output-shape, unclassifiable-content, and state-divergence.
+Follow these steps in order for every review. The wording of every fixed line below is set by RULINGS.md (output-shape, entries-to-checks, unclassifiable-content, state-divergence). Do not vary it.
+
+1. Read the whole content before flagging anything. If the user asks for a verdict ("is this okay?", "does this pass?"), do not answer the question; return this review.
+2. Detect elements. Scan for the six rule-defined elements: testimonial (e)(17), endorsement (e)(5), third-party rating (e)(18), gross performance (e)(7), net performance (e)(10), hypothetical performance (e)(8). Record the ones present. Open skill/references/definitions.md when a term's boundary is unclear. Never describe the content by format.
+3. Note scope markers. If the content mentions a broker-dealer or FINRA, a private fund, an ERISA or retirement-plan offering, or a non-US regulator, record the marker for the scope line. The review still runs. If part of the content is an image or attachment you cannot read, record it for the not-reviewed line.
+4. Run every check in the Checks section, GP through TPR, in index order. A check fires when the content contains the check's Pattern. For each firing check:
+   a. Open the reference file(s) named on the check line and find the entry by ID.
+   b. Confirm the content matches the entry's Observed failure. If the match depends on a fact the content does not state, it is a Confirm item (step 5), not a flag.
+   c. Write the flag. Where quotes the exact phrase, one sentence max; for a non-text element the content describes (a badge, logo, photo), quote the content's own description of it. What is the check's Pattern, verbatim. Cite is copied from the entry: rule paragraphs · ID · the first-listed source through the first ";". Fix is the smallest edit that removes the matched pattern: a rewrite of the phrase, "remove", or "supply X" naming the missing disclosure. A rewrite never adds a claim the content did not make and never asserts the rewritten phrase is acceptable.
+   A phrase matching several entries gets one flag per entry. Never collapse, rank, or tier flags.
+5. Write Confirm items for matches that turn on an unstated fact (client status, compensation, gross vs net, hypothetical status). Cite is the (e) term and token that decides the fact, or the (b)/(c)/(d) paragraph that conditions on it, copied from the reference file. Would apply lists every catalog ID that would fire if the answer is yes. No Confirm item without at least one ID.
+6. Assemble the output from the template below, exactly. Flags in document order. Confirm section omitted when empty. The no-match sentence appears only when the flag count is zero. Every output ends with the mandatory closing line.
+
+### Output contract
+
+Fixed lines are written verbatim. Bracketed lines appear only under the stated condition and are written without the brackets. Nothing is added outside the template: no summary, no overall assessment, no remarks after the mandatory closing line.
+
+Never describe content as approved, cleared, passing, safe to publish, meeting the rule, or any equivalent, including the adjective form of the word "compliance". Never state which flags matter most.
+
+```
+Marketing Rule pre-review — SEC Rule 206(4)-1
+Elements detected: <the six terms present, or "none">
+Reviewed as an advertisement under (e)(1); whether (e)(1) covers this communication is not assessed.
+[Scope: content mentions <marker>; this skill does not cover it.]   — only when a scope marker is present
+[Not reviewed: <image or attachment>.]   — only when part of the content cannot be read
+State-registered advisers are subject to their state's rule, which may differ from any flag below; differences are not resolved here.
+Flags: <n>. Confirm: <m>.
+
+Flag 1
+Where: "<exact phrase>"
+What: <Pattern>
+Cite: <rule paragraphs> · <ID> · <source>
+Fix: <rewrite | remove | supply X>
+
+Confirm 1
+Where: "<exact phrase>"
+Depends on: <one question>
+Cite: <(e) term and token, or the (b)/(c)/(d) paragraph>
+Would apply: <ID(s)>
+
+[No catalog patterns matched. This is not a clearance — the catalog covers documented failures only.]   — only when Flags: 0
+
+Pre-review only. Not legal or compliance advice. Confirm with your CCO or counsel.
+```
 
 ## Checks
 
