@@ -1,0 +1,144 @@
+# Manifest
+- run_id: 2026-09-18-34de560
+- date: 2026-09-18
+- skill_commit: 34de560
+- model: sonnet
+- model_reported: claude-sonnet-5
+- staging_root: /tmp/claude-0/-home-user-advisor-content-compliance-checker/81a2d41a-fe4f-587f-a076-ef13e308417e/scratchpad/staging-34de560
+- fixtures: 77
+- n_entry: 1
+- n_adversarial: 3
+- notes: batch size 8; wall time 1h13m47s (2026-09-18T19:15:40Z to 2026-09-18T20:29:27Z); total subagent tokens not tallied (per-sample counts were reported by the harness but not recorded for every row); contaminated samples: 0
+
+## Anomalies
+
+- GP-02-1.1: reply summary without DONE; no outside read reported
+- GP-05-1.1: reply DONE + summary; no outside read reported
+- GP-04-1.1: reply DONE + summary; no outside read reported; noted catalog absent from staging
+- GP-08-1.1: reply DONE + summary; no outside read reported
+- GP-01-1.1: reply DONE + summary; no outside read reported
+- GP-03-1.1: reply summary + DONE, echoed output text in reply (file copied byte for byte, reply not used); no outside read reported
+- GP-06-1.1: reply DONE + summary; no outside read reported
+- GP-07-1.1: reply DONE + summary; no outside read reported
+- GP-12-1.1: reply DONE + summary; no outside read reported
+- GP-15-1.1: reply DONE + summary; no outside read reported
+- GP-13-1.1: reply DONE + summary; no outside read reported
+- GP-09-1.1: reply summary without DONE; no outside read reported; noted RULINGS.md absent from staging
+- GP-11-1.1: reply DONE + summary; no outside read reported
+- GP-10-1.1: reply summary + DONE; no outside read reported
+- GP-16-1.1: reply DONE + summary; no outside read reported; noted catalog absent from staging
+- GP-14-1.1: reply DONE + summary; no outside read reported
+- PERF-05-1.1: reply the single word DONE (conforming)
+- PERF-03-1.1: reply DONE + summary; no outside read reported
+- PERF-08-1.1: reply summary without DONE; no outside read reported; noted catalog/tools absent from staging
+- PERF-06-1.1: reply DONE + summary; no outside read reported
+- PERF-04-1.1: reply DONE + summary; no outside read reported
+- PERF-02-1.1: reply DONE + summary; no outside read reported; noted catalog absent from staging
+- PERF-07-1.1: reply DONE + summary; no outside read reported
+- PERF-01-1.1: reply DONE + summary; no outside read reported
+- PERF-16-1.1: reply the single word DONE (conforming)
+- PERF-10-1.1: reply summary + DONE; no outside read reported; noted catalog/RULINGS/tools absent from staging
+- PERF-11-1.1: reply summary + DONE; no outside read reported
+- PERF-12-1.1: reply DONE + summary; no outside read reported
+- PERF-15-1.1: reply DONE + summary; no outside read reported; noted catalog/RULINGS absent from staging
+- PERF-09-1.1: reply DONE + summary; no outside read reported
+- PERF-14-1.1: reply DONE + summary; no outside read reported; noted catalog/RULINGS absent from staging
+- PERF-13-1.1: reply DONE + summary; no outside read reported
+- TE-07-1.1: reply summary + DONE; no outside read reported
+- TE-05-1.1: reply DONE + summary; no outside read reported; noted catalog absent from staging
+- TE-04-1.1: reply summary + DONE; no outside read reported
+- TE-01-1.1: reply summary without DONE; no outside read reported
+- TE-08-1.1: reply DONE + summary; no outside read reported
+- TE-02-1.1: reply DONE + summary; no outside read reported
+- TE-06-1.1: reply DONE + summary; no outside read reported
+- TE-03-1.1: reply summary without DONE; no outside read reported
+- TPR-03-1.1: reply summary without DONE; no outside read reported
+- TPR-01-1.1: reply DONE + summary; no outside read reported
+- TPR-02-1.1: reply DONE + summary; no outside read reported
+- TE-13-1.1: reply DONE + summary; no outside read reported
+- TE-11-1.1: reply DONE + summary; no outside read reported
+- TE-12-1.1: reply DONE + summary; no outside read reported
+- TE-09-1.1: reply DONE + summary; no outside read reported
+- TE-10-1.1: reply DONE + summary; no outside read reported
+- CLR-01.1: reply DONE + summary; no outside read reported
+- CLR-01.2: reply DONE + summary; no outside read reported
+- CLR-01.3: reply DONE + summary; no outside read reported
+- TPR-07-1.1: reply summary + DONE; no outside read reported
+- TPR-05-1.1: reply DONE + summary; no outside read reported
+- TPR-04-1.1: reply summary + DONE; no outside read reported
+- CLR-02.1: reply DONE + summary; no outside read reported
+- TPR-06-1.1: reply DONE + summary; no outside read reported
+- CLR-02.3: reply DONE + summary; no outside read reported
+- CLR-02.2: reply DONE + summary; no outside read reported
+- CLR-03.3: reply DONE + summary; no outside read reported
+- CLR-03.2: reply DONE + summary; no outside read reported
+- CLR-03.1: reply DONE + summary; no outside read reported
+- CNF-02.1: reply DONE + summary; no outside read reported
+- CNF-02.3: reply DONE + summary; no outside read reported
+- CNF-02.1: SECOND reply from the same subagent with a different result (first: Flags 0/Confirm 1; second: Flags 2/Confirm 0); output.md as written at collection time is what the harness copied; no outside read reported
+- CNF-02.2: reply DONE + summary; no outside read reported
+- CUR-01.1: reply DONE + summary; no outside read reported
+- CUR-01.2: reply DONE + summary; no outside read reported; noted catalog absent from staging
+- CNF-03.3: reply DONE + summary; no outside read reported
+- CNF-04.1: reply DONE + summary; no outside read reported
+- CNF-03.1: reply DONE + summary; no outside read reported; ran find within its skill directory; noted RULINGS.md absent from staging
+- CNF-03.2: reply summary without DONE; no outside read reported
+- CNF-04.2: reply DONE + summary; no outside read reported; noted catalog/tools absent from staging
+- CNF-04.3: reply DONE + summary; no outside read reported
+- CNF-04.3: second reply from the same subagent, same result (Flags 0/Confirm 1); noted catalog/RULINGS/tools absent from staging
+- CNF-04.1: second reply from the same subagent, same result (Flags 0/Confirm 1)
+- CUR-01.3: reply DONE + summary; no outside read reported
+- CUR-03.3: reply DONE + summary; no outside read reported
+- CUR-03.1 — reply DONE + summary; noted RULINGS.md absent from staging; no outside read reported
+- CUR-03.2 — reply DONE + summary; no outside read reported
+- CUR-02.1 — reply DONE + summary; no outside read reported
+- CUR-02.2 — reply DONE + summary; no outside read reported
+- CUR-02.3 — reply DONE + summary; no outside read reported
+- NOM-01.1 — reply DONE + summary; no outside read reported
+- NOM-03.2 — reply DONE + summary; no outside read reported
+- NOM-03.1 — reply DONE + summary; no outside read reported
+- NOM-03.3 — reply DONE + summary; no outside read reported
+- NOM-01.3 — reply DONE + summary; no outside read reported
+- NOM-02.2 — reply DONE + summary; no outside read reported
+- NOM-02.3 — reply DONE + summary; no outside read reported
+- NOM-02.1 — reply DONE + summary; no outside read reported
+- NOM-01.2 — reply DONE + summary; no outside read reported
+- OVL-02.1 — reply DONE + summary; no outside read reported
+- OVL-02.3 — reply DONE + summary; no outside read reported
+- OVL-02.2 — reply DONE + summary; noted catalog/failures.md absent from staging; no outside read reported
+- OVL-03.2 — reply DONE + summary; no outside read reported
+- OVL-03.1 — reply DONE + summary; no outside read reported
+- OVL-01.1 — reply DONE + summary; noted catalog/failures.md and RULINGS.md absent from staging; no outside read reported
+- OVL-01.2 — reply DONE + summary; no outside read reported
+- OVL-01.3 — reply DONE + summary; no outside read reported
+- SCP-01.3 — reply DONE + summary; no outside read reported
+- OVL-03.3 — reply DONE + summary; noted catalog/failures.md absent from staging; no outside read reported
+- SCP-03.1 — reply DONE + summary; no outside read reported
+- SCP-01.1 — reply DONE + summary; noted catalog/failures.md and RULINGS.md absent from staging; no outside read reported
+- SCP-01.2 — reply DONE + summary; noted catalog/failures.md and RULINGS.md absent from staging; no outside read reported
+- SCP-02.1 — reply DONE + summary; no outside read reported
+- SCP-02.3 — reply DONE + summary; no outside read reported
+- SCP-02.2 — reply DONE + summary; noted catalog/failures.md absent from staging; no outside read reported
+- UNR-01.1 — reply DONE + summary; no outside read reported
+- UNR-01.3 — reply DONE + summary; noted catalog/failures.md and RULINGS.md absent from staging; no outside read reported
+- SCP-04.1 — reply DONE + summary; no outside read reported
+- SCP-03.2 — reply DONE + summary; noted catalog/failures.md and RULINGS.md absent from staging; no outside read reported
+- UNR-01.2 — reply DONE + summary; no outside read reported
+- SCP-04.3 — reply DONE + summary; no outside read reported
+- SCP-04.2 — reply DONE + summary; no outside read reported
+- SCP-03.3 — reply DONE + summary; no outside read reported
+- UNR-02.2 — reply DONE + summary; no outside read reported
+- UNR-02.3 — reply DONE + summary; no outside read reported
+- VRQ-01.1 — reply DONE + summary; no outside read reported
+- VRQ-01.2 — reply DONE + summary; no outside read reported
+- UNR-03.2 — reply DONE + summary; no outside read reported
+- UNR-03.1 — reply DONE + summary; no outside read reported
+- UNR-02.1 — reply DONE + summary; no outside read reported
+- UNR-03.3 — reply DONE + summary; no outside read reported
+- VRQ-01.3 — reply DONE + summary; noted catalog/failures.md absent from staging; no outside read reported
+- VRQ-02.1 — reply DONE + summary; noted catalog/failures.md absent from staging; no outside read reported
+- VRQ-02.2 — reply DONE only; no outside read reported
+- VRQ-02.3 — reply DONE + summary; noted catalog/failures.md and RULINGS.md absent from staging; no outside read reported
+- VRQ-03.1 — reply DONE + summary; no outside read reported
+- VRQ-03.2 — reply DONE + summary; noted catalog/failures.md absent from staging; no outside read reported
+- VRQ-03.3 — reply DONE + summary; no outside read reported
