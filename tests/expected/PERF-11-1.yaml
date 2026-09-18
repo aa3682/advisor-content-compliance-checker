@@ -1,0 +1,7 @@
+id: PERF-11-1
+category: entry
+targets: [PERF-11]
+elements: [gross performance, net performance]
+required:
+  - id: PERF-11
+    where: "Results reflect realized gains only"

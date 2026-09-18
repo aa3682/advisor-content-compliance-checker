@@ -1,0 +1,7 @@
+id: PERF-05-1
+category: entry
+targets: [PERF-05]
+elements: [gross performance, net performance]
+required:
+  - id: PERF-05
+    where: "compares with 7.9% for a broad U.S. stock index over the same ten years"

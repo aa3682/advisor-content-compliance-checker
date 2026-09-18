@@ -1,0 +1,7 @@
+id: PERF-06-1
+category: entry
+targets: [PERF-06]
+elements: [gross performance, net performance]
+required:
+  - id: PERF-06
+    where: "for the periods ending December 31, 2018"

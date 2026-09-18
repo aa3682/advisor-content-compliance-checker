@@ -1,0 +1,7 @@
+id: PERF-09-1
+category: entry
+targets: [PERF-09]
+elements: [gross performance, net performance]
+required:
+  - id: PERF-09
+    where: "Our five best-performing positions of 2025"

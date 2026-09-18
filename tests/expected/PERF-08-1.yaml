@@ -1,0 +1,7 @@
+id: PERF-08-1
+category: entry
+targets: [PERF-08]
+elements: [gross performance, net performance]
+required:
+  - id: PERF-08
+    where: "1 year 11.2% gross, 10.1% net; 5 years 7.8% gross, 6.7% net"

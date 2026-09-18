@@ -1,0 +1,7 @@
+id: PERF-02-1
+category: entry
+targets: [PERF-02]
+elements: [gross performance, net performance]
+required:
+  - id: PERF-02
+    where: "clients hold whichever class their custodian makes available"

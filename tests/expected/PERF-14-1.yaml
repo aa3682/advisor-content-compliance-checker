@@ -1,0 +1,7 @@
+id: PERF-14-1
+category: entry
+targets: [PERF-14]
+elements: [hypothetical performance, net performance]
+required:
+  - id: PERF-14
+    where: "would grow to $1.3 million in ten years"

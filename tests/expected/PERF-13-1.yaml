@@ -1,0 +1,7 @@
+id: PERF-13-1
+category: entry
+targets: [PERF-13]
+elements: [hypothetical performance, net performance]
+required:
+  - id: PERF-13
+    where: "a 2,700% annualized return"
