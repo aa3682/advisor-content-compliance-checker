@@ -8,7 +8,9 @@ Usage:
 Implements RULINGS.md phase6-fixture-format and phase6-pass-criteria, plus the
 What-line subtraction in the clearance scan (a What line is a verbatim catalog
 Pattern, not the skill's own words). Scores tests/runs/<run-id>/ and writes
-tests/runs/<run-id>/RESULTS.md. Exit code 0 only when the run passes.
+tests/runs/<run-id>/RESULTS.md. Exit code 0 only when the run passes. A sample listed
+in the run directory's CONTAMINATED.txt (run-isolation) fails with reason "contaminated"
+and is not otherwise scored.
 
 The catalog parser is imported from tools/build_check_index.py; there is no
 second parser.
@@ -167,7 +169,8 @@ def load_expected(expected_dir, fixture_id):
         if isinstance(item, str):
             req.append({"id": item, "where": None})
         else:
-            req.append({"id": item["id"], "where": item.get("where")})
+            w = item.get("where")
+            req.append({"id": item["id"], "where": [w] if isinstance(w, str) else (list(w) if w else None)})
     data["required"] = req
     data["forbidden"] = list(data.get("forbidden") or [])
     data["confirm"] = [{"would_apply": list(c.get("would_apply") or [])} for c in (data.get("confirm") or [])]
@@ -419,8 +422,8 @@ def check_per_fixture(s, exp):
         hits = [b for b in s["flags"] if b["id"] == req["id"]]
         if not hits:
             res["P2"].append(f"required {req['id']} not flagged")
-        elif req["where"] and not any(req["where"] in b["fields"].get("Where", "") for b in hits):
-            res["P2"].append(f"{req['id']} flagged but Where lacks {req['where']!r}")
+        elif req["where"] and not any(any(w in b["fields"].get("Where", "") for w in req["where"]) for b in hits):
+            res["P2"].append(f"{req['id']} flagged but Where lacks any of {req['where']!r}")
     # P3 forbidden
     wa_ids = [cid for b in s["confirms"] for cid in b["would_apply"]]
     for fid in exp["forbidden"]:
@@ -491,9 +494,22 @@ def score_dir(run_dir, expected_dir, ctx):
             parts = line.split("\t")
             if len(parts) >= 2 and parts[1].isdigit():
                 samples.setdefault((parts[0], int(parts[1])), None)
+    contaminated = {}
+    cfile = run_dir / "CONTAMINATED.txt"
+    if cfile.is_file():  # fixture<TAB>k<TAB>what was read (run-isolation)
+        for line in cfile.read_text(encoding="utf-8").splitlines():
+            parts = line.split("\t")
+            if len(parts) >= 2 and parts[1].strip().isdigit():
+                contaminated[(parts[0].strip(), int(parts[1]))] = parts[2].strip() if len(parts) > 2 else ""
     rows = []
     for (fid, k), path in sorted(samples.items()):
         exp = load_expected(expected_dir, fid)
+        if (fid, k) in contaminated:
+            cat = exp["category"] if exp else "?"
+            rows.append({"fixture": fid, "k": k, "class": "entry" if cat == "entry" else "adversarial",
+                         "failed": {"contaminated": [contaminated[(fid, k)] or "reported reading outside its directory"]},
+                         "extras": []})
+            continue
         if path is None:
             cat = exp["category"] if exp else "?"
             rows.append({"fixture": fid, "k": k, "class": "entry" if cat == "entry" else "adversarial",

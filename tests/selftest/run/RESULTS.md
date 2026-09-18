@@ -5,9 +5,9 @@
 - skill_commit: d17a00a
 - model: none (crafted samples)
 - fixtures: 1
-- n_entry: 15
+- n_entry: 16
 - n_adversarial: 0
-- notes: scorer self-test; 15 crafted outputs for GP-01-1, see tests/selftest/EXPECTED.yaml
+- notes: scorer self-test; 16 crafted outputs for GP-01-1, see tests/selftest/EXPECTED.yaml
 
 | fixture | k | verdict | failed checks | extras |
 |---|---|---|---|---|
@@ -26,10 +26,11 @@
 | GP-01-1 | 13 | FAIL | P1: expected 'none', got 'testimonial' |  |
 | GP-01-1 | 14 | FAIL | U5: Flag 1 Where quote 'Being completely free of conflicts of interest is ' is not in the fixture |  |
 | GP-01-1 | 15 | FAIL | U3: GP-01 appears in Flag blocks 1, 2; one Flag block per catalog ID |  |
+| GP-01-1 | 16 | FAIL | contaminated: reported reading tests/expected/GP-01-1.yaml |  |
 
 ## Totals
 
-- entry: samples 1/15 pass; fixtures 0/1 pass
+- entry: samples 1/16 pass; fixtures 0/1 pass
 - adversarial: samples 0/0 pass; fixtures 0/0 pass
 
 RUN: FAIL

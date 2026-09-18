@@ -15,3 +15,4 @@ samples:
   13: {verdict: fail, checks: [P1]}        # Elements detected lists testimonial
   14: {verdict: fail, checks: [U5]}        # Where quote is a sentence not in the fixture
   15: {verdict: fail, checks: [U3]}        # second Flag block citing GP-01 again; one Flag block per catalog ID
+  16: {verdict: fail, checks: [contaminated]}  # passing output listed in CONTAMINATED.txt (run-isolation)

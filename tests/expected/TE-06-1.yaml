@@ -4,4 +4,4 @@ targets: [TE-06]
 elements: [endorsement]
 required:
   - id: TE-06
-    where: "there are no conflicts of interest to report"
+    where: ["no conflicts of interest to report", "20 percent ownership stake"]

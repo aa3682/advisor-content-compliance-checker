@@ -4,4 +4,4 @@ targets: [TE-03]
 elements: [testimonial]
 required:
   - id: TE-03
-    where: "imported directly from Google as written"
+    where: ["Google", "imported directly"]

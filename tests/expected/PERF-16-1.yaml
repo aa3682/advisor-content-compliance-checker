@@ -1,0 +1,7 @@
+id: PERF-16-1
+category: entry
+targets: [PERF-16]
+elements: [gross performance]
+required:
+  - id: PERF-16
+    where: ["11.2% gross", "before the 1.00% annual advisory fee"]

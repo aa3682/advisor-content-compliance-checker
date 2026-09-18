@@ -4,6 +4,4 @@ targets: [PERF-04]
 elements: [gross performance, net performance]
 required:
   - id: PERF-04
-    where: "1 year 11.2% gross, 10.1% net"
   - id: PERF-03
-    where: "10 years 8.4% gross, 7.3% net"

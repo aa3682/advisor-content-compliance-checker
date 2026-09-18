@@ -4,4 +4,4 @@ targets: [PERF-02]
 elements: [gross performance, net performance]
 required:
   - id: PERF-02
-    where: "clients hold whichever class their custodian makes available"
+    where: ["only one share class", "whichever of its several share classes"]

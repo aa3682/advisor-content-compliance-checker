@@ -1,1 +1,1 @@
-This month's pick: if you are sitting on cash, the Harbor Ultra-Short Bond Fund is where I am parking client reserves, and I'd suggest you take a look. Open your account through the link at the bottom of this newsletter. As always, reply with questions.
+We have moved the client portal to the LedgerLine app, and the household budgeting tools are open to anyone. If you would like to try it for your own family, use the sign-up link at the bottom of this newsletter. As always, reply with questions.

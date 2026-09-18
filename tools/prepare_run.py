@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Prepare a recorded run: run directory, manifest, run list, staged fixtures.
 
-Usage: python tools/prepare_run.py --model <id> [--n-entry 1] [--n-adversarial 3] [--dry-run]
+Usage: python tools/prepare_run.py --model <id> --staging-root <dir> [--n-entry 1] [--n-adversarial 3] [--dry-run]
 
 Executes nothing. Per RULINGS.md phase6-run-method and phase6-pass-criteria:
   run-id is <YYYY-MM-DD>-<short main hash>; refuses when the working tree is dirty or HEAD
@@ -9,8 +9,9 @@ Executes nothing. Per RULINGS.md phase6-run-method and phase6-pass-criteria:
   Creates tests/runs/<run-id>/ with MANIFEST.md, RUNLIST.tsv (fixture_id, k, scratch_path,
   output_path; entry fixtures first in ID order, then adversarial) and SUBAGENT_PROMPT.md
   (a copy of tests/harness/SUBAGENT_PROMPT.md, so the run records the prompt it used).
-  Stages one scratch directory per sample, tests/.scratch/<fixture-id>.<k>/, with the
-  stage_fixture logic (phase6-run-model).
+  Stages one scratch directory per sample, <staging-root>/<fixture-id>.<k>/, with the
+  stage_fixture logic; --staging-root must be outside the repository (run-isolation), and
+  MANIFEST.md records it. RUNLIST scratch paths are absolute.
 --dry-run does everything except create the run directory and prints what it would write.
 """
 import argparse
@@ -22,7 +23,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build_check_index import ROOT  # noqa: E402
-from stage_fixture import FIXTURES, SCRATCH, SKILL  # noqa: E402
+from stage_fixture import FIXTURES, SKILL  # noqa: E402
 
 try:
     import yaml
@@ -39,9 +40,9 @@ def git(*args):
     return subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
 
 
-def stage(fixture_id, k):
+def stage(fixture_id, k, staging_root):
     src = FIXTURES / f"{fixture_id}.md"
-    dest = SCRATCH / f"{fixture_id}.{k}"
+    dest = staging_root / f"{fixture_id}.{k}"
     if dest.exists():
         shutil.rmtree(dest)
     dest.mkdir(parents=True)
@@ -54,10 +55,16 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--model", required=True, help="subagent model alias pinned for this run")
     ap.add_argument("--model-reported", default="", help="model identifier the subagent reports for that alias")
+    ap.add_argument("--staging-root", required=True,
+                    help="directory outside the repository where per-sample scratch directories are staged (run-isolation)")
     ap.add_argument("--n-entry", type=int, default=1)
     ap.add_argument("--n-adversarial", type=int, default=3)
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
+    staging_root = Path(a.staging_root).resolve()
+    if staging_root == ROOT or ROOT in staging_root.parents:
+        print("error: --staging-root must be outside the repository (run-isolation)", file=sys.stderr)
+        return 1
 
     branch = git("rev-parse", "--abbrev-ref", "HEAD")
     dirty = git("status", "--porcelain")
@@ -100,7 +107,7 @@ def main():
     rel = lambda p: str(p.relative_to(ROOT))  # noqa: E731
     runlist = ["fixture_id\tk\tscratch_path\toutput_path"]
     for fid, k in rows:
-        runlist.append(f"{fid}\t{k}\t{rel(SCRATCH / f'{fid}.{k}')}\t{rel(run_dir / f'{fid}.{k}.md')}")
+        runlist.append(f"{fid}\t{k}\t{staging_root / f'{fid}.{k}'}\t{rel(run_dir / f'{fid}.{k}.md')}")
     manifest = "\n".join([
         "# Manifest",
         f"- run_id: {run_id}",
@@ -108,14 +115,16 @@ def main():
         f"- skill_commit: {short}",
         f"- model: {a.model}",
         f"- model_reported: {a.model_reported}",
+        f"- staging_root: {staging_root}",
         f"- fixtures: {len(entry) + len(adversarial)}",
         f"- n_entry: {a.n_entry}",
         f"- n_adversarial: {a.n_adversarial}",
         "- notes: ",
     ]) + "\n"
 
+    staging_root.mkdir(parents=True, exist_ok=True)
     for fid, k in rows:
-        stage(fid, k)
+        stage(fid, k, staging_root)
 
     if a.dry_run:
         print(f"dry run: would create {rel(run_dir)}/ with MANIFEST.md, RUNLIST.tsv, SUBAGENT_PROMPT.md")
@@ -131,7 +140,7 @@ def main():
         shutil.copyfile(PROMPT, run_dir / "SUBAGENT_PROMPT.md")
     print(f"run_id: {run_id}")
     print(f"samples: {len(rows)} ({len(entry)} entry x {a.n_entry} + {len(adversarial)} adversarial x {a.n_adversarial})")
-    print(f"staged: {len(rows)} sample directories under {rel(SCRATCH)}/")
+    print(f"staged: {len(rows)} sample directories under {staging_root}/")
     print(f"runlist: {rel(run_dir / 'RUNLIST.tsv')}")
     return 0
 

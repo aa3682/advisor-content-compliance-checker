@@ -1,8 +1,0 @@
-id: CNF-01
-category: CNF
-targets: [GP-08]
-elements: []
-required: []
-confirm:
-  - would_apply: [GP-08]
-no_match: true

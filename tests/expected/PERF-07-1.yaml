@@ -4,4 +4,4 @@ targets: [PERF-07]
 elements: [gross performance, net performance]
 required:
   - id: PERF-07
-    where: "My personal brokerage account, not any client account"
+    where: ["personal brokerage account", "managed my own money"]

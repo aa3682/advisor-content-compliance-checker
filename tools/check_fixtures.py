@@ -119,10 +119,12 @@ def main():
                 else:
                     unr_without += 1
         for r in required:
-            if r["where"] and r["where"] not in content:
-                problems.append(f"{fid}: required {r['id']} where {r['where']!r} is not a substring of the fixture")
-            if r["where"] and len(r["where"]) > MAX_WHERE:
-                warnings.append(f"{fid}: required {r['id']} where is {len(r['where'])} characters, over {MAX_WHERE} (elements-convention)")
+            anchors = [r["where"]] if isinstance(r["where"], str) else list(r["where"] or [])
+            for w in anchors:  # where may be a string or an any-of list (where-anyof)
+                if w not in content:
+                    problems.append(f"{fid}: required {r['id']} where {w!r} is not a substring of the fixture")
+                if len(w) > MAX_WHERE:
+                    warnings.append(f"{fid}: required {r['id']} where is {len(w)} characters, over {MAX_WHERE} (elements-convention)")
 
     for line in problems:
         print(line)

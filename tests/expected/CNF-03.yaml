@@ -1,8 +1,8 @@
 id: CNF-03
 category: CNF
-targets: [PERF-03]
+targets: [PERF-16]
 elements: []
 required: []
 confirm:
-  - would_apply: [PERF-03]
+  - would_apply: [PERF-16]
 no_match: true
