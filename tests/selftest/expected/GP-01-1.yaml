@@ -1,0 +1,8 @@
+id: GP-01-1
+category: entry
+targets: [GP-01]
+elements: []
+required:
+  - id: GP-01
+    where: "completely free of conflicts of interest"
+forbidden: [GP-02]
