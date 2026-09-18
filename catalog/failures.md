@@ -26,7 +26,7 @@ Entry shape: ID — Observed (what examiners found) — Pattern (what it looks l
 - GP-06 — Investment recommendations on podcasts/websites without disclosing compensation received for them — Product mentions with undisclosed pay — (a)(1) — RA-2024-04
 - GP-07 — "As seen on" national media when appearances were paid advertisements — Media logos or "featured in" without "paid placement" — (a)(3) — RA-2024-04
 - GP-08 — Celebrity images used in a way implying endorsement that didn't occur — Celebrity photos in marketing — (a)(3) — RA-2024-04
-- GP-09 — SEC registration cited to imply skill or SEC approval; SEC logo on website — "SEC-registered" used as a quality signal; any SEC seal — (a)(3) — RA-2024-04
+- GP-09 — SEC registration cited to imply skill or SEC approval; SEC logo on website — SEC registration or approval cited as a quality signal; any SEC seal — (a)(3) — RA-2024-04
 - GP-10 — Ratings framed as sole/top recipient when multiple recipients or not top; "highly rated" without disclosing methodology based on AUM, client count, or self-nomination — Superlatives around awards; methodology absent — (a)(3) — RA-2024-04; AR p.163
 - GP-11 — Testimonials from clients of a third-party product placed on adviser site without context, implying they concern the adviser — Reviews of someone else's product — (a)(3) — RA-2024-04
 - GP-12 — Disclosures in unreadable font on websites or in videos — Tiny/low-contrast/fast-scrolling disclosure text — (a)(7) — RA-2024-04
@@ -52,6 +52,7 @@ Entry shape: ID — Observed (what examiners found) — Pattern (what it looks l
 - PERF-13 — Hypothetical performance without the criteria and assumptions used: 2,700% "annualized" extrapolated from three weeks on a hypothetical account with no actual trading — Annualized or extrapolated figures; "model" with no method — (d)(6)(ii), (a)(1) — EA-2023-08 Titan
 - PERF-14 — Hypothetical performance without sufficient information for a retail audience to understand its risks and limitations — Projections with no risk/limitation language — (d)(6)(iii) — EA-2023-08 Titan
 - PERF-15 — Misleading model performance; performance the adviser could not substantiate on demand — Model results with no records behind them — (a)(1), (a)(2) — EA-2024-04 GeaSphere
+- PERF-16 — Gross performance shown without net performance alongside; RA-2024-04 observed advertisements showing gross only — Gross figures with no net figure alongside — (d)(1) — RA-2024-04
 
 ## TE — Testimonials and endorsements, Rule 206(4)-1(b)
 

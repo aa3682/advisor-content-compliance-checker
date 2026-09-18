@@ -23,7 +23,7 @@ REF_ORDER = [
     "third-party-ratings.md",
     "definitions.md",
 ]
-EXPECTED_ENTRIES = 51
+EXPECTED_ENTRIES = 52
 SEP = " · "
 FIELD_SEP = " — "
 ENTRY_RE = re.compile(r"^- ((?:GP|PERF|TE|TPR)-\d+)" + re.escape(FIELD_SEP))

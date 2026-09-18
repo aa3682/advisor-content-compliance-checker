@@ -33,6 +33,9 @@ Paragraphs carried: (d) lead-in, (d)(1), (d)(2), (d)(6). Omitted: (d)(3) SEC-app
 
 ## Catalog entries by paragraph
 
+### (d)(1)
+- PERF-16 — Gross figures with no net figure alongside — RA-2024-04
+
 ### (d)(6)(i)
 - PERF-12 — Any model, backtest, or projection in public content — EA-2023-09 (nine firms); EA-2024-04 (five firms); EA-2023-08 Titan; EA-2024-11 Wahed
 

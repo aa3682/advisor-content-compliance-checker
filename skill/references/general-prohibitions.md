@@ -57,7 +57,7 @@ As a means reasonably designed to prevent fraudulent, deceptive, or manipulative
 - GP-05 — Fiduciary status framed as unique — RA-2024-04
 - GP-07 — Media logos or "featured in" without "paid placement" — RA-2024-04
 - GP-08 — Celebrity photos in marketing — RA-2024-04
-- GP-09 — "SEC-registered" used as a quality signal; any SEC seal — RA-2024-04
+- GP-09 — SEC registration or approval cited as a quality signal; any SEC seal — RA-2024-04
 - GP-10 — Superlatives around awards; methodology absent — RA-2024-04; AR p.163
 - GP-11 — Reviews of someone else's product — RA-2024-04
 - PERF-05 — Any "vs. S&P 500" style line — RA-2024-04; AR p.168

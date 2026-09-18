@@ -23,19 +23,19 @@ First-pass review of advisor-facing marketing content against SEC Rule 206(4)-1.
 Follow these steps in order for every review. The wording of every fixed line below is set by RULINGS.md (output-shape, entries-to-checks, unclassifiable-content, state-divergence). Do not vary it.
 
 1. Read the whole content before flagging anything. If the user asks for a verdict ("is this okay?", "does this pass?"), do not answer the question; return this review.
-2. Detect elements. Scan for the six rule-defined elements: testimonial (e)(17), endorsement (e)(5), third-party rating (e)(18), gross performance (e)(7), net performance (e)(10), hypothetical performance (e)(8). Record the ones present. Open skill/references/definitions.md when a term's boundary is unclear. Never describe the content by format.
+2. Detect elements. Scan for the six rule-defined elements and record the ones present using these exact names and no others: testimonial, endorsement, third-party rating, gross performance, net performance, hypothetical performance (their paragraphs, for lookup only and never printed: (e)(17), (e)(5), (e)(18), (e)(7), (e)(10), (e)(8)). Apply the definitions to the facts the content states, not to its labels: an award or ranking attributed to a third party is a third-party rating whether or not the provider is named; a nomination is not; a statement by a former client is an endorsement; a figure labeled net is net performance whatever else it is; a figure labeled neither gross nor net is not listed and becomes a Confirm item (step 5). Open skill/references/definitions.md when a term's boundary is unclear. Never describe the content by format.
 3. Note scope markers. If the content mentions a broker-dealer or FINRA, a private fund, an ERISA or retirement-plan offering, or a non-US regulator, record the marker for the scope line. The review still runs. If part of the content is an image or attachment you cannot read, record it for the not-reviewed line.
-4. Run every check in the Checks section, GP through TPR, in index order. A check fires when the content contains the check's Pattern. When the same Pattern occurs more than once in one document, write one flag for that entry; the Where line quotes the first occurrence. For each firing check:
+4. Run every check in the Checks section, GP through TPR, in index order. A check fires only when the content contains the check's Pattern, never on what an unstated fact might make apply; that is a Confirm item (step 5) or nothing. Performance figures inside a quoted testimonial or endorsement are performance results and receive every PERF check. When the same Pattern occurs more than once in one document, write one flag for that entry; the Where line quotes the first occurrence. For each firing check:
    a. Open the reference file(s) named on the check line and find the entry by ID.
    b. Confirm the content matches the entry's Observed failure. If the match depends on a fact the content does not state, it is a Confirm item (step 5), not a flag.
    c. Write the flag. Where quotes the exact phrase, one sentence max; for a non-text element the content describes (a badge, logo, photo), quote the content's own description of it. What is the check's Pattern, verbatim. Cite is copied from the entry: rule paragraphs · ID · the first-listed source through the first ";". Fix is the smallest edit that removes the matched pattern: a rewrite of the phrase, "remove", or "supply X" naming the missing disclosure. A rewrite never adds a claim the content did not make and never asserts the rewritten phrase is acceptable.
    A phrase matching several entries gets one flag per entry. Never collapse, rank, or tier flags.
-5. Write Confirm items for matches that turn on an unstated fact (client status, compensation, gross vs net, hypothetical status). Cite is the (e) term and token that decides the fact, or the (b)/(c)/(d) paragraph that conditions on it, copied from the reference file. Would apply lists every catalog ID that would fire if the answer is yes. No Confirm item without at least one ID.
+5. Write Confirm items for matches that turn on an unstated fact (compensation, gross vs net, hypothetical status). Figures labeled neither gross nor net are always a Confirm item. Cite is the (e) term and token that decides the fact, or the (b)/(c)/(d) paragraph that conditions on it, copied from the reference file. Would apply lists every catalog ID that would fire if the answer is yes. No Confirm item without at least one ID.
 6. Assemble the output from the template below, exactly. Flags in document order. Confirm section omitted when empty. The no-match sentence appears only when the flag count is zero. Every output ends with the mandatory closing line.
 
 ### Output contract
 
-Fixed lines are written verbatim. Bracketed lines appear only under the stated condition and are written without the brackets. Nothing is added outside the template: no summary, no overall assessment, no remarks after the mandatory closing line.
+Fixed lines are written verbatim. Bracketed lines appear only under the stated condition and are written without the brackets; the square brackets themselves are never printed. Nothing is added outside the template: no summary, no overall assessment, no remarks after the mandatory closing line.
 
 The Scope line appears only when a scope marker is present.
 The Not reviewed line appears only when part of the content cannot be read.
@@ -71,7 +71,7 @@ Pre-review only. Not legal or compliance advice. Confirm with your CCO or counse
 
 ## Checks
 
-Generated from catalog/failures.md by tools/build_check_index.py. Never hand-edit; rerun the script when the catalog changes. One check per catalog entry; 51 checks.
+Generated from catalog/failures.md by tools/build_check_index.py. Never hand-edit; rerun the script when the catalog changes. One check per catalog entry; 52 checks.
 
 ### GP (16)
 - GP-01 · Any absolute no-conflict statement · (a)(1), (a)(2) · general-prohibitions.md
@@ -82,7 +82,7 @@ Generated from catalog/failures.md by tools/build_check_index.py. Never hand-edi
 - GP-06 · Product mentions with undisclosed pay · (a)(1) · general-prohibitions.md
 - GP-07 · Media logos or "featured in" without "paid placement" · (a)(3) · general-prohibitions.md
 - GP-08 · Celebrity photos in marketing · (a)(3) · general-prohibitions.md
-- GP-09 · "SEC-registered" used as a quality signal; any SEC seal · (a)(3) · general-prohibitions.md
+- GP-09 · SEC registration or approval cited as a quality signal; any SEC seal · (a)(3) · general-prohibitions.md
 - GP-10 · Superlatives around awards; methodology absent · (a)(3) · general-prohibitions.md
 - GP-11 · Reviews of someone else's product · (a)(3) · general-prohibitions.md
 - GP-12 · Tiny/low-contrast/fast-scrolling disclosure text · (a)(7) · general-prohibitions.md
@@ -91,7 +91,7 @@ Generated from catalog/failures.md by tools/build_check_index.py. Never hand-edi
 - GP-15 · Association badges or "member of" lines · (a)(1) · general-prohibitions.md
 - GP-16 · Personal award claims without the award · (a)(2) · general-prohibitions.md
 
-### PERF (15)
+### PERF (16)
 - PERF-01 · Large dollar/percent profit totals · (a)(1) · general-prohibitions.md
 - PERF-02 · Fund returns without share-class note · (a)(1) · general-prohibitions.md
 - PERF-03 · "Net" figures; fee basis unstated or below the audience's fee · (a)(1) · general-prohibitions.md, performance.md
@@ -107,6 +107,7 @@ Generated from catalog/failures.md by tools/build_check_index.py. Never hand-edi
 - PERF-13 · Annualized or extrapolated figures; "model" with no method · (d)(6)(ii), (a)(1) · general-prohibitions.md, performance.md
 - PERF-14 · Projections with no risk/limitation language · (d)(6)(iii) · performance.md
 - PERF-15 · Model results with no records behind them · (a)(1), (a)(2) · general-prohibitions.md
+- PERF-16 · Gross figures with no net figure alongside · (d)(1) · performance.md
 
 ### TE (13)
 - TE-01 · Quote with no status/compensation/conflict line · (b)(1)(i) · testimonials-endorsements.md
