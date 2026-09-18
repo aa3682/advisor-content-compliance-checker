@@ -384,8 +384,14 @@ def collapse_ws(text):
     return " ".join(text.split())
 
 
+def strip_terminal(text):
+    """Drop one trailing period, semicolon, comma, or colon (u5-terminal-punctuation)."""
+    return text[:-1] if text[-1:] in ".;,:" else text
+
+
 def check_u5(s, fixture_text):
-    """Provenance: every quoted span on every Where line is a substring of the fixture."""
+    """Provenance: every quoted span on every Where line is a substring of the fixture,
+    after one trailing period, semicolon, comma, or colon is dropped (u5-terminal-punctuation)."""
     r = []
     if fixture_text is None:
         return ["fixture file not found in tests/fixtures/"]
@@ -400,7 +406,7 @@ def check_u5(s, fixture_text):
             r.append(f"{label} Where carries no quoted span")
             continue
         for span in spans:
-            needle = collapse_ws(span[1:-1])
+            needle = strip_terminal(collapse_ws(span[1:-1]))
             if needle and needle not in hay:
                 r.append(f"{label} Where quote {needle[:50]!r} is not in the fixture")
     return r

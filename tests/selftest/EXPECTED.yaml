@@ -17,6 +17,7 @@ samples:
     14: {verdict: fail, checks: [U5]}        # Where quote is a sentence not in the fixture
     15: {verdict: fail, checks: [U3]}        # second Flag block citing GP-01 again; one Flag block per catalog ID
     16: {verdict: fail, checks: [contaminated]}  # passing output listed in CONTAMINATED.txt (run-isolation)
+    19: {verdict: pass}                       # Where quote ends in a period where the fixture continues with a colon (u5-terminal-punctuation)
   GP-02-1:
     1: {verdict: pass}                       # correct output plus a Confirm block with Would apply GP-03, GP-05: pass, extras GP-05 (would-apply-subset)
     2: {verdict: fail, checks: [P4]}         # the same with Would apply GP-05 only: expected GP-03 absent
