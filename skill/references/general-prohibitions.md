@@ -3,6 +3,7 @@
 Source: 17 CFR 275.206(4)-1, eCFR current through 2026-09-16; section last amended 87 FR 22447 (Apr. 15, 2022).
 Rules last verified: 2026-09-18
 Record: catalog/failures.md holds every entry listed below; this file is a lookup, not the record.
+Definitions used (see definitions.md): advertisement (e)(1).
 
 ## Rule text (verbatim)
 
