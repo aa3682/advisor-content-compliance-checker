@@ -4,4 +4,4 @@ targets: [PERF-13]
 elements: [hypothetical performance, net performance]
 required:
   - id: PERF-13
-    where: "a 2,700% annualized return"
+    where: ["2,700% annualized return", "Over the three weeks"]

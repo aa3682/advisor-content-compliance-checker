@@ -4,4 +4,4 @@ targets: [GP-11]
 elements: []
 required:
   - id: GP-11
-    where: "Those are app-store reviews of the software"
+    where: ["Those are app-store reviews of the software", "what users say about PlanPath"]

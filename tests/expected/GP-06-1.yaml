@@ -4,4 +4,4 @@ targets: [GP-06]
 elements: []
 required:
   - id: GP-06
-    where: "is where I'm parking client reserves"
+    where: ["I receive nothing from any fund company", "$40 for every account opened"]

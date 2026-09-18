@@ -1,11 +1,11 @@
 id: OVL-01
 category: OVL
-targets: [TE-01, PERF-04, PERF-08]
+targets: [TE-01, PERF-16, PERF-08]
 elements: [testimonial, gross performance]
 required:
   - id: TE-01
     where: "I've never worried once"
-  - id: PERF-04
-    where: "up 14% before fees this year"
+  - id: PERF-16
+    where: "up 14% before fees"
   - id: PERF-08
     where: "up 14% before fees this year"

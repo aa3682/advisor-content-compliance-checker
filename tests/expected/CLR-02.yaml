@@ -1,7 +1,8 @@
 id: CLR-02
 category: CLR
-targets: []
+targets: [GP-09]
 elements: []
-required: []
-forbidden: [GP-09, GP-03]
-no_match: true
+required:
+  - id: GP-09
+    where: "fully compliant with the SEC Marketing Rule"
+forbidden: [GP-03]

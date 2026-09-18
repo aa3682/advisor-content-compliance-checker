@@ -4,4 +4,4 @@ targets: [TPR-05]
 elements: [third-party rating]
 required:
   - id: TPR-05
-    where: "Our annual badge-licensing fee"
+    where: ["no compensation of any kind has been paid", "annual badge-licensing fee"]

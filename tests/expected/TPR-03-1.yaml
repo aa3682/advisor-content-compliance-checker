@@ -4,4 +4,4 @@ targets: [TPR-03]
 elements: [third-party rating]
 required:
   - id: TPR-03
-    where: "We did not receive the rating in 2021 or 2022"
+    where: ["We did not receive the rating in 2021 or 2022", "reads 2019–2024"]
