@@ -8,7 +8,7 @@ Inventory date: 2026-09-18
 |---|---|---|---|
 | 2022-09-19 | Examinations Focused on the New Investment Adviser Marketing Rule | initial review areas: policies/procedures, substantiation, performance, books and records | verified |
 | 2023-06-08 | Examinations Focused on Additional Areas of the Adviser Marketing Rule | testimonials/endorsements, third-party ratings, Form ADV | verified |
-| 2024-04-17 | Initial Observations Regarding Advisers Act Marketing Rule Compliance | unsubstantiated claims, unbalanced presentations, performance context | verified-secondary |
+| 2024-04-17 | Initial Observations Regarding Advisers Act Marketing Rule Compliance | unsubstantiated claims, unbalanced presentations, performance context | verified |
 | 2025-12-16 | Additional Observations Regarding Advisers' Compliance with the Advisers Act Marketing Rule | testimonials/endorsements disclosure and oversight; third-party ratings diligence and disclosure | verified |
 
 ## Enforcement releases
