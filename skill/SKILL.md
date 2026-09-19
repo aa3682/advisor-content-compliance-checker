@@ -89,7 +89,7 @@ Generated from catalog/failures.md by tools/build_check_index.py. Never hand-edi
 - GP-08 · Celebrity photos in marketing · (a)(3) · general-prohibitions.md
 - GP-09 · SEC registration or approval cited as a quality signal; any SEC seal · (a)(3) · general-prohibitions.md
 - GP-10 · Superlatives around awards; methodology absent · (a)(3) · general-prohibitions.md
-- GP-11 · Reviews of someone else's product · (a)(3) · general-prohibitions.md
+- GP-11 · Third-party product testimonials or user reviews presented as evidence about the adviser · (a)(3) · general-prohibitions.md
 - GP-12 · Tiny/low-contrast/fast-scrolling disclosure text · (a)(7) · general-prohibitions.md
 - GP-13 · "AI-powered," "AI-driven" process language the firm cannot show · (a)(1) · general-prohibitions.md
 - GP-14 · Rating name or rank altered from the source · (a)(1) · general-prohibitions.md

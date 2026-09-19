@@ -59,7 +59,7 @@ As a means reasonably designed to prevent fraudulent, deceptive, or manipulative
 - GP-08 — Celebrity photos in marketing — RA-2024-04
 - GP-09 — SEC registration or approval cited as a quality signal; any SEC seal — RA-2024-04
 - GP-10 — Superlatives around awards; methodology absent — RA-2024-04; AR p.163
-- GP-11 — Reviews of someone else's product — RA-2024-04
+- GP-11 — Third-party product testimonials or user reviews presented as evidence about the adviser — RA-2024-04
 - PERF-05 — Any "vs. S&P 500" style line — RA-2024-04; AR p.168
 - PERF-06 — Stale figures; discontinued products — RA-2024-04
 - PERF-07 — Personal/paper track records; new-firm performance claims; bull-market periods without context — RA-2024-04

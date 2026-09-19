@@ -28,7 +28,7 @@ Entry shape: ID — Observed (what examiners found) — Pattern (what it looks l
 - GP-08 — Celebrity images used in a way implying endorsement that didn't occur — Celebrity photos in marketing — (a)(3) — RA-2024-04
 - GP-09 — SEC registration cited to imply skill or SEC approval; SEC logo on website — SEC registration or approval cited as a quality signal; any SEC seal — (a)(3) — RA-2024-04
 - GP-10 — Ratings framed as sole/top recipient when multiple recipients or not top; "highly rated" without disclosing methodology based on AUM, client count, or self-nomination — Superlatives around awards; methodology absent — (a)(3) — RA-2024-04; AR p.163
-- GP-11 — Testimonials from clients of a third-party product placed on adviser site without context, implying they concern the adviser — Reviews of someone else's product — (a)(3) — RA-2024-04
+- GP-11 — Testimonials from clients of a third-party product placed on adviser site without context, implying they concern the adviser — Third-party product testimonials or user reviews presented as evidence about the adviser — (a)(3) — RA-2024-04
 - GP-12 — Disclosures in unreadable font on websites or in videos — Tiny/low-contrast/fast-scrolling disclosure text — (a)(7) — RA-2024-04
 - GP-13 — False or misleading claims about use of artificial intelligence in the investment process — "AI-powered," "AI-driven" process language the firm cannot show — (a)(1) — EA-2024-03
 - GP-14 — Third-party rating misstated: "Top 12 Financial Advisor" when rated "Top 1200"; "Top 100 Women's Advisor" when the rating was titled differently — Rating name or rank altered from the source — (a)(1) — EA-2024-09 Abacus
