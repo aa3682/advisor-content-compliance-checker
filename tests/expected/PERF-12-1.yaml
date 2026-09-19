@@ -4,4 +4,4 @@ targets: [PERF-12]
 elements: [gross performance, net performance, hypothetical performance]
 required:
   - id: PERF-12
-    where: ["Steady Income model", "open to every visitor"]
+    where: ["Steady Income model", "open to every visitor", "These are hypothetical, backtested results"]

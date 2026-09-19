@@ -1,7 +1,7 @@
 id: TE-13-1
 category: entry
 targets: [TE-13]
-elements: [testimonial, endorsement]
+elements: [testimonial]
 required:
   - id: TE-13
-    where: "— Client"
+    where: ["They took the worry out of our retirement.", "Every dollar has a purpose now.", "The best money decision we ever made."]

@@ -1,7 +1,7 @@
 id: TE-03-1
 category: entry
 targets: [TE-03]
-elements: [testimonial]
+elements: [testimonial, third-party rating]
 required:
   - id: TE-03
     where: ["Google", "imported directly"]

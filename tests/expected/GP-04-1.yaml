@@ -4,4 +4,4 @@ targets: [GP-04]
 elements: []
 required:
   - id: GP-04
-    where: "Add award-winning to the list of reasons"
+    where: ["award-winning", "nominated for the 2025 Community Advisor of the Year", "Add award-winning to the list of reasons"]

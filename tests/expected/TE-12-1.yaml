@@ -1,7 +1,7 @@
 id: TE-12-1
 category: entry
 targets: [TE-12]
-elements: []
+elements: [endorsement]
 required:
   - id: TE-12
     where: "Official Wealth Management Partner"
