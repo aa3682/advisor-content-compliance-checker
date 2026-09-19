@@ -58,7 +58,7 @@ Definitions used (see definitions.md): advertisement (e)(1)(ii), de minimis comp
 
 ### (b)(1)(i)
 - TE-01 — Quote with no status/compensation/conflict line — RA-2025-12; cross-ref EA-2024-11 Wahed
-- TE-03 — Embedded Google/Yelp-style reviews — RA-2025-12
+- TE-03 — Embedded Google or Yelp-style reviews with no disclosure that the reviewers are current or former clients — RA-2025-12
 - TE-12 — Sponsorship or "official partner" language — EA-2024-09
 - TE-13 — Undated quotes attributed to "clients" — EA-2024-09
 
@@ -78,7 +78,7 @@ Definitions used (see definitions.md): advertisement (e)(1)(ii), de minimis comp
 - TE-10 — Promoter background unchecked — RA-2025-12
 
 ### (b)(4)(i)
-- TE-09 — Repeated small referral payments — RA-2025-12
+- TE-09 — Referral payments whose twelve-month total to one person exceeds the de minimis threshold — RA-2025-12
 
 ### (b)(4)(ii)
 - TE-11 — Staff or partner quotes without affiliation stated — RA-2025-12

@@ -25,7 +25,7 @@ Definitions used (see definitions.md): third-party rating (e)(18).
 - TPR-01 — Rating used with no methodology review on file — RA-2025-12
 
 ### (c)(2)
-- TPR-02 — "See our rating on X" links — RA-2025-12
+- TPR-02 — "See our rating on X" links where the advertisement itself carries no rating disclosures — RA-2025-12
 - TPR-07 — Disclosure separated from the badge — RA-2025-12; AR p.160
 
 ### (c)(2)(i)

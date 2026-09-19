@@ -40,7 +40,7 @@ Paragraphs carried: (d) lead-in, (d)(1), (d)(2), (d)(6). Omitted: (d)(3) SEC-app
 - PERF-12 — Any model, backtest, or projection in public content — EA-2023-09 (nine firms); EA-2024-04 (five firms); EA-2023-08 Titan; EA-2024-11 Wahed
 
 ### (d)(6)(ii)
-- PERF-13 — Annualized or extrapolated figures; "model" with no method — EA-2023-08 Titan
+- PERF-13 — Annualized or extrapolated figures, or a model, presented without the criteria and assumptions behind them — EA-2023-08 Titan
 
 ### (d)(6)(iii)
 - PERF-14 — Projections with no risk/limitation language — EA-2023-08 Titan

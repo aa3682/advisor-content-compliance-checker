@@ -138,7 +138,7 @@ Terms carried: (e)(1), (2), (3), (4), (5), (7), (8), (9), (10), (11), (13), (15)
 - TE-13 — Undated quotes attributed to "clients" — EA-2024-09
 
 ### (e)(2)
-- TE-09 — Repeated small referral payments — RA-2025-12
+- TE-09 — Referral payments whose twelve-month total to one person exceeds the de minimis threshold — RA-2025-12
 
 ### (e)(9)
 - TE-10 — Promoter background unchecked — RA-2025-12

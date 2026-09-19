@@ -86,14 +86,14 @@ Generated from catalog/failures.md by tools/build_check_index.py. Never hand-edi
 - GP-05 · Fiduciary status framed as unique · (a)(1), (a)(3) · general-prohibitions.md
 - GP-06 · Product mentions with undisclosed pay · (a)(1) · general-prohibitions.md
 - GP-07 · Media logos or "featured in" without "paid placement" · (a)(3) · general-prohibitions.md
-- GP-08 · Celebrity photos in marketing · (a)(3) · general-prohibitions.md
+- GP-08 · Celebrity images implying an endorsement the firm cannot show · (a)(3) · general-prohibitions.md
 - GP-09 · SEC registration or approval cited as a quality signal; any SEC seal · (a)(3) · general-prohibitions.md
-- GP-10 · Superlatives around awards; methodology absent · (a)(3) · general-prohibitions.md
+- GP-10 · Superlatives implying sole or highest recognition the firm cannot show; methodology absent · (a)(3) · general-prohibitions.md
 - GP-11 · Third-party product testimonials or user reviews presented as evidence about the adviser · (a)(3) · general-prohibitions.md
 - GP-12 · Tiny/low-contrast/fast-scrolling disclosure text · (a)(7) · general-prohibitions.md
 - GP-13 · "AI-powered," "AI-driven" process language the firm cannot show · (a)(1) · general-prohibitions.md
 - GP-14 · Rating name or rank altered from the source · (a)(1) · general-prohibitions.md
-- GP-15 · Association badges or "member of" lines · (a)(1) · general-prohibitions.md
+- GP-15 · Association badges or "member of" lines the firm cannot show · (a)(1) · general-prohibitions.md
 - GP-16 · Personal award claims without the award · (a)(2) · general-prohibitions.md
 
 ### PERF (16)
@@ -101,15 +101,15 @@ Generated from catalog/failures.md by tools/build_check_index.py. Never hand-edi
 - PERF-02 · Fund returns without share-class note · (a)(1) · general-prohibitions.md
 - PERF-03 · "Net" figures; fee basis unstated or below the audience's fee · (a)(1) · general-prohibitions.md, performance.md
 - PERF-04 · Returns without fee/expense disclosure · (a)(1) · general-prohibitions.md, performance.md
-- PERF-05 · Any "vs. S&P 500" style line · (a)(3) · general-prohibitions.md
-- PERF-06 · Stale figures; discontinued products · (a)(3) · general-prohibitions.md
-- PERF-07 · Personal/paper track records; new-firm performance claims; bull-market periods without context · (a)(3) · general-prohibitions.md
+- PERF-05 · Index comparisons where the index is undefined, silent on dividends, or uncontextualized as to why it is comparable · (a)(3) · general-prohibitions.md
+- PERF-06 · Stale figures, or discontinued products shown at costs lower than those charged now · (a)(3) · general-prohibitions.md
+- PERF-07 · Personal or paper track records; performance claimed by a firm that cannot show client accounts behind it; bull-market periods without context · (a)(3) · general-prohibitions.md
 - PERF-08 · Return figures in a post with no risk language · (a)(4) · general-prohibitions.md
-- PERF-09 · Winner lists; "top picks" · (a)(5) · general-prohibitions.md
+- PERF-09 · Winner lists or "top picks" excluding losses or write-offs with no stated rationale · (a)(5) · general-prohibitions.md
 - PERF-10 · Returns without dates; mixed periods · (a)(6) · general-prohibitions.md, performance.md
 - PERF-11 · "Realized" in the fine print, or no basis given · (a)(6) · general-prohibitions.md, performance.md
 - PERF-12 · Any model, backtest, or projection in public content · (d)(6)(i) · performance.md
-- PERF-13 · Annualized or extrapolated figures; "model" with no method · (d)(6)(ii), (a)(1) · general-prohibitions.md, performance.md
+- PERF-13 · Annualized or extrapolated figures, or a model, presented without the criteria and assumptions behind them · (d)(6)(ii), (a)(1) · general-prohibitions.md, performance.md
 - PERF-14 · Projections with no risk/limitation language · (d)(6)(iii) · performance.md
 - PERF-15 · Model results with no records behind them · (a)(1), (a)(2) · general-prohibitions.md
 - PERF-16 · Gross figures with no net figure alongside · (d)(1) · performance.md
@@ -117,13 +117,13 @@ Generated from catalog/failures.md by tools/build_check_index.py. Never hand-edi
 ### TE (13)
 - TE-01 · Quote with no status/compensation/conflict line · (b)(1)(i) · testimonials-endorsements.md
 - TE-02 · "See disclosures" link; footnote-size text · (b)(1) · testimonials-endorsements.md
-- TE-03 · Embedded Google/Yelp-style reviews · (b)(1)(i) · testimonials-endorsements.md
+- TE-03 · Embedded Google or Yelp-style reviews with no disclosure that the reviewers are current or former clients · (b)(1)(i) · testimonials-endorsements.md
 - TE-04 · Any incentive for reviews · (b)(1), (b)(2)(i) · testimonials-endorsements.md
 - TE-05 · "Promoter may receive compensation" with no terms · (b)(1)(ii) · testimonials-endorsements.md
 - TE-06 · Endorser relationship not stated · (b)(1)(iii) · testimonials-endorsements.md
 - TE-07 · Referral or affiliate content with no endorsement treatment · (b), (e)(5) · testimonials-endorsements.md, definitions.md
 - TE-08 · Paid promotion with no agreement on file · (b)(2)(ii) · testimonials-endorsements.md
-- TE-09 · Repeated small referral payments · (b)(4)(i), (e)(2) · testimonials-endorsements.md, definitions.md
+- TE-09 · Referral payments whose twelve-month total to one person exceeds the de minimis threshold · (b)(4)(i), (e)(2) · testimonials-endorsements.md, definitions.md
 - TE-10 · Promoter background unchecked · (b)(3), (e)(9) · testimonials-endorsements.md, definitions.md
 - TE-11 · Staff or partner quotes without affiliation stated · (b)(4)(ii) · testimonials-endorsements.md
 - TE-12 · Sponsorship or "official partner" language · (b)(1)(i) · testimonials-endorsements.md
@@ -131,7 +131,7 @@ Generated from catalog/failures.md by tools/build_check_index.py. Never hand-edi
 
 ### TPR (7)
 - TPR-01 · Rating used with no methodology review on file · (c)(1) · third-party-ratings.md
-- TPR-02 · "See our rating on X" links · (c)(2) · third-party-ratings.md
+- TPR-02 · "See our rating on X" links where the advertisement itself carries no rating disclosures · (c)(2) · third-party-ratings.md
 - TPR-03 · Undated badges; "2019–2024" with gaps · (c)(2)(i) · third-party-ratings.md
 - TPR-04 · Badge without provider name · (c)(2)(ii) · third-party-ratings.md
 - TPR-05 · Paid badges/reprints with no compensation line · (c)(2)(iii) · third-party-ratings.md

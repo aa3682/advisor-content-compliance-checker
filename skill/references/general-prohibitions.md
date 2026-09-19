@@ -38,12 +38,12 @@ As a means reasonably designed to prevent fraudulent, deceptive, or manipulative
 - GP-06 — Product mentions with undisclosed pay — RA-2024-04
 - GP-13 — "AI-powered," "AI-driven" process language the firm cannot show — EA-2024-03
 - GP-14 — Rating name or rank altered from the source — EA-2024-09 Abacus
-- GP-15 — Association badges or "member of" lines — EA-2024-09 Callahan
+- GP-15 — Association badges or "member of" lines the firm cannot show — EA-2024-09 Callahan
 - PERF-01 — Large dollar/percent profit totals — RA-2024-04
 - PERF-02 — Fund returns without share-class note — RA-2024-04
 - PERF-03 — "Net" figures; fee basis unstated or below the audience's fee — RA-2024-04; cross-ref FAQ 2026-01-15 (model vs actual fees)
 - PERF-04 — Returns without fee/expense disclosure — RA-2024-04
-- PERF-13 — Annualized or extrapolated figures; "model" with no method — EA-2023-08 Titan
+- PERF-13 — Annualized or extrapolated figures, or a model, presented without the criteria and assumptions behind them — EA-2023-08 Titan
 - PERF-15 — Model results with no records behind them — EA-2024-04 GeaSphere
 
 ### (a)(2)
@@ -56,19 +56,19 @@ As a means reasonably designed to prevent fraudulent, deceptive, or manipulative
 ### (a)(3)
 - GP-05 — Fiduciary status framed as unique — RA-2024-04
 - GP-07 — Media logos or "featured in" without "paid placement" — RA-2024-04
-- GP-08 — Celebrity photos in marketing — RA-2024-04
+- GP-08 — Celebrity images implying an endorsement the firm cannot show — RA-2024-04
 - GP-09 — SEC registration or approval cited as a quality signal; any SEC seal — RA-2024-04
-- GP-10 — Superlatives around awards; methodology absent — RA-2024-04; AR p.163
+- GP-10 — Superlatives implying sole or highest recognition the firm cannot show; methodology absent — RA-2024-04; AR p.163
 - GP-11 — Third-party product testimonials or user reviews presented as evidence about the adviser — RA-2024-04
-- PERF-05 — Any "vs. S&P 500" style line — RA-2024-04; AR p.168
-- PERF-06 — Stale figures; discontinued products — RA-2024-04
-- PERF-07 — Personal/paper track records; new-firm performance claims; bull-market periods without context — RA-2024-04
+- PERF-05 — Index comparisons where the index is undefined, silent on dividends, or uncontextualized as to why it is comparable — RA-2024-04; AR p.168
+- PERF-06 — Stale figures, or discontinued products shown at costs lower than those charged now — RA-2024-04
+- PERF-07 — Personal or paper track records; performance claimed by a firm that cannot show client accounts behind it; bull-market periods without context — RA-2024-04
 
 ### (a)(4)
 - PERF-08 — Return figures in a post with no risk language — RA-2024-04
 
 ### (a)(5)
-- PERF-09 — Winner lists; "top picks" — RA-2024-04
+- PERF-09 — Winner lists or "top picks" excluding losses or write-offs with no stated rationale — RA-2024-04
 
 ### (a)(6)
 - PERF-10 — Returns without dates; mixed periods — RA-2024-04

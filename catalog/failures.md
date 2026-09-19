@@ -25,14 +25,14 @@ Entry shape: ID — Observed (what examiners found) — Pattern (what it looks l
 - GP-05 — "We act in the best interest of clients" as a differentiator without noting all advisers owe a fiduciary duty — Fiduciary status framed as unique — (a)(1), (a)(3) — RA-2024-04
 - GP-06 — Investment recommendations on podcasts/websites without disclosing compensation received for them — Product mentions with undisclosed pay — (a)(1) — RA-2024-04
 - GP-07 — "As seen on" national media when appearances were paid advertisements — Media logos or "featured in" without "paid placement" — (a)(3) — RA-2024-04
-- GP-08 — Celebrity images used in a way implying endorsement that didn't occur — Celebrity photos in marketing — (a)(3) — RA-2024-04
+- GP-08 — Celebrity images used in a way implying endorsement that didn't occur — Celebrity images implying an endorsement the firm cannot show — (a)(3) — RA-2024-04
 - GP-09 — SEC registration cited to imply skill or SEC approval; SEC logo on website — SEC registration or approval cited as a quality signal; any SEC seal — (a)(3) — RA-2024-04
-- GP-10 — Ratings framed as sole/top recipient when multiple recipients or not top; "highly rated" without disclosing methodology based on AUM, client count, or self-nomination — Superlatives around awards; methodology absent — (a)(3) — RA-2024-04; AR p.163
+- GP-10 — Ratings framed as sole/top recipient when multiple recipients or not top; "highly rated" without disclosing methodology based on AUM, client count, or self-nomination — Superlatives implying sole or highest recognition the firm cannot show; methodology absent — (a)(3) — RA-2024-04; AR p.163
 - GP-11 — Testimonials from clients of a third-party product placed on adviser site without context, implying they concern the adviser — Third-party product testimonials or user reviews presented as evidence about the adviser — (a)(3) — RA-2024-04
 - GP-12 — Disclosures in unreadable font on websites or in videos — Tiny/low-contrast/fast-scrolling disclosure text — (a)(7) — RA-2024-04
 - GP-13 — False or misleading claims about use of artificial intelligence in the investment process — "AI-powered," "AI-driven" process language the firm cannot show — (a)(1) — EA-2024-03
 - GP-14 — Third-party rating misstated: "Top 12 Financial Advisor" when rated "Top 1200"; "Top 100 Women's Advisor" when the rating was titled differently — Rating name or rank altered from the source — (a)(1) — EA-2024-09 Abacus
-- GP-15 — Claimed membership in an organization that does not exist — Association badges or "member of" lines — (a)(1) — EA-2024-09 Callahan
+- GP-15 — Claimed membership in an organization that does not exist — Association badges or "member of" lines the firm cannot show — (a)(1) — EA-2024-09 Callahan
 - GP-16 — Claim that a principal received an award, unsubstantiated — Personal award claims without the award — (a)(2) — EA-2024-09
 
 ## PERF — Performance, Rule 206(4)-1(a) and (d)
@@ -41,15 +41,15 @@ Entry shape: ID — Observed (what examiners found) — Pattern (what it looks l
 - PERF-02 — Performance shown without disclosing which share classes are included — Fund returns without share-class note — (a)(1) — RA-2024-04
 - PERF-03 — Net returns calculated with lower fees than offered to the intended audience — "Net" figures; fee basis unstated or below the audience's fee — (a)(1) — RA-2024-04; cross-ref FAQ 2026-01-15 (model vs actual fees)
 - PERF-04 — Fees and expenses used in return calculations omitted — Returns without fee/expense disclosure — (a)(1) — RA-2024-04
-- PERF-05 — Benchmark comparisons that don't define the index, give context for the comparison, or state whether dividends were reinvested — Any "vs. S&P 500" style line — (a)(3) — RA-2024-04; AR p.168
-- PERF-06 — Outdated market data only (5+ years old); products no longer available shown with lower costs than current — Stale figures; discontinued products — (a)(3) — RA-2024-04
-- PERF-07 — Track record on securities not bought the same way in client accounts; "above average" claims with no clients or track record; performance during periods most investors would have matched due to general market — Personal/paper track records; new-firm performance claims; bull-market periods without context — (a)(3) — RA-2024-04
+- PERF-05 — Benchmark comparisons that don't define the index, give context for the comparison, or state whether dividends were reinvested — Index comparisons where the index is undefined, silent on dividends, or uncontextualized as to why it is comparable — (a)(3) — RA-2024-04; AR p.168
+- PERF-06 — Outdated market data only (5+ years old); products no longer available shown with lower costs than current — Stale figures, or discontinued products shown at costs lower than those charged now — (a)(3) — RA-2024-04
+- PERF-07 — Track record on securities not bought the same way in client accounts; "above average" claims with no clients or track record; performance during periods most investors would have matched due to general market — Personal or paper track records; performance claimed by a firm that cannot show client accounts behind it; bull-market periods without context — (a)(3) — RA-2024-04
 - PERF-08 — Social media posts highlighting performance without material risks or limitations — Return figures in a post with no risk language — (a)(4) — RA-2024-04
-- PERF-09 — Only the most profitable investments shown; losses or write-offs excluded without rationale — Winner lists; "top picks" — (a)(5) — RA-2024-04
+- PERF-09 — Only the most profitable investments shown; losses or write-offs excluded without rationale — Winner lists or "top picks" excluding losses or write-offs with no stated rationale — (a)(5) — RA-2024-04
 - PERF-10 — Time period not disclosed, or different figures in one ad calculated over different periods — Returns without dates; mixed periods — (a)(6) — RA-2024-04
 - PERF-11 — Total net return built from realized investments only, excluding unrealized — "Realized" in the fine print, or no basis given — (a)(6) — RA-2024-04
 - PERF-12 — Hypothetical performance (model, backtested, projected) on a public website or to a mass audience without policies and procedures to ensure relevance to the intended audience's likely financial situation and objectives — Any model, backtest, or projection in public content — (d)(6)(i) — EA-2023-09 (nine firms); EA-2024-04 (five firms); EA-2023-08 Titan; EA-2024-11 Wahed
-- PERF-13 — Hypothetical performance without the criteria and assumptions used: 2,700% "annualized" extrapolated from three weeks on a hypothetical account with no actual trading — Annualized or extrapolated figures; "model" with no method — (d)(6)(ii), (a)(1) — EA-2023-08 Titan
+- PERF-13 — Hypothetical performance without the criteria and assumptions used: 2,700% "annualized" extrapolated from three weeks on a hypothetical account with no actual trading — Annualized or extrapolated figures, or a model, presented without the criteria and assumptions behind them — (d)(6)(ii), (a)(1) — EA-2023-08 Titan
 - PERF-14 — Hypothetical performance without sufficient information for a retail audience to understand its risks and limitations — Projections with no risk/limitation language — (d)(6)(iii) — EA-2023-08 Titan
 - PERF-15 — Misleading model performance; performance the adviser could not substantiate on demand — Model results with no records behind them — (a)(1), (a)(2) — EA-2024-04 GeaSphere
 - PERF-16 — Gross performance shown without net performance alongside; RA-2024-04 observed advertisements showing gross only — Gross figures with no net figure alongside — (d)(1) — RA-2024-04
@@ -58,13 +58,13 @@ Entry shape: ID — Observed (what examiners found) — Pattern (what it looks l
 
 - TE-01 — Required disclosures not provided at the time of dissemination: client/investor status, compensation (cash or non-cash), material conflicts — Quote with no status/compensation/conflict line — (b)(1)(i) — RA-2025-12; cross-ref EA-2024-11 Wahed
 - TE-02 — Disclosures provided but not clear and prominent: hyperlinked instead of in the testimonial; smaller or lighter font than the quote — "See disclosures" link; footnote-size text — (b)(1) — RA-2025-12; AR p.90
-- TE-03 — Reviews imported from third-party sites onto adviser site without disclosing they came from current or former clients — Embedded Google/Yelp-style reviews — (b)(1)(i) — RA-2025-12
+- TE-03 — Reviews imported from third-party sites onto adviser site without disclosing they came from current or former clients — Embedded Google or Yelp-style reviews with no disclosure that the reviewers are current or former clients — (b)(1)(i) — RA-2025-12
 - TE-04 — Gift cards given to clients for third-party reviews without basis to believe the reviewer made paid-testimonial disclosures — Any incentive for reviews — (b)(1), (b)(2)(i) — RA-2025-12
 - TE-05 — Compensation terms disclosed generically; amount, calculation, or duration omitted (e.g., influencer "compensated for referrals") — "Promoter may receive compensation" with no terms — (b)(1)(ii) — RA-2025-12; AR p.96
 - TE-06 — Material conflicts undisclosed: promoter holds a financial interest in the adviser; promoter is a principal of a firm with sub-advisory or other significant arrangements — Endorser relationship not stated — (b)(1)(iii) — RA-2025-12; cross-ref EA-2024-11 (endorser held parent-company equity)
 - TE-07 — Arrangements not recognized as endorsements: lead-generation firms, social media influencers, referral networks, refer-a-friend programs; whether an arrangement is an endorsement is decided by the (e) definitions — Referral or affiliate content with no endorsement treatment — (b), (e)(5) — RA-2025-12
 - TE-08 — No written agreement with paid promoters, or agreement missing scope of activities or compensation terms — Paid promotion with no agreement on file — (b)(2)(ii) — RA-2025-12; cross-ref EA-2024-04 GeaSphere
-- TE-09 — De minimis exemption claimed because each payment was under $1,000, but total exceeded $1,000 in the preceding 12 months — Repeated small referral payments — (b)(4)(i), (e)(2) — RA-2025-12
+- TE-09 — De minimis exemption claimed because each payment was under $1,000, but total exceeded $1,000 in the preceding 12 months — Referral payments whose twelve-month total to one person exceeds the de minimis threshold — (b)(4)(i), (e)(2) — RA-2025-12
 - TE-10 — Compensation paid to ineligible persons (state disciplinary history) when the adviser knew or should have known — Promoter background unchecked — (b)(3), (e)(9) — RA-2025-12
 - TE-11 — Affiliated promoters used without the affiliation readily apparent or disclosed at dissemination (disclosed only at introduction) — Staff or partner quotes without affiliation stated — (b)(4)(ii) — RA-2025-12
 - TE-12 — Sponsorship framed as "Official Wealth Management Partner" of an athletic program that was not a client and was paid; run across social media, video, a jumbotron, and merchandise without endorsement disclosures — Sponsorship or "official partner" language — (b)(1)(i) — EA-2024-09
@@ -73,7 +73,7 @@ Entry shape: ID — Observed (what examiners found) — Pattern (what it looks l
 ## TPR — Third-party ratings, Rule 206(4)-1(c)
 
 - TPR-01 — No reasonable basis on survey/questionnaire design (equally easy to give favorable and unfavorable responses; not predetermined) — Rating used with no methodology review on file — (c)(1) — RA-2025-12
-- TPR-02 — Link to a third-party site carrying the rating; neither the ad nor the linked site has required disclosures — "See our rating on X" links — (c)(2) — RA-2025-12
+- TPR-02 — Link to a third-party site carrying the rating; neither the ad nor the linked site has required disclosures — "See our rating on X" links where the advertisement itself carries no rating disclosures — (c)(2) — RA-2025-12
 - TPR-03 — Date of rating and period covered not clearly and prominently identified; year ranges including years the award wasn't received — Undated badges; "2019–2024" with gaps — (c)(2)(i) — RA-2025-12; cross-ref EA-2024-09 (ratings 5+ years old, no date/period)
 - TPR-04 — Rating logos that don't identify the third party that created and tabulated the rating — Badge without provider name — (c)(2)(ii) — RA-2025-12
 - TPR-05 — Compensation for logo use, reprints, priority placement, enhanced exposure, or referral links undisclosed where the rating is posted — Paid badges/reprints with no compensation line — (c)(2)(iii) — RA-2025-12; AR p.162
