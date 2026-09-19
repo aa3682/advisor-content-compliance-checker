@@ -21,3 +21,6 @@ samples:
   GP-02-1:
     1: {verdict: pass}                       # correct output plus a Confirm block with Would apply GP-03, GP-05: pass, extras GP-05 (would-apply-subset)
     2: {verdict: fail, checks: [P4]}         # the same with Would apply GP-05 only: expected GP-03 absent
+  CLR-01:
+    20: {verdict: pass}                       # Fix line names the fixture's own "SEC-approved" claim: subtracted (u2-quoted-spans)
+    21: {verdict: fail, checks: [U2]}         # Fix line quotes "fully compliant", not the fixture's words: scanned, U2

@@ -17,7 +17,10 @@ second parser.
 
 What and Where lines are subtracted from the clearance scan because they carry
 catalog and content text; U4 (What equals the cited Pattern) and U5 (every Where
-quote is a substring of the fixture) make that true.
+quote is a substring of the fixture) make that true. Fix and Depends-on lines carry
+the skill's own words, so their quoted spans are subtracted only when the span is
+the content's own words -- a substring of the fixture under U5's normalization
+(u2-quoted-spans).
 """
 import argparse
 import re
@@ -287,15 +290,43 @@ def check_u1(s, t):
     return r
 
 
-def check_u2(s, t, terms):
+CONDITIONAL_SUBTRACT = ("Fix", "Depends on")
+
+
+def subtract_fixture_quotes(line, hay):
+    """Drop the quoted spans that are the content's own words (u2-quoted-spans).
+
+    hay is the fixture text collapsed with collapse_ws, or None when the fixture is
+    unavailable; with no fixture to check against, no span is subtracted. A span is
+    matched under U5's normalization (collapse_ws, then one terminal mark stripped)."""
+    def repl(m):
+        if hay is None:
+            return m.group(0)
+        needle = strip_terminal(collapse_ws(m.group(0)[1:-1]))
+        return "" if needle and needle in hay else m.group(0)
+    return QUOTE_RE.sub(repl, line)
+
+
+def check_u2(s, t, terms, fixture_text=None):
+    """Clearance scan (u2-quoted-spans). What lines are subtracted whole; Where lines have
+    every quoted span subtracted; Fix and Depends-on lines have a quoted span subtracted
+    only when it is a substring of the fixture, so that a Fix line can name the clearance
+    claim it tells the advisor to remove without naming one of its own."""
     r = []
+    hay = collapse_ws(fixture_text) if fixture_text is not None else None
     for l in s["lines"]:
         if not l.strip() or l in t["subtract_fixed"]:
             continue
         fm = FIELD_RE.match(l)
-        if fm and fm.group(1) == "What":
+        field = fm.group(1) if fm else None
+        if field == "What":
             continue
-        scan = QUOTE_RE.sub("", l) if fm and fm.group(1) == "Where" else l
+        if field == "Where":
+            scan = QUOTE_RE.sub("", l)
+        elif field in CONDITIONAL_SUBTRACT:
+            scan = subtract_fixture_quotes(l, hay)
+        else:
+            scan = l
         low = scan.lower()
         for term in terms:
             if term in low:
@@ -478,7 +509,8 @@ def score_sample(text, exp, ctx, fixture_id):
     fixture_path = FIXTURES / f"{fixture_id}.md"
     fixture_text = fixture_path.read_text(encoding="utf-8") if fixture_path.is_file() else None
     failed = {}
-    for name, r in (("U1", check_u1(s, ctx["t"])), ("U2", check_u2(s, ctx["t"], ctx["terms"])),
+    for name, r in (("U1", check_u1(s, ctx["t"])),
+                    ("U2", check_u2(s, ctx["t"], ctx["terms"], fixture_text)),
                     ("U3", check_u3(s, ctx["t"])), ("U4", check_u4(s, ctx["cat"], ctx["ref_tokens"])),
                     ("U5", check_u5(s, fixture_text))):
         if r:

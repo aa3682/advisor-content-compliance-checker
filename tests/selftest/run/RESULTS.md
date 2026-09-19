@@ -4,13 +4,15 @@
 - date: 2026-09-18
 - skill_commit: d17a00a
 - model: none (crafted samples)
-- fixtures: 2
+- fixtures: 3
 - n_entry: 19
-- n_adversarial: 0
-- notes: scorer self-test; 17 crafted outputs for GP-01-1 and 2 for GP-02-1, see tests/selftest/EXPECTED.yaml
+- n_adversarial: 2
+- notes: scorer self-test; 17 crafted outputs for GP-01-1, 2 for GP-02-1, 2 for CLR-01, see tests/selftest/EXPECTED.yaml
 
 | fixture | k | verdict | failed checks | extras |
 |---|---|---|---|---|
+| CLR-01 | 20 | PASS |  |  |
+| CLR-01 | 21 | FAIL | U2: term 'compliant' in line 'Fix: Remove the claim; do not replace it with "fully complia' |  |
 | GP-01-1 | 1 | PASS |  |  |
 | GP-01-1 | 2 | FAIL | U5: Flag 1 Where quote 'I am completely free of conflicts of interest, an ' is not in the fixture |  |
 | GP-01-1 | 3 | FAIL | U4: Flag 1 What 'Any absolute no-conflict statement; any claim of a' != catalog Pattern for GP-01 |  |
@@ -34,6 +36,6 @@
 ## Totals
 
 - entry: samples 3/19 pass; fixtures 0/2 pass
-- adversarial: samples 0/0 pass; fixtures 0/0 pass
+- adversarial: samples 1/2 pass; fixtures 0/1 pass
 
 RUN: FAIL
