@@ -62,13 +62,13 @@ Entry shape: ID — Observed (what examiners found) — Pattern (what it looks l
 - TE-04 — Gift cards given to clients for third-party reviews without basis to believe the reviewer made paid-testimonial disclosures — Any incentive for reviews — (b)(1), (b)(2)(i) — RA-2025-12
 - TE-05 — Compensation terms disclosed generically; amount, calculation, or duration omitted (e.g., influencer "compensated for referrals") — "Promoter may receive compensation" with no terms — (b)(1)(ii) — RA-2025-12; AR p.96
 - TE-06 — Material conflicts undisclosed: promoter holds a financial interest in the adviser; promoter is a principal of a firm with sub-advisory or other significant arrangements — Endorser relationship not stated — (b)(1)(iii) — RA-2025-12; cross-ref EA-2024-11 (endorser held parent-company equity)
-- TE-07 — Arrangements not recognized as endorsements: lead-generation firms, social media influencers, referral networks, refer-a-friend programs — Referral or affiliate content with no endorsement treatment — (b), (e) definitions — RA-2025-12
+- TE-07 — Arrangements not recognized as endorsements: lead-generation firms, social media influencers, referral networks, refer-a-friend programs; whether an arrangement is an endorsement is decided by the (e) definitions — Referral or affiliate content with no endorsement treatment — (b), (e)(5) — RA-2025-12
 - TE-08 — No written agreement with paid promoters, or agreement missing scope of activities or compensation terms — Paid promotion with no agreement on file — (b)(2)(ii) — RA-2025-12; cross-ref EA-2024-04 GeaSphere
 - TE-09 — De minimis exemption claimed because each payment was under $1,000, but total exceeded $1,000 in the preceding 12 months — Repeated small referral payments — (b)(4)(i), (e)(2) — RA-2025-12
 - TE-10 — Compensation paid to ineligible persons (state disciplinary history) when the adviser knew or should have known — Promoter background unchecked — (b)(3), (e)(9) — RA-2025-12
 - TE-11 — Affiliated promoters used without the affiliation readily apparent or disclosed at dissemination (disclosed only at introduction) — Staff or partner quotes without affiliation stated — (b)(4)(ii) — RA-2025-12
 - TE-12 — Sponsorship framed as "Official Wealth Management Partner" of an athletic program that was not a client and was paid; run across social media, video, a jumbotron, and merchandise without endorsement disclosures — Sponsorship or "official partner" language — (b)(1)(i) — EA-2024-09
-- TE-13 — "Testimonials" from former clients, or from persons whose client status could not be verified, presented as current-client testimonials — Undated quotes attributed to "clients" — (b)(1)(i); testimonial definition (e) — EA-2024-09
+- TE-13 — "Testimonials" from former clients, or from persons whose client status could not be verified, presented as current-client testimonials; whether a statement is a testimonial is decided by the (e) testimonial definition — Undated quotes attributed to "clients" — (b)(1)(i), (e)(17) — EA-2024-09
 
 ## TPR — Third-party ratings, Rule 206(4)-1(c)
 

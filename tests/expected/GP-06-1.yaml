@@ -4,4 +4,4 @@ targets: [GP-06]
 elements: []
 required:
   - id: GP-06
-    where: ["I receive nothing from any fund company", "$40 for every account opened"]
+    where: ["partner link", "Harbor Ultra-Short Bond Fund"]

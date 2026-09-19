@@ -24,3 +24,6 @@ samples:
   CLR-01:
     20: {verdict: pass}                       # Fix line names the fixture's own "SEC-approved" claim: subtracted (u2-quoted-spans)
     21: {verdict: fail, checks: [U2]}         # Fix line quotes "fully compliant", not the fixture's words: scanned, U2
+  SCP-01:
+    22: {verdict: pass}                       # State line before Scope line: no order asserted among header lines (header-line-order)
+    23: {verdict: fail, checks: [P5]}         # two Scope lines: P5 expects exactly one

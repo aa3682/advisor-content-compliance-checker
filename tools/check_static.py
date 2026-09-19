@@ -18,6 +18,9 @@ No run is needed. One named check each, per RULINGS.md:
      "Rules last verified" carries one date across SKILL.md, README.md and every reference file;
      SKILL.md is at most 500 lines.
   S6 phase6-fixture-format: every catalog ID named in tests/expected/*.yaml exists in the catalog.
+  S7 cite-token-shape: every catalog Rule field is paragraph tokens only, separated by ", "
+     — no prose, no alternative separator. The field is parsed as a token set by this file's
+     paragraph_set and by the scorer's U4, so prose in it is a format violation.
 Prints one line per problem, then STATIC: PASS or STATIC: FAIL; exit code matches.
 """
 import re
@@ -42,6 +45,8 @@ REF_LINE_RE = re.compile(r"^- ((?:GP|PERF|TE|TPR)-\d+) — (.*)$")
 CITE_ANNOT_RE = re.compile(r"\s*\(catalog cite: ([^)]*(?:\([^)]*\))*[^)]*)\)$")
 INDEX_LINE_RE = re.compile(r"^- ((?:GP|PERF|TE|TPR)-\d+) · (.*) · (\([^·]*) · (.*)$")
 VERIFIED_RE = re.compile(r"Rules last verified: (\d{4}-\d{2}-\d{2})")
+# cite-token-shape: (a) / (d)(1) / (b)(1)(i) / (e)(17) and so on; nothing else
+PARA_TOKEN_RE = re.compile(r"^\((?:[a-z]|\d+)\)(?:\((?:\d+|[ivx]+|[a-z])\))*$")
 
 
 def paragraph_set(rule_field):
@@ -158,6 +163,16 @@ def main():
         for cid in ids:
             if cid not in cat:
                 problems.append(f"S6: {path.name}: ID {cid!r} not in catalog")
+
+    # S7 — Rule field is paragraph tokens only (cite-token-shape)
+    for e in entries:
+        rule = e["rule"]
+        tokens = rule.split(", ")
+        if rule != ", ".join(t.strip() for t in tokens) or not all(PARA_TOKEN_RE.match(t) for t in tokens):
+            bad = [t for t in tokens if not PARA_TOKEN_RE.match(t)] or [rule]
+            problems.append(
+                f"S7: {e['id']}: Rule field {rule!r} is not comma-separated paragraph tokens "
+                f"(offending: {', '.join(repr(b) for b in bad)}); prose belongs in Observed")
 
     for line in problems:
         print(line)

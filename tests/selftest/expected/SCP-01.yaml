@@ -1,0 +1,9 @@
+id: SCP-01
+category: SCP
+targets: [GP-05]
+elements: []
+required:
+  - id: GP-05
+    where: "legally bound to put your interests ahead of my own"
+forbidden: [GP-06]
+scope: "FINRA"

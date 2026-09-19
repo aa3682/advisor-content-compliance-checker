@@ -2,6 +2,6 @@ id: TPR-06-1
 category: entry
 targets: [TPR-06]
 elements: [third-party rating]
-required:
-  - id: TPR-06
-    where: ["No fee of any kind was paid", "$350 application"]
+required: []
+confirm:
+  - would_apply: [TPR-06]

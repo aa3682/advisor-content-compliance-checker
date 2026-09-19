@@ -4,10 +4,10 @@
 - date: 2026-09-18
 - skill_commit: d17a00a
 - model: none (crafted samples)
-- fixtures: 3
+- fixtures: 4
 - n_entry: 19
-- n_adversarial: 2
-- notes: scorer self-test; 17 crafted outputs for GP-01-1, 2 for GP-02-1, 2 for CLR-01, see tests/selftest/EXPECTED.yaml
+- n_adversarial: 4
+- notes: scorer self-test; 17 crafted outputs for GP-01-1, 2 for GP-02-1, 2 for CLR-01, 2 for SCP-01, see tests/selftest/EXPECTED.yaml
 
 | fixture | k | verdict | failed checks | extras |
 |---|---|---|---|---|
@@ -32,10 +32,23 @@
 | GP-01-1 | 19 | PASS |  |  |
 | GP-02-1 | 1 | PASS |  | GP-05 |
 | GP-02-1 | 2 | FAIL | P4: no Confirm block lists Would apply ['GP-03'] | GP-05 |
+| SCP-01 | 22 | PASS |  |  |
+| SCP-01 | 23 | FAIL | P5: expected one Scope line, found 2 |  |
+
+## Per fixture
+
+| fixture | class | n | hard failures | P-assertions clean | needs | verdict |
+|---|---|---|---|---|---|---|
+| CLR-01 | adversarial | 2 | 1 | 2/2 | 2/2 | FAIL |
+| SCP-01 | adversarial | 2 | 0 | 1/2 | 2/2 | FAIL |
+| GP-01-1 | entry | 17 | 14 | 14/17 | 9/17 | FAIL |
+| GP-02-1 | entry | 2 | 0 | 1/2 | 2/2 | FAIL |
 
 ## Totals
 
 - entry: samples 3/19 pass; fixtures 0/2 pass
-- adversarial: samples 1/2 pass; fixtures 0/1 pass
+- adversarial: samples 2/4 pass; fixtures 0/2 pass
+- samples: 5/23 pass (21.7%); floor 95% NOT met
+- fixtures: 0/4 pass (hard checks contaminated, U0, U1, U2, U3, U4, U5, P0, P3; majority checks P1, P2, P4, P5)
 
 RUN: FAIL

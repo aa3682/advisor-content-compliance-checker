@@ -23,7 +23,7 @@ First-pass review of advisor-facing marketing content against SEC Rule 206(4)-1.
 Follow these steps in order for every review. The wording of every fixed line below is set by RULINGS.md (output-shape, entries-to-checks, unclassifiable-content, state-divergence). Do not vary it.
 
 1. Read the whole content before flagging anything. If the user asks for a verdict ("is this okay?", "does this pass?"), do not answer the question; return this review.
-2. Detect elements. Scan for the six rule-defined elements and record the ones present using these exact names and no others: testimonial, endorsement, third-party rating, gross performance, net performance, hypothetical performance (their paragraphs, for lookup only and never printed: (e)(17), (e)(5), (e)(18), (e)(7), (e)(10), (e)(8)). Apply the definitions to the facts the content states, not to its labels: an award or ranking attributed to a third party is a third-party rating whether or not the provider is named; a nomination is not; a statement by a former client is an endorsement; a figure labeled net is net performance whatever else it is; a figure labeled neither gross nor net is not listed and becomes a Confirm item (step 5). Open skill/references/definitions.md when a term's boundary is unclear. Never describe the content by format.
+2. Detect elements. Scan for the six rule-defined elements and record the ones present using these exact names and no others: testimonial, endorsement, third-party rating, gross performance, net performance, hypothetical performance (their paragraphs, for lookup only and never printed: (e)(17), (e)(5), (e)(18), (e)(7), (e)(10), (e)(8)). Apply the definitions to the facts the content states, not to its labels: an award or ranking attributed to a third party is a third-party rating whether or not the provider is named; a nomination is not; a statement by a former client is an endorsement; a figure labeled net is net performance whatever else it is; a figure labeled neither gross nor net is not listed and becomes a Confirm item (step 5). Performance attributed to positions or portfolios not actually held in client accounts is hypothetical performance whatever the content calls it, per (e)(8). Open skill/references/definitions.md when a term's boundary is unclear. Never describe the content by format.
 3. Note scope markers. If the content mentions a broker-dealer or FINRA, a private fund, an ERISA or retirement-plan offering, or a non-US regulator, record the marker for the scope line. The review still runs. If part of the content is an image or attachment you cannot read, record it for the not-reviewed line.
 4. Run every check in the Checks section, GP through TPR, in index order. A check fires only when the content contains the check's Pattern, never on what an unstated fact might make apply; that is a Confirm item (step 5) or nothing. Performance figures inside a quoted testimonial or endorsement are performance results and receive every PERF check. When the same Pattern occurs more than once in one document, write one flag for that entry; the Where line quotes the first occurrence. For each firing check:
    a. Open the reference file(s) named on the check line and find the entry by ID.
@@ -39,6 +39,7 @@ Fixed lines are written verbatim. The template holds only the lines printed on e
 
 The Scope line appears only when a scope marker is present, immediately after the "Reviewed as an advertisement" line.
 The Not reviewed line appears only when part of the content cannot be read, immediately after the "Reviewed as an advertisement" line (after the Scope line when both appear).
+Both sit between the "Reviewed as an advertisement" line and the "State-registered advisers" line, which the template fence shows adjacent because neither conditional line is printed on every output.
 The Zero flags line appears only when Flags: 0, immediately before the closing line.
 
 Never describe content as approved, cleared, passing, safe to publish, meeting the rule, or any equivalent, including the adjective form of the word "compliance". Never state which flags matter most.
@@ -120,13 +121,13 @@ Generated from catalog/failures.md by tools/build_check_index.py. Never hand-edi
 - TE-04 · Any incentive for reviews · (b)(1), (b)(2)(i) · testimonials-endorsements.md
 - TE-05 · "Promoter may receive compensation" with no terms · (b)(1)(ii) · testimonials-endorsements.md
 - TE-06 · Endorser relationship not stated · (b)(1)(iii) · testimonials-endorsements.md
-- TE-07 · Referral or affiliate content with no endorsement treatment · (b), (e) definitions · testimonials-endorsements.md, definitions.md
+- TE-07 · Referral or affiliate content with no endorsement treatment · (b), (e)(5) · testimonials-endorsements.md, definitions.md
 - TE-08 · Paid promotion with no agreement on file · (b)(2)(ii) · testimonials-endorsements.md
 - TE-09 · Repeated small referral payments · (b)(4)(i), (e)(2) · testimonials-endorsements.md, definitions.md
 - TE-10 · Promoter background unchecked · (b)(3), (e)(9) · testimonials-endorsements.md, definitions.md
 - TE-11 · Staff or partner quotes without affiliation stated · (b)(4)(ii) · testimonials-endorsements.md
 - TE-12 · Sponsorship or "official partner" language · (b)(1)(i) · testimonials-endorsements.md
-- TE-13 · Undated quotes attributed to "clients" · (b)(1)(i); testimonial definition (e) · testimonials-endorsements.md, definitions.md
+- TE-13 · Undated quotes attributed to "clients" · (b)(1)(i), (e)(17) · testimonials-endorsements.md, definitions.md
 
 ### TPR (7)
 - TPR-01 · Rating used with no methodology review on file · (c)(1) · third-party-ratings.md

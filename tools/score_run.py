@@ -5,7 +5,8 @@ Usage:
   python tools/score_run.py <run-id> [--expected-dir DIR]
   python tools/score_run.py --selftest
 
-Implements RULINGS.md phase6-fixture-format and phase6-pass-criteria, plus the
+Implements RULINGS.md phase6-fixture-format, phase6-pass-criteria and phase6-majority-bar,
+plus the
 What-line subtraction in the clearance scan (a What line is a verbatim catalog
 Pattern, not the skill's own words). Scores tests/runs/<run-id>/ and writes
 tests/runs/<run-id>/RESULTS.md. Exit code 0 only when the run passes. A sample listed
@@ -14,6 +15,13 @@ and is not otherwise scored.
 
 The catalog parser is imported from tools/build_check_index.py; there is no
 second parser.
+
+Per phase6-majority-bar a fixture passes when no sample violates a hard check
+(the universal checks, the forbidden list in P3, contamination, a missing output
+or a missing expectation) and a strict majority of its samples are clean on the
+remaining per-fixture assertions. A run additionally requires MIN_SAMPLE_PASS_RATE
+of all samples to pass, so that a suite of fixtures each sitting at 2 of 3 is not
+green.
 
 What and Where lines are subtracted from the clearance scan because they carry
 catalog and content text; U4 (What equals the cited Pattern) and U5 (every Where
@@ -55,6 +63,11 @@ FLAG_FIELDS = ["Where", "What", "Cite", "Fix"]
 CONFIRM_FIELDS = ["Where", "Depends on", "Cite", "Would apply"]
 UNIVERSAL = ["U1", "U2", "U3", "U4", "U5"]
 PER_FIXTURE = ["P1", "P2", "P3", "P4", "P5"]
+# phase6-majority-bar: one violation of a hard check fails the fixture; the rest
+# need only a strict majority of the fixture's samples.
+HARD = ["contaminated", "U0", "U1", "U2", "U3", "U4", "U5", "P0", "P3"]
+MAJORITY = ["P1", "P2", "P4", "P5"]
+MIN_SAMPLE_PASS_RATE = 0.95
 
 
 # ---------------------------------------------------------------- inputs
@@ -83,9 +96,14 @@ def load_template():
 
     t = {
         "title": find("Marketing Rule"),
+        "title_prefix": "Marketing Rule",
         "elements_prefix": "Elements detected: ",
         "reviewed": find("Reviewed as an advertisement"),
+        "reviewed_prefix": "Reviewed as an advertisement",
         "state": find("State-registered advisers"),
+        "state_prefix": "State-registered advisers",
+        "scope_prefix": "Scope:",
+        "not_reviewed_prefix": "Not reviewed:",
         "no_match": next(l for l in cond if not l.startswith("Scope:") and not l.startswith("Not reviewed:")),
         "closing": find("Pre-review only."),
     }
@@ -197,49 +215,56 @@ def parse_sample(text, t):
          "n": None, "m": None, "flags": [], "confirms": [], "no_match": False,
          "closing_idx": None, "flags_idx": None}
     nonblank = [(i, l) for i, l in enumerate(raw) if l.strip()]
-    # header, in template order
-    seq = iter(nonblank)
-    def nxt():
-        try:
-            return next(seq)
-        except StopIteration:
-            return (None, None)
-    i, l = nxt()
-    if l != t["title"]:
-        s["u3"].append("title line missing or altered")
-    i, l = nxt()
-    if l is not None and l.startswith(t["elements_prefix"]):
-        s["elements_line"] = l[len(t["elements_prefix"]):]
-    else:
-        s["u3"].append("Elements detected line missing or out of order")
-    i, l = nxt()
-    if l != t["reviewed"]:
-        s["u3"].append("Reviewed-as line missing or out of order")
-    i, l = nxt()
-    while l is not None and t["scope_re"].match(l):
-        s["scope"].append(t["scope_re"].match(l).group(1))
-        i, l = nxt()
-    while l is not None and t["not_reviewed_re"].match(l):
-        s["not_reviewed"].append(t["not_reviewed_re"].match(l).group(1))
-        i, l = nxt()
-    if l != t["state"]:
-        s["u3"].append("State line missing or out of order")
-    i, l = nxt()
-    fm = FLAGS_RE.match(l or "")
-    if fm:
-        s["n"], s["m"] = int(fm.group(1)), int(fm.group(2))
-        s["flags_idx"] = i
-    else:
+    # header (header-line-order): the count line closes the header; every other header
+    # line is found by its prefix and required exactly once; no order is asserted among
+    # them, because no meaning depends on it.
+    at = next((n for n, (i, l) in enumerate(nonblank) if FLAGS_RE.match(l)), None)
+    if at is None:
         s["u3"].append("Flags/Confirm count line missing or malformed")
-        # try to recover it anywhere so block checks can still run
-        for j, x in nonblank:
-            fm = FLAGS_RE.match(x)
-            if fm:
-                s["n"], s["m"] = int(fm.group(1)), int(fm.group(2))
-                s["flags_idx"] = j
-                break
-    if s["flags_idx"] is None:
         return s
+    i, l = nonblank[at]
+    fm = FLAGS_RE.match(l)
+    s["n"], s["m"] = int(fm.group(1)), int(fm.group(2))
+    s["flags_idx"] = i
+    seen = {"title": [], "elements": [], "reviewed": [], "state": []}
+    for _, hl in nonblank[:at]:
+        if hl.startswith(t["title_prefix"]):
+            seen["title"].append(hl)
+        elif hl.startswith(t["elements_prefix"]):
+            seen["elements"].append(hl)
+            s["elements_line"] = hl[len(t["elements_prefix"]):]
+        elif hl.startswith(t["reviewed_prefix"]):
+            seen["reviewed"].append(hl)
+        elif hl.startswith(t["state_prefix"]):
+            seen["state"].append(hl)
+        elif hl.startswith(t["scope_prefix"]):
+            m = t["scope_re"].match(hl)
+            if m:
+                s["scope"].append(m.group(1))
+            else:
+                s["u3"].append(f"Scope line malformed: {hl[:60]!r}")
+        elif hl.startswith(t["not_reviewed_prefix"]):
+            m = t["not_reviewed_re"].match(hl)
+            if m:
+                s["not_reviewed"].append(m.group(1))
+            else:
+                s["u3"].append(f"Not reviewed line malformed: {hl[:60]!r}")
+        else:
+            s["u3"].append(f"unexpected line before the count line: {hl[:60]!r}")
+    for name, label, exact in (("title", "title", t["title"]),
+                               ("reviewed", "Reviewed-as", t["reviewed"]),
+                               ("state", "State", t["state"])):
+        got = seen[name]
+        if not got:
+            s["u3"].append(f"{label} line missing")
+        elif len(got) > 1:
+            s["u3"].append(f"{label} line appears {len(got)} times, expected once")
+        elif got[0] != exact:
+            s["u3"].append(f"{label} line altered")
+    if not seen["elements"]:
+        s["u3"].append("Elements detected line missing")
+    elif len(seen["elements"]) > 1:
+        s["u3"].append(f"Elements detected line appears {len(seen['elements'])} times, expected once")
     # body
     cur = None
     for j in range(s["flags_idx"] + 1, len(raw)):
@@ -567,10 +592,24 @@ def score_dir(run_dir, expected_dir, ctx):
     return rows
 
 
-def write_results(run_dir, manifest, rows):
-    fixtures = {}
+def fixture_verdicts(rows):
+    """Per-fixture verdict under phase6-majority-bar: no hard violation in any sample,
+    and a strict majority of the fixture's samples clean on the majority checks."""
+    by = {}
     for r in rows:
-        fixtures.setdefault((r["class"], r["fixture"]), []).append(not r["failed"])
+        by.setdefault((r["class"], r["fixture"]), []).append(r)
+    verdicts = {}
+    for key, rs in by.items():
+        n = len(rs)
+        hard = [r for r in rs if any(c in HARD for c in r["failed"])]
+        p_ok = sum(1 for r in rs if not any(c in MAJORITY for c in r["failed"]))
+        need = n // 2 + 1
+        verdicts[key] = {"n": n, "hard": len(hard), "p_ok": p_ok, "need": need,
+                         "ok": not hard and p_ok >= need}
+    return verdicts
+
+
+def write_results(run_dir, manifest, rows):
     out = ["# Results", ""]
     for k in ("run_id", "date", "skill_commit", "model", "fixtures", "n_entry", "n_adversarial", "notes"):
         out.append(f"- {k}: {manifest.get(k, '')}")
@@ -579,13 +618,30 @@ def write_results(run_dir, manifest, rows):
         checks = "; ".join(f"{n}: {' / '.join(v)}" for n, v in r["failed"].items()).replace("|", "\\|")
         verdict = "PASS" if not r["failed"] else "FAIL"
         out.append(f"| {r['fixture']} | {r['k']} | {verdict} | {checks} | {', '.join(r['extras'])} |")
+
+    verdicts = fixture_verdicts(rows)
+    out += ["", "## Per fixture", "",
+            "| fixture | class | n | hard failures | P-assertions clean | needs | verdict |",
+            "|---|---|---|---|---|---|---|"]
+    for (cls, fid), v in sorted(verdicts.items(), key=lambda kv: (kv[0][0], kv[0][1])):
+        out.append(f"| {fid} | {cls} | {v['n']} | {v['hard']} | {v['p_ok']}/{v['n']} | "
+                   f"{v['need']}/{v['n']} | {'PASS' if v['ok'] else 'FAIL'} |")
+
     out += ["", "## Totals", ""]
     for cls in ("entry", "adversarial"):
         srows = [r for r in rows if r["class"] == cls]
-        fx = {f: all(v) for (c, f), v in fixtures.items() if c == cls}
+        fx = [v["ok"] for (c, _), v in verdicts.items() if c == cls]
         out.append(f"- {cls}: samples {sum(1 for r in srows if not r['failed'])}/{len(srows)} pass; "
-                   f"fixtures {sum(fx.values())}/{len(fx)} pass")
-    passed = bool(rows) and all(not r["failed"] for r in rows)
+                   f"fixtures {sum(fx)}/{len(fx)} pass")
+    n_samples = len(rows)
+    n_pass = sum(1 for r in rows if not r["failed"])
+    rate = n_pass / n_samples if n_samples else 0.0
+    floor_ok = rate >= MIN_SAMPLE_PASS_RATE
+    out.append(f"- samples: {n_pass}/{n_samples} pass ({rate * 100:.1f}%); "
+               f"floor {MIN_SAMPLE_PASS_RATE * 100:.0f}% {'met' if floor_ok else 'NOT met'}")
+    out.append(f"- fixtures: {sum(v['ok'] for v in verdicts.values())}/{len(verdicts)} pass "
+               f"(hard checks {', '.join(HARD)}; majority checks {', '.join(MAJORITY)})")
+    passed = bool(rows) and all(v["ok"] for v in verdicts.values()) and floor_ok
     out += ["", "RUN: PASS" if passed else "RUN: FAIL"]
     (run_dir / "RESULTS.md").write_text("\n".join(out) + "\n", encoding="utf-8")
     return passed
