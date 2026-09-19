@@ -1,0 +1,4 @@
+NOM-02	1	unscoped Glob listed repo root incl. tests/expected/*.yaml
+CUR-02	1	unscoped Glob listed repo root incl. tests/expected/CUR-02.yaml
+PERF-13-1	2	unscoped Glob listed repo root incl. tests/expected/PERF-13-1.yaml
+TE-12-1	2	unscoped Glob listed repo root incl. catalog/failures.md, RULINGS.md, tests/expected/*.yaml

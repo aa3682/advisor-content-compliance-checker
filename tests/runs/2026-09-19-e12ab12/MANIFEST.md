@@ -1,0 +1,11 @@
+# Manifest
+- run_id: 2026-09-19-e12ab12
+- date: 2026-09-19
+- skill_commit: e12ab12
+- model: sonnet
+- model_reported: claude-sonnet-5
+- staging_root: /tmp/claude-0/-home-user-advisor-content-compliance-checker/f9f31e6b-33fc-5ee6-ba8b-b21108341650/scratchpad/staging-e12ab12
+- fixtures: 77
+- n_entry: 3
+- n_adversarial: 3
+- notes: batch size up to 20 (harness cap CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS=20); contaminated samples: 4 (NOM-02.1, CUR-02.1, PERF-13-1.2, TE-12-1.2) — in each, the subagent issued a Glob call with no path, which resolved against the repository root rather than the staged scratch directory and listed tests/expected/*.yaml and catalog/failures.md; each subagent reported listing filenames only and not opening the files, and each is failed as contaminated under run-isolation regardless. Duplicate run: CUR-02.1 was dispatched twice (relaunched while its first agent was still in flight); the recorded output.md is whichever agent wrote last. Reply conformance: most subagents replied DONE plus an unrequested summary; several noted that catalog/failures.md and RULINGS.md are absent from staging, which is the staging rule working as intended.
