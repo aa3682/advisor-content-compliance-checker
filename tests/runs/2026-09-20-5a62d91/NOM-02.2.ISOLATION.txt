@@ -1,0 +1,16 @@
+sample: NOM-02.2
+cwd: /tmp/claude-0/-home-user-advisor-content-compliance-checker/ae502e5e-0fbb-53ec-9f8a-5e9b2ae89a02/scratchpad/staging-5a62d91/NOM-02.2
+launched: 2026-09-20T12:33:38Z
+launcher: tests/harness/launch_sample.py
+tools: Read,Glob,Grep,Write
+model: sonnet
+files:
+content.md
+skill/.gitkeep
+skill/SKILL.md
+skill/references/.gitkeep
+skill/references/definitions.md
+skill/references/general-prohibitions.md
+skill/references/performance.md
+skill/references/testimonials-endorsements.md
+skill/references/third-party-ratings.md
