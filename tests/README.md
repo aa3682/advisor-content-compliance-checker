@@ -34,7 +34,11 @@ Adversarial test set for skill/SKILL.md. Specification: RULINGS.md entries phase
 
 ## Samples
 
-- Entry fixtures: N=1. Adversarial fixtures: N=3. A fixture passes only if every sample passes (phase6-pass-criteria).
+- Every fixture is drawn N=3, entry fixtures included (phase6-majority-bar).
+- A fixture passes when no sample violates a hard check and a strict majority of its samples are clean on the rest (phase6-majority-bar).
+  - Hard checks, any single violation fails the fixture: the universal checks U1 through U5, the forbidden list in P3, isolation, contamination, a missing output (U0), a missing expected file (P0).
+  - Majority checks, 2 of 3 suffices: P1 elements, P2 required, P4 confirm, P5 conditional lines.
+- A run additionally requires at least 95 percent of all samples to pass, so a suite of fixtures each sitting at 2 of 3 is not green (phase6-majority-bar).
 
 ## Staging rule
 
