@@ -1,0 +1,11 @@
+# Manifest
+- run_id: 2026-09-20-5a62d91
+- date: 2026-09-20
+- skill_commit: 5a62d91
+- model: sonnet
+- model_reported: claude-sonnet-5
+- staging_root: /tmp/claude-0/-home-user-advisor-content-compliance-checker/ae502e5e-0fbb-53ec-9f8a-5e9b2ae89a02/scratchpad/staging-5a62d91
+- fixtures: 77
+- n_entry: 3
+- n_adversarial: 3
+- notes: run 5, the first run under run-isolation-sandbox: each subagent is a separate claude process whose working directory is its staged directory, launched by tests/harness/launch_sample.py, with tests/runs/<run-id>/<sample>.ISOLATION.txt recorded before launch. Reviewing model: sonnet (alias resolved to claude-sonnet-5). model_reported in LAUNCH.log may additionally list claude-haiku-4-5-20251001, which is the CLI's own side calls and not the reviewing model. No fixes of any kind were made during this run.
