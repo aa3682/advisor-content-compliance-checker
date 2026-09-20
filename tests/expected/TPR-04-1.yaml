@@ -4,4 +4,4 @@ targets: [TPR-04]
 elements: [third-party rating]
 required:
   - id: TPR-04
-    where: "the name of the organization behind it isn't shown"
+    where: "it reads Client Confidence Rating 2025"

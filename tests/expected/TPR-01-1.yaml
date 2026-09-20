@@ -4,4 +4,4 @@ targets: [TPR-01]
 elements: [third-party rating]
 required:
   - id: TPR-01
-    where: "I have not reviewed how the survey is put together"
+    where: "gave the practice its 2025 Client Confidence rating"

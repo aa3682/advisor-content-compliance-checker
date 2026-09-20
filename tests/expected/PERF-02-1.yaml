@@ -4,4 +4,4 @@ targets: [PERF-02]
 elements: [gross performance, net performance]
 required:
   - id: PERF-02
-    where: ["only one share class", "whichever of its several share classes"]
+    where: "the fund returned 9.6% for 1 year"

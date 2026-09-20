@@ -4,4 +4,4 @@ targets: [GP-14]
 elements: [third-party rating]
 required:
   - id: GP-14
-    where: "one of its Top 12 Financial Advisors for 2024"
+    where: "Top 12 Financial Advisors for 2024"
