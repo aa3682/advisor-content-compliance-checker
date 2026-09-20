@@ -5,3 +5,7 @@ elements: [third-party rating]
 required:
   - id: TPR-02
     where: "See our rating on the Regional Advisor Review site"
+confirm:
+  - would_apply: [TPR-01]
+  - would_apply: [TPR-05, TPR-06]
+  - would_apply: [TPR-02]
