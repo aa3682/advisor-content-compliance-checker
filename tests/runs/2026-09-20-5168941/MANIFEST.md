@@ -1,0 +1,11 @@
+# Manifest
+- run_id: 2026-09-20-5168941
+- date: 2026-09-20
+- skill_commit: 5168941
+- model: sonnet
+- model_reported: claude-sonnet-5
+- staging_root: /tmp/claude-0/-home-user-advisor-content-compliance-checker/ae502e5e-0fbb-53ec-9f8a-5e9b2ae89a02/scratchpad/staging-5168941
+- fixtures: 77
+- n_entry: 3
+- n_adversarial: 3
+- notes: run 6, first run after anchor-migration-pass and ruling-62-te12-withdrawal. SKILL.md is byte-identical to run 5's; only expected anchors, TE-12-1's element line and the PERF-02-1 fixture changed, so the comparison with run 2026-09-20-5a62d91 isolates the migration. Reviewing model: sonnet (alias resolved to claude-sonnet-5); model_reported in LAUNCH.log may additionally list claude-haiku-4-5-20251001, the CLI's own side calls, not the reviewing model. Untouched and expected to still fail: CLR-02 GP-09, CNF-02 GP-06, TPR-02-1 TPR-02.
