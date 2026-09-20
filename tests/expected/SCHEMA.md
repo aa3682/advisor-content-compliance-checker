@@ -13,7 +13,7 @@ One YAML file per fixture at tests/expected/<id>.yaml. Spec: phase6-fixture-form
 - confirm — list, optional. Each item is a mapping with `would_apply` (list of catalog IDs, scored exactly). `where` and `depends_on` may be present as documentation; they are not scored strictly. Consumed by: per-fixture assertion, each would_apply matched.
 - scope — string or null, optional (default null). The marker the Scope line must name, or null when no Scope line is expected. Consumed by: per-fixture assertion, Scope line present exactly when expected.
 - not_reviewed — string or null, optional (default null). The image or attachment the Not reviewed line must name, or null when no Not reviewed line is expected. Consumed by: per-fixture assertion, Not reviewed line present exactly when expected.
-- no_match — boolean, optional (default false). True when `Flags: 0` and the Zero flags line ("Zero flags is not a clearance — the catalog covers documented failures only.") are expected. Consumed by: per-fixture assertion, Zero-flags line present exactly when expected.
+- no_match — boolean, optional (default false). True when `Flags: 0`, `Confirm: 0` and the Zero flags line ("Zero flags is not a clearance — the catalog covers documented failures only.") are expected; never true alongside a `confirm` expectation (zero-flags-line-scope). Consumed by: per-fixture assertion, Zero-flags line present exactly when expected.
 
 Most files carry only id, category, targets, elements, required.
 

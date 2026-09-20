@@ -9,16 +9,20 @@ Implements RULINGS.md phase6-fixture-format, phase6-pass-criteria and phase6-maj
 plus the
 What-line subtraction in the clearance scan (a What line is a verbatim catalog
 Pattern, not the skill's own words). Scores tests/runs/<run-id>/ and writes
-tests/runs/<run-id>/RESULTS.md. Exit code 0 only when the run passes. A sample listed
-in the run directory's CONTAMINATED.txt (run-isolation) fails with reason "contaminated"
-and is not otherwise scored.
+tests/runs/<run-id>/RESULTS.md. Exit code 0 only when the run passes. A sample whose
+isolation evidence, tests/runs/<run-id>/<fixture-id>.<k>.ISOLATION.txt, is missing, names a
+working directory other than the sample's, or lists any path outside skill/ and content.md
+(run-isolation-sandbox) fails with reason "isolation" and is not otherwise scored; the
+format is in tools/isolation.py. A sample listed in the run directory's CONTAMINATED.txt
+(run-isolation, the manual channel) fails with reason "contaminated" and is not otherwise
+scored.
 
 The catalog parser is imported from tools/build_check_index.py; there is no
 second parser.
 
 Per phase6-majority-bar a fixture passes when no sample violates a hard check
-(the universal checks, the forbidden list in P3, contamination, a missing output
-or a missing expectation) and a strict majority of its samples are clean on the
+(the universal checks, the forbidden list in P3, isolation, contamination, a missing
+output or a missing expectation) and a strict majority of its samples are clean on the
 remaining per-fixture assertions. A run additionally requires MIN_SAMPLE_PASS_RATE
 of all samples to pass, so that a suite of fixtures each sitting at 2 of 3 is not
 green.
@@ -37,6 +41,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build_check_index import ROOT, SKILL, REFS_DIR, parse_catalog  # noqa: E402
+from isolation import evidence_problems  # noqa: E402
 
 try:
     import yaml
@@ -65,7 +70,7 @@ UNIVERSAL = ["U1", "U2", "U3", "U4", "U5"]
 PER_FIXTURE = ["P1", "P2", "P3", "P4", "P5"]
 # phase6-majority-bar: one violation of a hard check fails the fixture; the rest
 # need only a strict majority of the fixture's samples.
-HARD = ["contaminated", "U0", "U1", "U2", "U3", "U4", "U5", "P0", "P3"]
+HARD = ["isolation", "contaminated", "U0", "U1", "U2", "U3", "U4", "U5", "P0", "P3"]
 MAJORITY = ["P1", "P2", "P4", "P5"]
 MIN_SAMPLE_PASS_RATE = 0.95
 
@@ -376,10 +381,11 @@ def check_u3(s, t):
         r.append("Confirm blocks not numbered 1..m without gaps")
     if m == 0 and confirms:
         r.append("Confirm section present with Confirm: 0")
-    if n == 0 and not s["no_match"]:
-        r.append("Zero-flags line absent with Flags: 0")
-    if n != 0 and s["no_match"]:
-        r.append(f"Zero-flags line present with Flags: {n}")
+    # zero-flags-line-scope: the line is printed only when Flags: 0 and Confirm: 0
+    if n == 0 and m == 0 and not s["no_match"]:
+        r.append("Zero-flags line absent with Flags: 0 and Confirm: 0")
+    if (n != 0 or m != 0) and s["no_match"]:
+        r.append(f"Zero-flags line present with Flags: {n}, Confirm: {m}")
     seen = {}
     for b in flags:
         if b["id"]:
@@ -572,6 +578,12 @@ def score_dir(run_dir, expected_dir, ctx):
     rows = []
     for (fid, k), path in sorted(samples.items()):
         exp = load_expected(expected_dir, fid)
+        iso = evidence_problems(run_dir, fid, k)  # run-isolation-sandbox: structural, checked first
+        if iso:
+            cat = exp["category"] if exp else "?"
+            rows.append({"fixture": fid, "k": k, "class": "entry" if cat == "entry" else "adversarial",
+                         "failed": {"isolation": iso}, "extras": []})
+            continue
         if (fid, k) in contaminated:
             cat = exp["category"] if exp else "?"
             rows.append({"fixture": fid, "k": k, "class": "entry" if cat == "entry" else "adversarial",

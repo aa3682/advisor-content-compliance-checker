@@ -5,4 +5,3 @@ elements: [gross performance, net performance]
 required: []
 confirm:
   - would_apply: [PERF-12]
-no_match: true

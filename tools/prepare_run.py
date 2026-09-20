@@ -10,13 +10,18 @@ Executes nothing. Per RULINGS.md phase6-run-method and phase6-pass-criteria:
   Creates tests/runs/<run-id>/ with MANIFEST.md, RUNLIST.tsv (fixture_id, k, scratch_path,
   output_path; entry fixtures first in ID order, then adversarial) and SUBAGENT_PROMPT.md
   (a copy of tests/harness/SUBAGENT_PROMPT.md, so the run records the prompt it used).
-  Stages one scratch directory per sample, <staging-root>/<fixture-id>.<k>/, with the
-  stage_fixture logic; --staging-root must be outside the repository (run-isolation), and
-  MANIFEST.md records it. RUNLIST scratch paths are absolute.
+  Stages one scratch directory per sample, <staging-root>/<fixture-id>.<k>/, holding
+  exactly skill/ and content.md and nothing else, no symlinks (run-isolation-sandbox);
+  the listing is verified after staging and the script refuses on any other path.
+  --staging-root must be outside the repository (run-isolation), and MANIFEST.md records
+  it. RUNLIST scratch paths are absolute. The stored prompt must carry no repository path
+  and no placeholder; the subagent is launched in its staged directory by
+  tests/harness/launch_sample.py, which records the isolation evidence the scorer requires.
 --dry-run does everything except create the run directory and prints what it would write.
 """
 import argparse
 import datetime as dt
+import re
 import shutil
 import subprocess
 import sys
@@ -24,6 +29,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build_check_index import ROOT  # noqa: E402
+from isolation import listing  # noqa: E402
 from stage_fixture import FIXTURES, SKILL  # noqa: E402
 
 try:
@@ -42,14 +48,36 @@ def git(*args):
 
 
 def stage(fixture_id, k, staging_root):
+    """Stage <staging-root>/<fixture-id>.<k>/ with exactly skill/ and content.md.
+
+    Files are copied, never linked (copytree resolves symlinks into plain files);
+    the staged listing is then checked against the staging rule."""
     src = FIXTURES / f"{fixture_id}.md"
     dest = staging_root / f"{fixture_id}.{k}"
     if dest.exists():
         shutil.rmtree(dest)
     dest.mkdir(parents=True)
-    shutil.copytree(SKILL, dest / "skill")
+    shutil.copytree(SKILL, dest / "skill", symlinks=False, ignore=shutil.ignore_patterns("__pycache__"))
     shutil.copyfile(src, dest / "content.md")
+    _, problems = listing(dest)
+    if problems:
+        for p in problems:
+            print(f"error: staged {fixture_id}.{k}: {p}", file=sys.stderr)
+        sys.exit(1)
     return dest
+
+
+def check_prompt():
+    """The stored prompt names relative paths only: no repository path, no placeholder."""
+    text = PROMPT.read_text(encoding="utf-8")
+    problems = []
+    if str(ROOT) in text:
+        problems.append("names the repository path")
+    if "<" in text and ">" in text:
+        problems.append("carries a placeholder")
+    if re.search(r"(?<![\w.])/(?:tmp|home|Users|mnt|var)/", text):
+        problems.append("names an absolute path")
+    return problems
 
 
 def main():
@@ -65,6 +93,9 @@ def main():
     staging_root = Path(a.staging_root).resolve()
     if staging_root == ROOT or ROOT in staging_root.parents:
         print("error: --staging-root must be outside the repository (run-isolation)", file=sys.stderr)
+        return 1
+    for p in check_prompt():
+        print(f"error: {PROMPT.relative_to(ROOT)} {p} (run-isolation-sandbox)", file=sys.stderr)
         return 1
 
     branch = git("rev-parse", "--abbrev-ref", "HEAD")
@@ -141,8 +172,9 @@ def main():
         shutil.copyfile(PROMPT, run_dir / "SUBAGENT_PROMPT.md")
     print(f"run_id: {run_id}")
     print(f"samples: {len(rows)} ({len(entry)} entry x {a.n_entry} + {len(adversarial)} adversarial x {a.n_adversarial})")
-    print(f"staged: {len(rows)} sample directories under {staging_root}/")
+    print(f"staged: {len(rows)} sample directories under {staging_root}/ (each verified: skill/ and content.md only)")
     print(f"runlist: {rel(run_dir / 'RUNLIST.tsv')}")
+    print(f"launch: python tests/harness/launch_sample.py {run_id} --all")
     return 0
 
 

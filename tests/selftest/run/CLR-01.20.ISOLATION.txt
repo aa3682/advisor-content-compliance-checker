@@ -1,0 +1,16 @@
+sample: CLR-01.20
+cwd: /scratch/selftest/CLR-01.20
+launched: 2026-09-20T00:00:00Z
+launcher: crafted (scorer self-test)
+tools: Read,Glob,Grep,Write
+model: none
+files:
+content.md
+skill/.gitkeep
+skill/SKILL.md
+skill/references/.gitkeep
+skill/references/definitions.md
+skill/references/general-prohibitions.md
+skill/references/performance.md
+skill/references/testimonials-endorsements.md
+skill/references/third-party-ratings.md

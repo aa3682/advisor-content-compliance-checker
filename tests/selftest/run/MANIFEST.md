@@ -6,4 +6,4 @@
 - fixtures: 4
 - n_entry: 19
 - n_adversarial: 4
-- notes: scorer self-test; 17 crafted outputs for GP-01-1, 2 for GP-02-1, 2 for CLR-01, 2 for SCP-01, see tests/selftest/EXPECTED.yaml
+- notes: scorer self-test; 20 crafted outputs for GP-01-1, 2 for GP-02-1, 2 for CLR-01, 2 for SCP-01, see tests/selftest/EXPECTED.yaml; every sample's <sample>.ISOLATION.txt is crafted evidence (cwd under /scratch/selftest/), not a recorded launch

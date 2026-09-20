@@ -5,4 +5,3 @@ elements: []
 required: []
 confirm:
   - would_apply: [GP-06]
-no_match: true
