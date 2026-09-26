@@ -4,4 +4,4 @@ targets: [TE-01]
 elements: [testimonial]
 required:
   - id: TE-01
-    where: "What families say about working with me"
+    where: ["What families say about working with me", "Working with the practice for the past three years"]

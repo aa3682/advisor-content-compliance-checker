@@ -4,6 +4,6 @@ targets: [TE-01]
 elements: [testimonial]
 required:
   - id: TE-01
-    where: "one of the families I work with told me last week"
+    where: ["one of the families I work with told me last week", "Two years in, and I finally sleep well about retirement."]
 forbidden: [GP-03]
 scope: "ERISA"

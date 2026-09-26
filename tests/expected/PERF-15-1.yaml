@@ -4,4 +4,4 @@ targets: [PERF-15]
 elements: [gross performance, net performance, hypothetical performance]
 required:
   - id: PERF-15
-    where: "Steady Income model, hypothetical results"
+    where: ["Steady Income model, hypothetical results", "Model trade records from before 2022 were not retained."]

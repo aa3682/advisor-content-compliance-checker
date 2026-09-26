@@ -4,4 +4,4 @@ targets: [TPR-07]
 elements: [third-party rating]
 required:
   - id: TPR-07
-    where: "that's the badge at the top of every page on our site"
+    where: ["that's the badge at the top of every page on our site", "sit in the footer at the bottom of the page, in smaller type"]

@@ -4,7 +4,7 @@ targets: [TE-01, PERF-16, PERF-08]
 elements: [testimonial, gross performance]
 required:
   - id: TE-01
-    where: "a note from a family I've worked with since 2022"
+    where: ["a note from a family I've worked with since 2022", "My account is up 14% before fees this year"]
   - id: PERF-16
     where: "up 14% before fees"
   - id: PERF-08

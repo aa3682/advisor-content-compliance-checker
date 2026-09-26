@@ -4,4 +4,4 @@ targets: [TE-09]
 elements: [endorsement]
 required:
   - id: TE-09
-    where: "$250 for each referral that becomes a client"
+    where: ["$250 for each referral that becomes a client", "under $1,000, the arrangement is treated as de minimis."]
