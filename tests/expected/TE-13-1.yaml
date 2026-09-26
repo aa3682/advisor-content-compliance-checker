@@ -4,4 +4,4 @@ targets: [TE-13]
 elements: [testimonial]
 required:
   - id: TE-13
-    where: ["They took the worry out of our retirement.", "Every dollar has a purpose now.", "The best money decision we ever made."]
+    where: ["They took the worry out of our retirement.", "Every dollar has a purpose now.", "The best money decision we ever made.", "Some of these families have since moved on to other advisers"]
