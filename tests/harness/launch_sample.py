@@ -11,21 +11,32 @@ Options:
   --jobs <n>          concurrent launches with --all (default 4)
   --skip-done         with --all, skip samples whose output file already exists
 
-Implements RULINGS.md run-isolation-sandbox. For each sample listed in
-tests/runs/<run-id>/RUNLIST.tsv:
+Implements RULINGS.md run-isolation-sandbox and sandbox-escape-handling. For each
+sample listed in tests/runs/<run-id>/RUNLIST.tsv:
 
-  1. The staged directory is listed (tools/isolation.py) and the evidence is written to
+  1. The sample is staged fresh under a neutral temp path, tempfile.mkdtemp(prefix=
+     "acc-run-<run-id>-")/<fixture-id>.<k>/, holding exactly skill/ and content.md; the
+     RUNLIST scratch_path column (under the CLI's own scratchpad tree) is not used, so no
+     path segment spells the repository location. The staged directory is listed
+     (tools/isolation.py) and the evidence is written to
      tests/runs/<run-id>/<fixture-id>.<k>.ISOLATION.txt: resolved cwd (pwd -P inside it),
      launch time, and every file under it. A staged directory holding anything but skill/
      and content.md, or any symlink, is refused: the evidence is recorded and no subagent runs.
-  2. A separate `claude -p` process is started with the staged directory as its working
-     directory. Its argv carries the prompt text from the run's SUBAGENT_PROMPT.md (relative
-     paths only), the model, and the tool set Read, Glob, Grep, Write; no MCP servers, no
-     settings files, no skills, no session persistence. Its environment is the harness
-     environment minus every variable whose value names the repository path, minus the
-     additional-directories variables, and with PWD set to the staged directory. A bare
-     Glob or Read therefore resolves inside the sample and cannot reach the repository.
-  3. output.md, if the subagent wrote it, is copied byte for byte to the sample's output
+  2. Before launch, the repo working tree is snapshotted: git status --porcelain plus an
+     mtime listing of every tracked and untracked file. A separate `claude -p` process is
+     then started with the staged directory as its working directory. Its argv carries the
+     prompt text from the run's SUBAGENT_PROMPT.md (relative paths only), the model, and the
+     tool set Read, Glob, Grep, Write; no MCP servers, no settings files, no skills, no
+     session persistence. Its environment is the harness environment minus every variable
+     whose value names the repository path, minus the additional-directories variables, and
+     with PWD set to the staged directory. A bare Glob or Read therefore resolves inside the
+     sample and cannot reach the repository.
+  3. After the subprocess exits, the repo working tree is swept against the snapshot. Any
+     path new or modified since launch, outside tests/runs/<run-id>/, is a sandbox escape:
+     it is deleted, its path is recorded in a "post-launch:" section appended to that
+     sample's ISOLATION.txt, and the sample is marked status "escaped" with no output
+     credited, whatever staged/output.md holds. Otherwise "post-launch: clean" is appended
+     and output.md, if the subagent wrote it, is copied byte for byte to the sample's output
      path. A sample with no output.md is a recorded failure and is not retried
      (phase6-run-model). The subagent's reply, the model it reported, and the exit status
      are appended as one JSON line to tests/runs/<run-id>/LAUNCH.log; a reply that reports
@@ -39,6 +50,7 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
 import threading
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -47,12 +59,14 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
 from isolation import write_evidence  # noqa: E402
+from stage_fixture import FIXTURES, SKILL  # noqa: E402
 
 RUNS = ROOT / "tests" / "runs"
 TOOLS = "Read,Glob,Grep,Write"
 DROP_ENV = {"CLAUDE_ADDITIONAL_DIRECTORIES", "CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD",
             "GITHUB_TOKEN", "GIT_ASKPASS", "OLDPWD"}
 LOG_LOCK = threading.Lock()
+ESCAPE_LOCK = threading.Lock()  # serializes snapshot -> subprocess -> sweep so concurrent samples can't misattribute an escape
 
 
 def child_env(staged):
@@ -66,6 +80,57 @@ def child_env(staged):
         env[key] = value
     env["PWD"] = str(staged)
     return env
+
+
+def stage_sample(base, fid, k):
+    """Stage <base>/<fid>.<k>/ fresh, holding exactly skill/ and content.md (sandbox-escape-handling).
+
+    base is a neutral temp directory (tempfile.mkdtemp), never the CLI's scratchpad tree,
+    so no path segment spells the repository location. Mirrors tools/prepare_run.py's stage()."""
+    dest = base / f"{fid}.{k}"
+    if dest.exists():
+        shutil.rmtree(dest)
+    dest.mkdir(parents=True)
+    shutil.copytree(SKILL, dest / "skill", symlinks=False, ignore=shutil.ignore_patterns("__pycache__"))
+    shutil.copyfile(FIXTURES / f"{fid}.md", dest / "content.md")
+    return dest
+
+
+def _git(*args):
+    return subprocess.run(["git", *args], cwd=str(ROOT), capture_output=True, text=True, check=True).stdout
+
+
+def repo_snapshot():
+    """git status --porcelain plus an mtime listing of every tracked and untracked file
+    (sandbox-escape-handling). Used to detect a post-launch write outside the sandbox."""
+    porcelain = _git("status", "--porcelain")
+    paths = set(_git("ls-files").splitlines()) | set(_git("ls-files", "--others", "--exclude-standard").splitlines())
+    mtimes = {}
+    for rel in paths:
+        p = ROOT / rel
+        try:
+            mtimes[rel] = p.stat().st_mtime
+        except OSError:
+            continue
+    return porcelain, mtimes
+
+
+def detect_escape(before_mtimes, run_id):
+    """Paths under the repo, outside tests/runs/<run-id>/, new or modified since `before_mtimes`."""
+    exclude = f"tests/runs/{run_id}/"
+    paths = set(_git("ls-files").splitlines()) | set(_git("ls-files", "--others", "--exclude-standard").splitlines())
+    escaped = []
+    for rel in sorted(paths):
+        if rel.startswith(exclude):
+            continue
+        p = ROOT / rel
+        try:
+            mtime = p.stat().st_mtime
+        except OSError:
+            continue
+        if rel not in before_mtimes or mtime != before_mtimes[rel]:
+            escaped.append(rel)
+    return escaped
 
 
 def read_runlist(run_dir):
@@ -91,18 +156,14 @@ def log(run_dir, record):
             fh.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 
-def launch(run_dir, row, prompt, model, max_turns, timeout):
-    fid, k, staged = row["fixture"], row["k"], row["scratch"]
+def launch(run_dir, run_id, base, row, prompt, model, max_turns, timeout):
+    fid, k = row["fixture"], row["k"]
     name = f"{fid}.{k}"
+    staged = stage_sample(base, fid, k)
     record = {"sample": name, "started": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
               "cwd": str(staged), "model": model}
-    if not staged.is_dir():
-        record.update({"status": "not-staged"})
-        log(run_dir, record)
-        print(f"{name}: not staged: {staged}")
-        return record
-    _, problems = write_evidence(staged, fid, k, run_dir,
-                                 extra={"launcher": "tests/harness/launch_sample.py", "tools": TOOLS, "model": model})
+    iso_path, problems = write_evidence(staged, fid, k, run_dir,
+                                        extra={"launcher": "tests/harness/launch_sample.py", "tools": TOOLS, "model": model})
     if problems:
         record.update({"status": "refused", "problems": problems})
         log(run_dir, record)
@@ -112,30 +173,53 @@ def launch(run_dir, row, prompt, model, max_turns, timeout):
             "--tools", TOOLS, "--allowedTools", TOOLS,
             "--strict-mcp-config", "--setting-sources", "", "--disable-slash-commands",
             "--no-session-persistence", "--max-turns", str(max_turns), "--output-format", "json"]
-    try:
-        proc = subprocess.run(argv, cwd=str(staged), env=child_env(staged), capture_output=True, text=True,
-                              timeout=timeout)
-        record["exit"] = proc.returncode
+    with ESCAPE_LOCK:  # snapshot -> subprocess -> sweep as one unit, so a concurrent sample can't be misattributed
+        _, before_mtimes = repo_snapshot()
         try:
-            result = json.loads(proc.stdout)
-        except ValueError:
-            result = {}
-        record["reply"] = result.get("result", proc.stdout[-2000:] if not result else "")
-        record["num_turns"] = result.get("num_turns")
-        record["model_reported"] = ",".join(sorted(result.get("modelUsage", {}).keys()))
-        if proc.returncode != 0:
-            record["stderr"] = proc.stderr[-2000:]
-    except subprocess.TimeoutExpired:
-        record.update({"exit": None, "status": "timeout"})
-    out = staged / "output.md"
-    if out.is_file():
-        row["output"].parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(out, row["output"])
-        record["output"] = str(row["output"].relative_to(ROOT))
-        record.setdefault("status", "done")
-    else:
+            proc = subprocess.run(argv, cwd=str(staged), env=child_env(staged), capture_output=True, text=True,
+                                  timeout=timeout)
+            record["exit"] = proc.returncode
+            try:
+                result = json.loads(proc.stdout)
+            except ValueError:
+                result = {}
+            record["reply"] = result.get("result", proc.stdout[-2000:] if not result else "")
+            record["num_turns"] = result.get("num_turns")
+            record["model_reported"] = ",".join(sorted(result.get("modelUsage", {}).keys()))
+            if proc.returncode != 0:
+                record["stderr"] = proc.stderr[-2000:]
+        except subprocess.TimeoutExpired:
+            record.update({"exit": None, "status": "timeout"})
+        escaped = detect_escape(before_mtimes, run_id)
+        if escaped:
+            for rel in escaped:
+                p = ROOT / rel
+                try:
+                    if p.is_dir() and not p.is_symlink():
+                        shutil.rmtree(p)
+                    elif p.exists() or p.is_symlink():
+                        p.unlink()
+                except OSError:
+                    pass
+            with iso_path.open("a", encoding="utf-8") as fh:
+                fh.write("post-launch:\n" + "".join(rel + "\n" for rel in escaped))
+        else:
+            with iso_path.open("a", encoding="utf-8") as fh:
+                fh.write("post-launch: clean\n")
+    if escaped:
         record["output"] = None
-        record.setdefault("status", "no-output")
+        record["status"] = "escaped"
+        record["escaped"] = escaped
+    else:
+        out = staged / "output.md"
+        if out.is_file():
+            row["output"].parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(out, row["output"])
+            record["output"] = str(row["output"].relative_to(ROOT))
+            record.setdefault("status", "done")
+        else:
+            record["output"] = None
+            record.setdefault("status", "no-output")
     log(run_dir, record)
     print(f"{name}: {record['status']}; reply: {(record.get('reply') or '')[:120]!r}")
     return record
@@ -176,10 +260,12 @@ def main():
         if not rows:
             print(f"error: {a.fixture_id}.{a.k} is not in RUNLIST.tsv", file=sys.stderr)
             return 1
+    base = Path(tempfile.mkdtemp(prefix=f"acc-run-{a.run_id}-"))  # neutral temp path (sandbox-escape-handling); never the scratchpad tree
     with ThreadPoolExecutor(max_workers=max(1, a.jobs if a.all else 1)) as pool:
-        records = list(pool.map(lambda r: launch(run_dir, r, prompt, model, a.max_turns, a.timeout), rows))
+        records = list(pool.map(lambda r: launch(run_dir, a.run_id, base, r, prompt, model, a.max_turns, a.timeout), rows))
     done = sum(1 for r in records if r.get("status") == "done")
-    print(f"{done}/{len(records)} samples produced output.md; evidence in {run_dir.relative_to(ROOT)}/<sample>.ISOLATION.txt; log in LAUNCH.log")
+    escaped = sum(1 for r in records if r.get("status") == "escaped")
+    print(f"{done}/{len(records)} samples produced output.md ({escaped} escaped); evidence in {run_dir.relative_to(ROOT)}/<sample>.ISOLATION.txt; log in LAUNCH.log")
     return 0 if done == len(records) else 1
 
 

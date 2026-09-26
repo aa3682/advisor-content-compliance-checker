@@ -43,6 +43,24 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build_check_index import ROOT, SKILL, REFS_DIR, parse_catalog  # noqa: E402
 from isolation import evidence_problems  # noqa: E402
 
+
+def escaped_paths(run_dir, fid, k):
+    """Paths a sandbox escape wrote, from the "post-launch:" section of its ISOLATION.txt
+    (sandbox-escape-handling), or None when that section reads "post-launch: clean" or
+    the file predates this ruling and carries no post-launch section at all."""
+    path = run_dir / f"{fid}.{k}.ISOLATION.txt"
+    if not path.is_file():
+        return None
+    text = path.read_text(encoding="utf-8")
+    if "\npost-launch: clean" in text:
+        return None
+    marker = "\npost-launch:\n"
+    idx = text.find(marker)
+    if idx == -1:
+        return None
+    paths = [line for line in text[idx + len(marker):].splitlines() if line.strip()]
+    return paths or None
+
 try:
     import yaml
 except ImportError:
@@ -592,8 +610,10 @@ def score_dir(run_dir, expected_dir, ctx):
             continue
         if path is None:
             cat = exp["category"] if exp else "?"
+            esc = escaped_paths(run_dir, fid, k)
+            reason = f"escaped: {', '.join(esc)}" if esc else "missing output"
             rows.append({"fixture": fid, "k": k, "class": "entry" if cat == "entry" else "adversarial",
-                         "failed": {"U0": ["missing output"]}, "extras": []})
+                         "failed": {"U0": [reason]}, "extras": []})
             continue
         failed, extras = score_sample(path.read_text(encoding="utf-8"), exp, ctx, fid)
         if exp is None:
