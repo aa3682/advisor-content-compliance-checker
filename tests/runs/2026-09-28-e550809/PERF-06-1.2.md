@@ -1,0 +1,19 @@
+Marketing Rule pre-review — SEC Rule 206(4)-1
+Elements detected: gross performance, net performance
+Reviewed as an advertisement under (e)(1); whether (e)(1) covers this communication is not assessed.
+State-registered advisers are subject to their state's rule, which may differ from any flag below; differences are not resolved here.
+Flags: 2. Confirm: 0.
+
+Flag 1
+Where: "Core Growth portfolio results for the periods ending December 31, 2018"
+What: Stale figures, or discontinued products shown at costs lower than those charged now
+Cite: (a)(3) · PERF-06 · RA-2024-04
+Fix: Replace the 2018 figures with figures for periods ending no earlier than the most recent calendar year-end, or remove the closed Core Growth portfolio results.
+
+Flag 2
+Where: "Net figures deduct the 0.75% annual fee the portfolio charged at the time plus all trading costs"
+What: "Net" figures; fee basis unstated or below the audience's fee
+Cite: (a)(1) · PERF-03 · RA-2024-04
+Fix: Recalculate the net figures using the 1.00% annual fee charged today, or remove the net figures that use the 0.75% fee.
+
+Pre-review only. Not legal or compliance advice. Confirm with your CCO or counsel.

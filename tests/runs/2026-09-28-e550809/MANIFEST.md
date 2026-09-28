@@ -1,0 +1,11 @@
+# Manifest
+- run_id: 2026-09-28-e550809
+- date: 2026-09-28
+- skill_commit: e550809
+- model: sonnet
+- model_reported: claude-sonnet-5
+- staging_root: /tmp/acc-stage-e550809
+- fixtures: 77
+- n_entry: 3
+- n_adversarial: 3
+- notes: 
