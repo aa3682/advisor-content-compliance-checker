@@ -18,8 +18,10 @@ ISOLATION.txt format (one field per line, then the listing):
     skill/references/definitions.md
     ...
 
-Every line after "files:" is one file path relative to cwd, POSIX separators, sorted.
-Unknown fields before "files:" are ignored by the scorer.
+Every line after "files:" is one file path relative to cwd, POSIX separators, sorted,
+up to a "post-launch:" line if present. That line and anything after it are the
+post-launch sweep the launcher appends (sandbox-escape-handling); score_run.py reads it
+and it is not part of the listing. Unknown fields before "files:" are ignored by the scorer.
 """
 import datetime as dt
 import os
@@ -28,6 +30,7 @@ from pathlib import Path
 
 REQUIRED_FILES = ("content.md", "skill/SKILL.md")
 FILES_MARK = "files:"
+POST_LAUNCH_MARK = "post-launch:"
 
 
 def allowed(rel):
@@ -105,6 +108,8 @@ def parse_evidence(text):
     fields, entries, in_files = {}, [], False
     for line in text.splitlines():
         if in_files:
+            if line.strip().startswith(POST_LAUNCH_MARK):
+                break
             if line.strip():
                 entries.append(line.strip())
             continue
