@@ -20,6 +20,7 @@ Adversarial test set for skill/SKILL.md. Specification: RULINGS.md entries phase
   - <fixture-id>.<k>.attempt<n>.ISOLATION.txt — the isolation evidence of an earlier attempt n that ended in an API error and was relaunched, kept with its post-launch section. The final attempt's evidence is always the canonical <fixture-id>.<k>.ISOLATION.txt, which is the only one the scorer reads.
   - CONTAMINATED.txt — optional, manual: `fixture<TAB>k<TAB>what was read`, one line per sample the operator judged to have read outside its directory (run-isolation).
   - RESULTS.md — written by the scorer.
+- tests/replays/<date>-<run-id-hash>/ — a rescoring of a recorded run's saved outputs against later expected files (replay-before-run-8): RESULTS.md from the scorer plus README.md. Never counts toward a close condition.
 - tests/.scratch/<id>/ — single-fixture staging directory (git-ignored) for hand checks, created by tools/stage_fixture.py; recorded runs never stage inside the repository.
 - tools/stage_fixture.py <id> — stages one fixture for a hand check; prints the scratch path.
 - tools/isolation.py — the staging rule, the listing, and the ISOLATION.txt reader and writer shared by prepare_run.py, launch_sample.py and score_run.py.
