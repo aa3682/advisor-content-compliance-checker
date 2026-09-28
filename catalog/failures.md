@@ -21,7 +21,7 @@ Entry shape: ID — Observed (what examiners found) — Pattern (what it looks l
 - GP-01 — "Free of all conflicts" / "refuse all conflicts" claims when conflicts existed — Any absolute no-conflict statement — (a)(1), (a)(2) — RA-2024-04; cross-ref EA-2025-09 Meridian; cross-ref EA-2024-09 (four firms, conflict-free claims contradicted by Form ADV)
 - GP-02 — Firm described as a network/team when one person performs services; wrong education, experience, or designations for personnel — Team language for a solo shop; credentials that can't be verified — (a)(1), (a)(2) — RA-2024-04
 - GP-03 — Services/processes that don't exist: ESG mandate not used; process "validated by professional institutions"; risk tolerance "considered" when all clients in one strategy; approved-securities list or screening process that doesn't exist; "private fund adviser" with no private funds — Any named process, mandate, or client type the firm cannot show — (a)(1), (a)(2) — RA-2024-04
-- GP-04 — Awards or accolades advertised that were not received — Award claims without the award — (a)(1) — RA-2024-04
+- GP-04 — Awards or accolades advertised that were not received — Firm award claims without the award — (a)(1) — RA-2024-04
 - GP-05 — "We act in the best interest of clients" as a differentiator without noting all advisers owe a fiduciary duty — Fiduciary status framed as unique — (a)(1), (a)(3) — RA-2024-04
 - GP-06 — Investment recommendations on podcasts/websites without disclosing compensation received for them — Product mentions with undisclosed pay — (a)(1) — RA-2024-04
 - GP-07 — "As seen on" national media when appearances were paid advertisements — Media logos or "featured in" without "paid placement" — (a)(3) — RA-2024-04

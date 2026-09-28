@@ -33,9 +33,10 @@ As a means reasonably designed to prevent fraudulent, deceptive, or manipulative
 - GP-01 — Any absolute no-conflict statement — RA-2024-04; cross-ref EA-2025-09 Meridian; cross-ref EA-2024-09 (four firms, conflict-free claims contradicted by Form ADV)
 - GP-02 — Team language for a solo shop; credentials that can't be verified — RA-2024-04
 - GP-03 — Any named process, mandate, or client type the firm cannot show — RA-2024-04
-- GP-04 — Award claims without the award — RA-2024-04
+- GP-04 — Firm award claims without the award — RA-2024-04
 - GP-05 — Fiduciary status framed as unique — RA-2024-04
 - GP-06 — Product mentions with undisclosed pay — RA-2024-04
+  GP-06 fires when the content pairs a product or platform recommendation with a link or arrangement indicating the adviser is paid, and states no compensation; a mention with no such indication is a Confirm item (step 5).
 - GP-13 — "AI-powered," "AI-driven" process language the firm cannot show — EA-2024-03
 - GP-14 — Rating name or rank altered from the source — EA-2024-09 Abacus
 - GP-15 — Association badges or "member of" lines the firm cannot show — EA-2024-09 Callahan

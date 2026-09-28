@@ -7,4 +7,4 @@ required:
     where: ["Straight from our Google listing", "imported directly from Google"]
 confirm:
   - would_apply: [TPR-01]
-  - would_apply: [TPR-05, TPR-06]
+  - would_apply: [TPR-05]

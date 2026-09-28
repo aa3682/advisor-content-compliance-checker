@@ -4,5 +4,5 @@ targets: [GP-09]
 elements: []
 required:
   - id: GP-09
-    where: "fully compliant with the SEC Marketing Rule"
+    where: ["Registered with the SEC", "we've been vetted"]
 forbidden: [GP-03]
