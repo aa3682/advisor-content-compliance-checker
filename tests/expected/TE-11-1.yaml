@@ -4,4 +4,4 @@ targets: [TE-11]
 elements: [endorsement]
 required:
   - id: TE-11
-    where: ["has no affiliation with the firm", "answers the phone when you call our office"]
+    where: ["has no affiliation with the firm", "answers the phone when you call our office", "nowhere I'd rather send people"]

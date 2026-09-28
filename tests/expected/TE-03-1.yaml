@@ -4,7 +4,7 @@ targets: [TE-03]
 elements: [testimonial, third-party rating]
 required:
   - id: TE-03
-    where: ["Straight from our Google listing", "imported directly from Google"]
+    where: ["Straight from our Google listing", "imported directly from Google", "Patient, clear, and always reachable"]
 confirm:
   - would_apply: [TPR-01]
   - would_apply: [TPR-05]

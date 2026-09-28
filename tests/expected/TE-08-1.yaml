@@ -4,4 +4,4 @@ targets: [TE-08]
 elements: [endorsement]
 required:
   - id: TE-08
-    where: "she is paid $500 per month for the recommendation"
+    where: ["she is paid $500 per month for the recommendation", "there is nothing in writing"]
