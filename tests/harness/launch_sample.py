@@ -37,21 +37,36 @@ sample listed in tests/runs/<run-id>/RUNLIST.tsv:
      sample's ISOLATION.txt, and the sample is marked status "escaped" with no output
      credited, whatever staged/output.md holds. Otherwise "post-launch: clean" is appended
      and output.md, if the subagent wrote it, is copied byte for byte to the sample's output
-     path. A sample with no output.md is a recorded failure and is not retried
-     (phase6-run-model). The subagent's reply, the model it reported, and the exit status
-     are appended as one JSON line to tests/runs/<run-id>/LAUNCH.log; a reply that reports
-     reading outside the directory is the operator's cue for CONTAMINATED.txt, which stays
-     the manual channel.
+     path. A sample with no output.md is a recorded failure (phase6-run-model).
+  4. A sample is relaunched only on a CLI-reported API error (api-error-relaunch, amending
+     phase6-run-model): exit status non-zero and a reply matching
+     ^API Error:\s*(5\d\d\b|.*[Cc]onnection), i.e. a 529, another 5xx, or a connection
+     error. Never on a timeout, never on the turn cap, never on an escaped sample; an
+     escape is checked first and is final even when the reply was an API error. An errored
+     attempt earns no credit: any output.md it left is ignored. Each relaunch waits 60
+     seconds (outside the escape lock), restages the sample fresh and writes new isolation
+     evidence; the errored attempt's evidence, post-launch section included, is kept as
+     <fixture-id>.<k>.attempt<n>.ISOLATION.txt and the final attempt's stays at the
+     canonical <fixture-id>.<k>.ISOLATION.txt. At most 3 attempts in all; a sample whose
+     three attempts are all API errors ends with status "api-error", which score_run.py
+     fails U0 with reason "api-error".
+  The subagent's reply, the model it reported, and the exit status are appended to
+  tests/runs/<run-id>/LAUNCH.log as one JSON line per attempt, carrying "attempt" and
+  "max_attempts"; an API-error attempt that is relaunched has status
+  "api-error-relaunched". A reply that reports reading outside the directory is the
+  operator's cue for CONTAMINATED.txt, which stays the manual channel.
 """
 import argparse
 import datetime as dt
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
 import tempfile
 import threading
+import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -65,8 +80,28 @@ RUNS = ROOT / "tests" / "runs"
 TOOLS = "Read,Glob,Grep,Write"
 DROP_ENV = {"CLAUDE_ADDITIONAL_DIRECTORIES", "CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD",
             "GITHUB_TOKEN", "GIT_ASKPASS", "OLDPWD"}
+MAX_ATTEMPTS = 3  # api-error-relaunch: first launch plus at most two relaunches
+RELAUNCH_WAIT = 60  # seconds between attempts, slept outside ESCAPE_LOCK
+API_ERROR_RE = re.compile(r"^API Error:\s*(5\d\d\b|.*[Cc]onnection)")
 LOG_LOCK = threading.Lock()
 ESCAPE_LOCK = threading.Lock()  # serializes snapshot -> subprocess -> sweep so concurrent samples can't misattribute an escape
+
+
+def classify_attempt(exit_code, reply, timed_out):
+    """One attempt's outcome under api-error-relaunch: "timeout", "api-error",
+    "done-candidate" (exit 0) or "other-failure". "api-error" is a positive match only:
+    a non-zero exit and a reply naming a 5xx status or a connection error."""
+    if timed_out:
+        return "timeout"
+    if exit_code != 0 and API_ERROR_RE.match(reply or ""):
+        return "api-error"
+    if exit_code == 0:
+        return "done-candidate"
+    return "other-failure"
+
+
+def attempt_evidence_path(run_dir, fid, k, attempt):
+    return run_dir / f"{fid}.{k}.attempt{attempt}.ISOLATION.txt"
 
 
 def child_env(staged):
@@ -159,70 +194,86 @@ def log(run_dir, record):
 def launch(run_dir, run_id, base, row, prompt, model, max_turns, timeout):
     fid, k = row["fixture"], row["k"]
     name = f"{fid}.{k}"
-    staged = stage_sample(base, fid, k)
-    record = {"sample": name, "started": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-              "cwd": str(staged), "model": model}
-    iso_path, problems = write_evidence(staged, fid, k, run_dir,
-                                        extra={"launcher": "tests/harness/launch_sample.py", "tools": TOOLS, "model": model})
-    if problems:
-        record.update({"status": "refused", "problems": problems})
-        log(run_dir, record)
-        print(f"{name}: refused, staged directory violates the staging rule: {'; '.join(problems)}")
-        return record
     argv = ["claude", "-p", prompt, "--model", model,
             "--tools", TOOLS, "--allowedTools", TOOLS,
             "--strict-mcp-config", "--setting-sources", "", "--disable-slash-commands",
             "--no-session-persistence", "--max-turns", str(max_turns), "--output-format", "json"]
-    with ESCAPE_LOCK:  # snapshot -> subprocess -> sweep as one unit, so a concurrent sample can't be misattributed
-        _, before_mtimes = repo_snapshot()
-        try:
-            proc = subprocess.run(argv, cwd=str(staged), env=child_env(staged), capture_output=True, text=True,
-                                  timeout=timeout)
-            record["exit"] = proc.returncode
+    for attempt in range(1, MAX_ATTEMPTS + 1):
+        staged = stage_sample(base, fid, k)  # fresh every attempt; an errored attempt's output.md goes with it
+        record = {"sample": name, "attempt": attempt, "max_attempts": MAX_ATTEMPTS,
+                  "started": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                  "cwd": str(staged), "model": model}
+        iso_path, problems = write_evidence(staged, fid, k, run_dir,
+                                            extra={"launcher": "tests/harness/launch_sample.py", "tools": TOOLS, "model": model})
+        if problems:
+            record.update({"status": "refused", "problems": problems})
+            log(run_dir, record)
+            print(f"{name}: refused, staged directory violates the staging rule: {'; '.join(problems)}")
+            return record
+        timed_out = False
+        with ESCAPE_LOCK:  # snapshot -> subprocess -> sweep as one unit, so a concurrent sample can't be misattributed
+            _, before_mtimes = repo_snapshot()
             try:
-                result = json.loads(proc.stdout)
-            except ValueError:
-                result = {}
-            record["reply"] = result.get("result", proc.stdout[-2000:] if not result else "")
-            record["num_turns"] = result.get("num_turns")
-            record["model_reported"] = ",".join(sorted(result.get("modelUsage", {}).keys()))
-            if proc.returncode != 0:
-                record["stderr"] = proc.stderr[-2000:]
-        except subprocess.TimeoutExpired:
-            record.update({"exit": None, "status": "timeout"})
-        escaped = detect_escape(before_mtimes, run_id)
-        if escaped:
-            for rel in escaped:
-                p = ROOT / rel
+                proc = subprocess.run(argv, cwd=str(staged), env=child_env(staged), capture_output=True, text=True,
+                                      timeout=timeout)
+                record["exit"] = proc.returncode
                 try:
-                    if p.is_dir() and not p.is_symlink():
-                        shutil.rmtree(p)
-                    elif p.exists() or p.is_symlink():
-                        p.unlink()
-                except OSError:
-                    pass
-            with iso_path.open("a", encoding="utf-8") as fh:
-                fh.write("post-launch:\n" + "".join(rel + "\n" for rel in escaped))
-        else:
-            with iso_path.open("a", encoding="utf-8") as fh:
-                fh.write("post-launch: clean\n")
-    if escaped:
-        record["output"] = None
-        record["status"] = "escaped"
-        record["escaped"] = escaped
-    else:
-        out = staged / "output.md"
-        if out.is_file():
-            row["output"].parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(out, row["output"])
-            record["output"] = str(row["output"].relative_to(ROOT))
-            record.setdefault("status", "done")
-        else:
+                    result = json.loads(proc.stdout)
+                except ValueError:
+                    result = {}
+                record["reply"] = result.get("result", proc.stdout[-2000:] if not result else "")
+                record["num_turns"] = result.get("num_turns")
+                record["model_reported"] = ",".join(sorted(result.get("modelUsage", {}).keys()))
+                if proc.returncode != 0:
+                    record["stderr"] = proc.stderr[-2000:]
+            except subprocess.TimeoutExpired:
+                timed_out = True
+                record.update({"exit": None, "status": "timeout"})
+            escaped = detect_escape(before_mtimes, run_id)
+            if escaped:
+                for rel in escaped:
+                    p = ROOT / rel
+                    try:
+                        if p.is_dir() and not p.is_symlink():
+                            shutil.rmtree(p)
+                        elif p.exists() or p.is_symlink():
+                            p.unlink()
+                    except OSError:
+                        pass
+                with iso_path.open("a", encoding="utf-8") as fh:
+                    fh.write("post-launch:\n" + "".join(rel + "\n" for rel in escaped))
+            else:
+                with iso_path.open("a", encoding="utf-8") as fh:
+                    fh.write("post-launch: clean\n")
+        kind = classify_attempt(record.get("exit"), record.get("reply"), timed_out)
+        if escaped:  # an escape is final, whatever the reply said (api-error-relaunch)
             record["output"] = None
-            record.setdefault("status", "no-output")
-    log(run_dir, record)
-    print(f"{name}: {record['status']}; reply: {(record.get('reply') or '')[:120]!r}")
-    return record
+            record["status"] = "escaped"
+            record["escaped"] = escaped
+        elif kind == "api-error":  # no credit for this attempt; staged/output.md is ignored
+            record["output"] = None
+            if attempt < MAX_ATTEMPTS:
+                record["status"] = "api-error-relaunched"
+                iso_path.replace(attempt_evidence_path(run_dir, fid, k, attempt))
+                log(run_dir, record)
+                print(f"{name}: attempt {attempt}/{MAX_ATTEMPTS} api-error, relaunching in {RELAUNCH_WAIT}s; "
+                      f"reply: {(record.get('reply') or '')[:120]!r}")
+                time.sleep(RELAUNCH_WAIT)  # outside ESCAPE_LOCK
+                continue
+            record["status"] = "api-error"
+        else:
+            out = staged / "output.md"
+            if out.is_file():
+                row["output"].parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(out, row["output"])
+                record["output"] = str(row["output"].relative_to(ROOT))
+                record.setdefault("status", "done")
+            else:
+                record["output"] = None
+                record.setdefault("status", "no-output")
+        log(run_dir, record)
+        print(f"{name}: {record['status']} (attempt {attempt}/{MAX_ATTEMPTS}); reply: {(record.get('reply') or '')[:120]!r}")
+        return record
 
 
 def main():
@@ -265,7 +316,8 @@ def main():
         records = list(pool.map(lambda r: launch(run_dir, a.run_id, base, r, prompt, model, a.max_turns, a.timeout), rows))
     done = sum(1 for r in records if r.get("status") == "done")
     escaped = sum(1 for r in records if r.get("status") == "escaped")
-    print(f"{done}/{len(records)} samples produced output.md ({escaped} escaped); evidence in {run_dir.relative_to(ROOT)}/<sample>.ISOLATION.txt; log in LAUNCH.log")
+    api_error = sum(1 for r in records if r.get("status") == "api-error")
+    print(f"{done}/{len(records)} samples produced output.md ({escaped} escaped, {api_error} api-error); evidence in {run_dir.relative_to(ROOT)}/<sample>.ISOLATION.txt; log in LAUNCH.log")
     return 0 if done == len(records) else 1
 
 

@@ -15,7 +15,11 @@ working directory other than the sample's, or lists any path outside skill/ and 
 (run-isolation-sandbox) fails with reason "isolation" and is not otherwise scored; the
 format is in tools/isolation.py. A sample listed in the run directory's CONTAMINATED.txt
 (run-isolation, the manual channel) fails with reason "contaminated" and is not otherwise
-scored.
+scored. A sample with no output fails U0 with reason "escaped: <paths>" when its
+ISOLATION.txt records a sandbox escape (sandbox-escape-handling), "api-error" when the last
+LAUNCH.log line for it carries an "attempt" field and status "api-error" (api-error-relaunch:
+three attempts, all CLI-reported API errors), and "missing output" otherwise. LAUNCH.log
+lines without an "attempt" field (run 7 and earlier) never yield "api-error".
 
 The catalog parser is imported from tools/build_check_index.py; there is no
 second parser.
@@ -35,6 +39,7 @@ the content's own words -- a substring of the fixture under U5's normalization
 (u2-quoted-spans).
 """
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
@@ -60,6 +65,26 @@ def escaped_paths(run_dir, fid, k):
         return None
     paths = [line for line in text[idx + len(marker):].splitlines() if line.strip()]
     return paths or None
+
+
+def launch_status(run_dir, fid, k):
+    """Status of the sample's last LAUNCH.log line, or None when the log is absent, has no
+    line for the sample, or that line carries no "attempt" field (api-error-relaunch;
+    logs written before that ruling are not read)."""
+    log = run_dir / "LAUNCH.log"
+    if not log.is_file():
+        return None
+    last = None
+    for line in log.read_text(encoding="utf-8").splitlines():
+        try:
+            rec = json.loads(line)
+        except ValueError:
+            continue
+        if isinstance(rec, dict) and rec.get("sample") == f"{fid}.{k}":
+            last = rec
+    if last is None or "attempt" not in last:
+        return None
+    return last.get("status")
 
 try:
     import yaml
@@ -611,7 +636,12 @@ def score_dir(run_dir, expected_dir, ctx):
         if path is None:
             cat = exp["category"] if exp else "?"
             esc = escaped_paths(run_dir, fid, k)
-            reason = f"escaped: {', '.join(esc)}" if esc else "missing output"
+            if esc:
+                reason = f"escaped: {', '.join(esc)}"
+            elif launch_status(run_dir, fid, k) == "api-error":
+                reason = "api-error"
+            else:
+                reason = "missing output"
             rows.append({"fixture": fid, "k": k, "class": "entry" if cat == "entry" else "adversarial",
                          "failed": {"U0": [reason]}, "extras": []})
             continue
