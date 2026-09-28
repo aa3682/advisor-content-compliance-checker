@@ -7,13 +7,16 @@ Inputs: run 2026-09-27-5c17972's saved outputs; fixtures, expected files and too
 ## Totals
 
 - All fixtures: samples 209/231 (90.5%), fixtures 70/77.
-- Excluding CLR-02: samples 209/228 (91.7%), fixtures 70/76.
+- Excluding CLR-02 and GP-16-1: samples 207/225 (92.0%), fixtures 70/75.
 
-Run 7 as recorded, for reference: samples 198/231 (85.7%), fixtures 68/77; excluding CLR-02, samples 198/228 (86.8%), fixtures 68/76.
+Run 7 as recorded, for reference: samples 198/231 (85.7%), fixtures 68/77; excluding CLR-02 and GP-16-1, samples 195/225 (86.7%), fixtures 67/75.
 
 ## Not comparable
 
-CLR-02. Its fixture was rebuilt under clr-02-conforms-to-observed after these outputs were produced; its rows are reported but excluded from the second totals.
+A saved output is not comparable when a later ruling changes the fixture or the catalog text it is scored against. Two fixtures meet that test here; their rows are reported but excluded from the second totals.
+
+- CLR-02: its fixture was rebuilt under clr-02-conforms-to-observed after these outputs were produced.
+- GP-16-1: sample 3 prints GP-04's Pattern as it stood before gp-04-step-2-routing renamed it; U4 compares the What line to the current catalog, so the sample fails on wording, not behaviour.
 
 ## Not measurable by replay
 
@@ -34,7 +37,7 @@ The SKILL.md edits under tpr-02-step-5-alongside, gp-04-step-2-routing and canno
 
 | fixture | run 7 | replay | ruling responsible |
 |---|---|---|---|
-| GP-16-1 | 3/3 PASS | 2/3 FAIL | gp-04-step-2-routing (k3: U4, the saved What line "Award claims without the award" no longer matches GP-04's amended Pattern) |
+| GP-16-1 | 3/3 PASS | 2/3 FAIL | gp-04-step-2-routing (k3: U4, the saved What line "Award claims without the award" no longer matches GP-04's amended Pattern); not comparable |
 | OVL-01 | 2/3 PASS | 3/3 PASS | omission-span-audit (k1) |
 | PERF-08-1 | 1/3 FAIL | 3/3 PASS | perf-08-anchor-length (k1, k3) |
 | PERF-15-1 | 2/3 PASS | 3/3 PASS | omission-span-audit (k2) |
