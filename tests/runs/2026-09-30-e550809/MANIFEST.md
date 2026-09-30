@@ -1,0 +1,11 @@
+# Manifest
+- run_id: 2026-09-30-e550809
+- date: 2026-09-30
+- skill_commit: e550809
+- model: claude-sonnet-5
+- model_reported: claude-sonnet-5 (with claude-haiku-4-5-20251001 CLI side calls)
+- staging_root: /tmp/acc-stage-e550809-p
+- fixtures: 77
+- n_entry: 3
+- n_adversarial: 3
+- notes: run 8 pinned rerun per run-model-drift. A first launch was killed at 21/231 by the session's background time limit, and was discarded and restarted clean; no fixes of any kind were made.
