@@ -3,9 +3,9 @@
 - date: 2026-09-28
 - skill_commit: e550809
 - model: sonnet
-- model_reported: claude-sonnet-5
+- model_reported: claude-sonnet-5-5 (with claude-haiku-4-5-20251001 CLI side calls)
 - staging_root: /tmp/acc-stage-e550809
 - fixtures: 77
 - n_entry: 3
 - n_adversarial: 3
-- notes: 
+- notes: run 8. Alias sonnet resolved to claude-sonnet-5-5, not claude-sonnet-5 as in run 7; model_reported was first written as claude-sonnet-5 from the --model-reported flag and corrected from LAUNCH.log. 231/231 output, 0 relaunches, 0 escapes. No fixes of any kind were made during this run.
