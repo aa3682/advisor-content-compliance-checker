@@ -4,4 +4,4 @@ targets: [PERF-02]
 elements: [gross performance, net performance]
 required:
   - id: PERF-02
-    where: "the fund returned 9.6% for 1 year"
+    where: ["the fund returned 9.6% for 1 year", "is the Meridian Balanced Fund"]

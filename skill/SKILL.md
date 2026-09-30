@@ -85,7 +85,7 @@ Generated from catalog/failures.md by tools/build_check_index.py. Never hand-edi
 - GP-04 · Firm award claims without the award · (a)(1) · general-prohibitions.md
 - GP-05 · Fiduciary status framed as unique · (a)(1), (a)(3) · general-prohibitions.md
 - GP-06 · Product mentions with undisclosed pay · (a)(1) · general-prohibitions.md
-- GP-07 · Media logos or "featured in" without "paid placement" · (a)(3) · general-prohibitions.md
+- GP-07 · "As seen on," "featured in," or media logos without "paid placement" · (a)(3) · general-prohibitions.md
 - GP-08 · Celebrity images implying an endorsement the firm cannot show · (a)(3) · general-prohibitions.md
 - GP-09 · SEC registration or approval cited as a quality signal; any SEC seal · (a)(3) · general-prohibitions.md
 - GP-10 · Superlatives implying sole or highest recognition the firm cannot show; methodology absent · (a)(3) · general-prohibitions.md
@@ -107,7 +107,7 @@ Generated from catalog/failures.md by tools/build_check_index.py. Never hand-edi
 - PERF-08 · Return figures in a post with no risk language · (a)(4) · general-prohibitions.md
 - PERF-09 · Winner lists or "top picks" excluding losses or write-offs with no stated rationale · (a)(5) · general-prohibitions.md
 - PERF-10 · Returns without dates; mixed periods · (a)(6) · general-prohibitions.md, performance.md
-- PERF-11 · "Realized" in the fine print, or no basis given · (a)(6) · general-prohibitions.md, performance.md
+- PERF-11 · Returns computed from realized positions only, unrealized excluded · (a)(6) · general-prohibitions.md, performance.md
 - PERF-12 · Any model, backtest, or projection in public content · (d)(6)(i) · performance.md
 - PERF-13 · Annualized or extrapolated figures, or a model, presented without the criteria and assumptions behind them · (d)(6)(ii), (a)(1) · general-prohibitions.md, performance.md
 - PERF-14 · Projections with no risk/limitation language · (d)(6)(iii) · performance.md

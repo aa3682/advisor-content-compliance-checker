@@ -24,7 +24,7 @@ Entry shape: ID — Observed (what examiners found) — Pattern (what it looks l
 - GP-04 — Awards or accolades advertised that were not received — Firm award claims without the award — (a)(1) — RA-2024-04
 - GP-05 — "We act in the best interest of clients" as a differentiator without noting all advisers owe a fiduciary duty — Fiduciary status framed as unique — (a)(1), (a)(3) — RA-2024-04
 - GP-06 — Investment recommendations on podcasts/websites without disclosing compensation received for them — Product mentions with undisclosed pay — (a)(1) — RA-2024-04
-- GP-07 — "As seen on" national media when appearances were paid advertisements — Media logos or "featured in" without "paid placement" — (a)(3) — RA-2024-04
+- GP-07 — "As seen on" national media when appearances were paid advertisements — "As seen on," "featured in," or media logos without "paid placement" — (a)(3) — RA-2024-04
 - GP-08 — Celebrity images used in a way implying endorsement that didn't occur — Celebrity images implying an endorsement the firm cannot show — (a)(3) — RA-2024-04
 - GP-09 — SEC registration cited to imply skill or SEC approval; SEC logo on website — SEC registration or approval cited as a quality signal; any SEC seal — (a)(3) — RA-2024-04
 - GP-10 — Ratings framed as sole/top recipient when multiple recipients or not top; "highly rated" without disclosing methodology based on AUM, client count, or self-nomination — Superlatives implying sole or highest recognition the firm cannot show; methodology absent — (a)(3) — RA-2024-04; AR p.163
@@ -47,7 +47,7 @@ Entry shape: ID — Observed (what examiners found) — Pattern (what it looks l
 - PERF-08 — Social media posts highlighting performance without material risks or limitations — Return figures in a post with no risk language — (a)(4) — RA-2024-04
 - PERF-09 — Only the most profitable investments shown; losses or write-offs excluded without rationale — Winner lists or "top picks" excluding losses or write-offs with no stated rationale — (a)(5) — RA-2024-04
 - PERF-10 — Time period not disclosed, or different figures in one ad calculated over different periods — Returns without dates; mixed periods — (a)(6) — RA-2024-04
-- PERF-11 — Total net return built from realized investments only, excluding unrealized — "Realized" in the fine print, or no basis given — (a)(6) — RA-2024-04
+- PERF-11 — Total net return built from realized investments only, excluding unrealized — Returns computed from realized positions only, unrealized excluded — (a)(6) — RA-2024-04
 - PERF-12 — Hypothetical performance (model, backtested, projected) on a public website or to a mass audience without policies and procedures to ensure relevance to the intended audience's likely financial situation and objectives — Any model, backtest, or projection in public content — (d)(6)(i) — EA-2023-09 (nine firms); EA-2024-04 (five firms); EA-2023-08 Titan; EA-2024-11 Wahed
 - PERF-13 — Hypothetical performance without the criteria and assumptions used: 2,700% "annualized" extrapolated from three weeks on a hypothetical account with no actual trading — Annualized or extrapolated figures, or a model, presented without the criteria and assumptions behind them — (d)(6)(ii), (a)(1) — EA-2023-08 Titan
 - PERF-14 — Hypothetical performance without sufficient information for a retail audience to understand its risks and limitations — Projections with no risk/limitation language — (d)(6)(iii) — EA-2023-08 Titan

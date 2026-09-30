@@ -33,6 +33,7 @@ As a means reasonably designed to prevent fraudulent, deceptive, or manipulative
 - GP-01 — Any absolute no-conflict statement — RA-2024-04; cross-ref EA-2025-09 Meridian; cross-ref EA-2024-09 (four firms, conflict-free claims contradicted by Form ADV)
 - GP-02 — Team language for a solo shop; credentials that can't be verified — RA-2024-04
 - GP-03 — Any named process, mandate, or client type the firm cannot show — RA-2024-04
+  GP-03 fires when the content asserts a process, mandate, list, screen, or client type as validated, vetted, or approved by a third party it does not name; a named process asserted without such a claim is neither a flag nor a Confirm item, and approval or review of the communication itself is not such a claim.
 - GP-04 — Firm award claims without the award — RA-2024-04
 - GP-05 — Fiduciary status framed as unique — RA-2024-04
 - GP-06 — Product mentions with undisclosed pay — RA-2024-04
@@ -56,7 +57,7 @@ As a means reasonably designed to prevent fraudulent, deceptive, or manipulative
 
 ### (a)(3)
 - GP-05 — Fiduciary status framed as unique — RA-2024-04
-- GP-07 — Media logos or "featured in" without "paid placement" — RA-2024-04
+- GP-07 — "As seen on," "featured in," or media logos without "paid placement" — RA-2024-04
 - GP-08 — Celebrity images implying an endorsement the firm cannot show — RA-2024-04
 - GP-09 — SEC registration or approval cited as a quality signal; any SEC seal — RA-2024-04
 - GP-10 — Superlatives implying sole or highest recognition the firm cannot show; methodology absent — RA-2024-04; AR p.163
@@ -73,7 +74,7 @@ As a means reasonably designed to prevent fraudulent, deceptive, or manipulative
 
 ### (a)(6)
 - PERF-10 — Returns without dates; mixed periods — RA-2024-04
-- PERF-11 — "Realized" in the fine print, or no basis given — RA-2024-04
+- PERF-11 — Returns computed from realized positions only, unrealized excluded — RA-2024-04
 
 ### (a)(7)
 - GP-12 — Tiny/low-contrast/fast-scrolling disclosure text — RA-2024-04
