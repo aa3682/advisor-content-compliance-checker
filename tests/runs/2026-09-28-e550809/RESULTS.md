@@ -1,3 +1,4 @@
+Informative only; ran on claude-sonnet-5-5 (2026-09-30 · run-model-drift). Not in the majority-bar record.
 # Results
 
 - run_id: 2026-09-28-e550809
