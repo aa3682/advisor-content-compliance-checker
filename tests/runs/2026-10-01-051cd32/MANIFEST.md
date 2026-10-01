@@ -1,0 +1,11 @@
+# Manifest
+- run_id: 2026-10-01-051cd32
+- date: 2026-10-01
+- skill_commit: 051cd32
+- model: claude-sonnet-5
+- model_reported: claude-sonnet-5 (with claude-haiku-4-5-20251001 CLI side calls)
+- staging_root: /tmp/acc-stage-051cd32
+- fixtures: 77
+- n_entry: 3
+- n_adversarial: 3
+- notes: run 9 per 6.16. A first launch (2026-09-30-051cd32) was killed at 128/231 by a container restart, and was discarded and restarted clean; no fixes of any kind were made.
