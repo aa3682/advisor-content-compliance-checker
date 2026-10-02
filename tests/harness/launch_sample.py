@@ -7,7 +7,7 @@ Usage:
 Options:
   --model <alias>     subagent model; default: the model line of the run's MANIFEST.md
   --max-turns <n>     turn cap per subagent (default 40)
-  --timeout <s>       wall-clock cap per subagent in seconds (default 900)
+  --timeout <s>       wall-clock cap per subagent in seconds (default 1500)
   --jobs <n>          concurrent launches with --all (default 4)
   --skip-done         with --all, skip samples whose output file already exists
 
@@ -41,7 +41,9 @@ sample listed in tests/runs/<run-id>/RUNLIST.tsv:
   4. A sample is relaunched only on a CLI-reported API error (api-error-relaunch, amending
      phase6-run-model): exit status non-zero and a reply matching
      ^API Error:\s*(5\d\d\b|.*[Cc]onnection), i.e. a 529, another 5xx, or a connection
-     error. Never on a timeout, never on the turn cap, never on an escaped sample; an
+     error; or on a timeout that left no output.md (timeout-relaunch, amending
+     api-error-relaunch), relaunched the same way and recorded with status
+     "timeout-relaunched". Never on the turn cap, never on an escaped sample; an
      escape is checked first and is final even when the reply was an API error. An errored
      attempt earns no credit: any output.md it left is ignored. Each relaunch waits 60
      seconds (outside the escape lock), restages the sample fresh and writes new isolation
@@ -261,6 +263,16 @@ def launch(run_dir, run_id, base, row, prompt, model, max_turns, timeout):
                 time.sleep(RELAUNCH_WAIT)  # outside ESCAPE_LOCK
                 continue
             record["status"] = "api-error"
+        elif kind == "timeout" and not (staged / "output.md").is_file():  # timeout-relaunch: nothing to score
+            record["output"] = None
+            if attempt < MAX_ATTEMPTS:
+                record["status"] = "timeout-relaunched"
+                iso_path.replace(attempt_evidence_path(run_dir, fid, k, attempt))
+                log(run_dir, record)
+                print(f"{name}: attempt {attempt}/{MAX_ATTEMPTS} timeout with no output, relaunching in {RELAUNCH_WAIT}s")
+                time.sleep(RELAUNCH_WAIT)  # outside ESCAPE_LOCK
+                continue
+            record["status"] = "timeout"
         else:
             out = staged / "output.md"
             if out.is_file():
@@ -285,7 +297,7 @@ def main():
     ap.add_argument("--jobs", type=int, default=4)
     ap.add_argument("--model", default=None)
     ap.add_argument("--max-turns", type=int, default=40)
-    ap.add_argument("--timeout", type=int, default=900)
+    ap.add_argument("--timeout", type=int, default=1500)
     ap.add_argument("--skip-done", action="store_true")
     a = ap.parse_args()
     run_dir = RUNS / a.run_id

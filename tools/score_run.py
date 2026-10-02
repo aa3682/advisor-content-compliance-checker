@@ -496,7 +496,8 @@ def strip_terminal(text):
 
 def check_u5(s, fixture_text):
     """Provenance: every quoted span on every Where line is a substring of the fixture,
-    after one trailing period, semicolon, comma, or colon is dropped (u5-terminal-punctuation)."""
+    after one trailing period, semicolon, comma, or colon is dropped (u5-terminal-punctuation)
+    and ignoring the case of the span's first character only (u5-initial-case)."""
     r = []
     if fixture_text is None:
         return ["fixture file not found in tests/fixtures/"]
@@ -512,7 +513,8 @@ def check_u5(s, fixture_text):
             continue
         for span in spans:
             needle = strip_terminal(collapse_ws(span[1:-1]))
-            if needle and needle not in hay:
+            if needle and not any(n in hay for n in (needle, needle[:1].lower() + needle[1:],
+                                                       needle[:1].upper() + needle[1:])):
                 r.append(f"{label} Where quote {needle[:50]!r} is not in the fixture")
     return r
 
