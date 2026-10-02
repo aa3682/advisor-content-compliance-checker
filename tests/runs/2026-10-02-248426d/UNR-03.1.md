@@ -1,0 +1,14 @@
+Marketing Rule pre-review — SEC Rule 206(4)-1
+Elements detected: none
+Reviewed as an advertisement under (e)(1); whether (e)(1) covers this communication is not assessed.
+Not reviewed: media-kit.pdf.
+State-registered advisers are subject to their state's rule, which may differ from any flag below; differences are not resolved here.
+Flags: 1. Confirm: 0.
+
+Flag 1
+Where: "As seen on National Business Network and in Investor Weekly"
+What: "As seen on," "featured in," or media logos without "paid placement"
+Cite: (a)(3) · GP-07 · RA-2024-04
+Fix: supply a "paid placement" disclosure alongside the logos.
+
+Pre-review only. Not legal or compliance advice. Confirm with your CCO or counsel.

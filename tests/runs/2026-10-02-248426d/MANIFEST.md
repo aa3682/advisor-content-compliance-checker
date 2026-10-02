@@ -1,0 +1,11 @@
+# Manifest
+- run_id: 2026-10-02-248426d
+- date: 2026-10-02
+- skill_commit: 248426d
+- model: claude-sonnet-5
+- model_reported: claude-sonnet-5 (with claude-haiku-4-5-20251001 CLI side calls)
+- staging_root: /tmp/acc-stage-248426d
+- fixtures: 77
+- n_entry: 3
+- n_adversarial: 3
+- notes: run 10 per variance-route. Four samples hit the launcher's 900 s wall-clock timeout with no output (GP-05-1.1, GP-11-1.1, PERF-15-1.1, PERF-15-1.3) and, per api-error-relaunch, were not relaunched; no fixes of any kind were made.
