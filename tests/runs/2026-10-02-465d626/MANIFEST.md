@@ -1,0 +1,11 @@
+# Manifest
+- run_id: 2026-10-02-465d626
+- date: 2026-10-02
+- skill_commit: 465d626
+- model: claude-sonnet-5
+- model_reported: claude-sonnet-5 (with claude-haiku-4-5-20251001 CLI side calls)
+- staging_root: /tmp/acc-stage-465d626
+- fixtures: 77
+- n_entry: 3
+- n_adversarial: 3
+- notes: run 11 per run-11. A container restart (~2026-10-02T19:16Z) killed the launcher at 12/231; resumed 2026-10-03 under infra-kill-resume with --skip-done, the 12 done samples standing and the 4 killed samples (GP-05-1.1, GP-05-1.2, GP-05-1.3, GP-06-1.1) relaunched fresh, their evidence kept as .attempt0. One timeout relaunch under timeout-relaunch (TE-07-1.3, done on attempt 2). No fixes of any kind were made.
