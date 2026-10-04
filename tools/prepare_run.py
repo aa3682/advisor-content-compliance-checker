@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Prepare a recorded run: run directory, manifest, run list, staged fixtures.
 
-Usage: python tools/prepare_run.py --model <id> --staging-root <dir> [--n-entry 3] [--n-adversarial 3] [--dry-run]
+Usage: python tools/prepare_run.py --model <id> --staging-root <dir> [--n-entry 5] [--n-adversarial 5] [--dry-run]
 
 Executes nothing. Per RULINGS.md phase6-run-method and phase6-pass-criteria:
   run-id is <YYYY-MM-DD>-<short main hash>; refuses when the working tree is dirty or HEAD
   is not main (a dry run reports the guard result instead of refusing).
-  phase6-majority-bar: every fixture is drawn N=3, entry fixtures included.
+  phase6-majority-bar as amended by majority-bar-n5: every fixture is drawn N=5, entry fixtures included.
   Creates tests/runs/<run-id>/ with MANIFEST.md, RUNLIST.tsv (fixture_id, k, scratch_path,
   output_path; entry fixtures first in ID order, then adversarial) and SUBAGENT_PROMPT.md
   (a copy of tests/harness/SUBAGENT_PROMPT.md, so the run records the prompt it used).
@@ -86,8 +86,8 @@ def main():
     ap.add_argument("--model-reported", default="", help="model identifier the subagent reports for that alias")
     ap.add_argument("--staging-root", required=True,
                     help="directory outside the repository where per-sample scratch directories are staged (run-isolation)")
-    ap.add_argument("--n-entry", type=int, default=3)   # phase6-majority-bar: N=3 for every fixture
-    ap.add_argument("--n-adversarial", type=int, default=3)
+    ap.add_argument("--n-entry", type=int, default=5)   # majority-bar-n5: N=5 for every fixture
+    ap.add_argument("--n-adversarial", type=int, default=5)
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
     staging_root = Path(a.staging_root).resolve()

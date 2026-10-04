@@ -44,6 +44,8 @@ The Zero flags line appears only when Flags: 0 and Confirm: 0, immediately befor
 
 Never describe content as approved, cleared, passing, safe to publish, meeting the rule, or any equivalent, including the adjective form of the word "compliance". Never state which flags matter most.
 
+When the quoted phrase itself contains a straight double quote, wrap the Where in curly quotes (“…”) and keep the inner quotes as written; never use a backslash.
+
 ```
 Marketing Rule pre-review — SEC Rule 206(4)-1
 Elements detected: <the six terms present, or "none">

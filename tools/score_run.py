@@ -24,12 +24,16 @@ lines without an "attempt" field (run 7 and earlier) never yield "api-error".
 The catalog parser is imported from tools/build_check_index.py; there is no
 second parser.
 
-Per phase6-majority-bar a fixture passes when no sample violates a hard check
-(the universal checks, the forbidden list in P3, isolation, contamination, a missing
-output or a missing expectation) and a strict majority of its samples are clean on the
-remaining per-fixture assertions. A run additionally requires MIN_SAMPLE_PASS_RATE
-of all samples to pass, so that a suite of fixtures each sitting at 2 of 3 is not
-green.
+Per phase6-majority-bar, as amended by 2026-10-03 · majority-bar-n5 (5 samples per
+fixture, 3 of 5), a fixture passes when no sample violates a hard check (the universal
+checks, the forbidden list in P3, isolation, contamination, a missing output or a missing
+expectation) and a strict majority of its samples are clean on the remaining per-fixture
+assertions. A run additionally requires MIN_SAMPLE_PASS_RATE of all samples to pass, so
+that a suite of fixtures each sitting at 3 of 5 is not green.
+
+Per 2026-10-03 · escaped-quote-where, a straight-quoted Where span may contain
+backslash-escaped quotes; U5 and P2 match against the unescaped text, and every Where
+line containing a backslash is listed under "## Notes" in RESULTS.md, failing nothing.
 
 What and Where lines are subtracted from the clearance scan because they carry
 catalog and content text; U4 (What equals the cited Pattern) and U5 (every Where
@@ -107,6 +111,13 @@ FLAG_HEAD_RE = re.compile(r"^Flag (\d+)$")
 CONFIRM_HEAD_RE = re.compile(r"^Confirm (\d+)$")
 FIELD_RE = re.compile(r"^(Where|What|Cite|Fix|Depends on|Would apply): ?(.*)$")
 QUOTE_RE = re.compile(r'"[^"]*"|“[^”]*”')
+# escaped-quote-where: a straight-quoted Where span may carry backslash-escaped quotes
+WHERE_QUOTE_RE = re.compile(r'"(?:[^"\\]|\\.)*"|“[^”]*”')
+
+
+def unescape_where(text):
+    """escaped-quote-where: read backslash-escaped quotes in a Where line as plain quotes."""
+    return text.replace('\\"', '"')
 FLAG_FIELDS = ["Where", "What", "Cite", "Fix"]
 CONFIRM_FIELDS = ["Where", "Depends on", "Cite", "Would apply"]
 UNIVERSAL = ["U1", "U2", "U3", "U4", "U5"]
@@ -497,7 +508,9 @@ def strip_terminal(text):
 def check_u5(s, fixture_text):
     """Provenance: every quoted span on every Where line is a substring of the fixture,
     after one trailing period, semicolon, comma, or colon is dropped (u5-terminal-punctuation)
-    and ignoring the case of the span's first character only (u5-initial-case)."""
+    and ignoring the case of the span's first character only (u5-initial-case); a
+    straight-quoted span may carry backslash-escaped quotes and is matched unescaped
+    (escaped-quote-where)."""
     r = []
     if fixture_text is None:
         return ["fixture file not found in tests/fixtures/"]
@@ -507,12 +520,12 @@ def check_u5(s, fixture_text):
         where = b["fields"].get("Where")
         if where is None:
             continue  # missing field is U3's finding
-        spans = QUOTE_RE.findall(where)
+        spans = WHERE_QUOTE_RE.findall(where)
         if not spans:
             r.append(f"{label} Where carries no quoted span")
             continue
         for span in spans:
-            needle = strip_terminal(collapse_ws(span[1:-1]))
+            needle = strip_terminal(collapse_ws(unescape_where(span[1:-1])))
             if needle and not any(n in hay for n in (needle, needle[:1].lower() + needle[1:],
                                                        needle[:1].upper() + needle[1:])):
                 r.append(f"{label} Where quote {needle[:50]!r} is not in the fixture")
@@ -539,7 +552,8 @@ def check_per_fixture(s, exp):
         hits = [b for b in s["flags"] if b["id"] == req["id"]]
         if not hits:
             res["P2"].append(f"required {req['id']} not flagged")
-        elif req["where"] and not any(any(w in b["fields"].get("Where", "") for w in req["where"]) for b in hits):
+        elif req["where"] and not any(any(w in unescape_where(b["fields"].get("Where", "")) for w in req["where"])
+                                      for b in hits):  # escaped-quote-where
             res["P2"].append(f"{req['id']} flagged but Where lacks any of {req['where']!r}")
     # P3 forbidden
     wa_ids = [cid for b in s["confirms"] for cid in b["would_apply"]]
@@ -647,12 +661,15 @@ def score_dir(run_dir, expected_dir, ctx):
             rows.append({"fixture": fid, "k": k, "class": "entry" if cat == "entry" else "adversarial",
                          "failed": {"U0": [reason]}, "extras": []})
             continue
-        failed, extras = score_sample(path.read_text(encoding="utf-8"), exp, ctx, fid)
+        text = path.read_text(encoding="utf-8")
+        failed, extras = score_sample(text, exp, ctx, fid)
         if exp is None:
             failed["P0"] = [f"no expected file {fid}.yaml"]
         cat = exp["category"] if exp else "?"
+        backslash = [(n, l) for n, l in enumerate(text.splitlines(), 1)
+                     if l.startswith("Where:") and "\\" in l]  # escaped-quote-where: noted, fails nothing
         rows.append({"fixture": fid, "k": k, "class": "entry" if cat == "entry" else "adversarial",
-                     "failed": failed, "extras": extras})
+                     "failed": failed, "extras": extras, "backslash": backslash})
     return rows
 
 
@@ -690,6 +707,11 @@ def write_results(run_dir, manifest, rows):
     for (cls, fid), v in sorted(verdicts.items(), key=lambda kv: (kv[0][0], kv[0][1])):
         out.append(f"| {fid} | {cls} | {v['n']} | {v['hard']} | {v['p_ok']}/{v['n']} | "
                    f"{v['need']}/{v['n']} | {'PASS' if v['ok'] else 'FAIL'} |")
+
+    out += ["", "## Notes", ""]  # escaped-quote-where: Where lines carrying a backslash; they fail nothing
+    notes = [f"- {manifest.get('run_id', run_dir.name)} {r['fixture']}.{r['k']} L{n}: {line}"
+             for r in rows for n, line in r.get("backslash", [])]
+    out += notes or ["none"]
 
     out += ["", "## Totals", ""]
     for cls in ("entry", "adversarial"):
