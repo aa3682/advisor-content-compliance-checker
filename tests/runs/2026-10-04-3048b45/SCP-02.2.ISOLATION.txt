@@ -1,0 +1,17 @@
+sample: SCP-02.2
+cwd: /tmp/acc-run-2026-10-04-3048b45-r27ytwvo/SCP-02.2
+launched: 2026-10-04T16:53:05Z
+launcher: tests/harness/launch_sample.py
+tools: Read,Glob,Grep,Write
+model: claude-sonnet-5
+files:
+content.md
+skill/.gitkeep
+skill/SKILL.md
+skill/references/.gitkeep
+skill/references/definitions.md
+skill/references/general-prohibitions.md
+skill/references/performance.md
+skill/references/testimonials-endorsements.md
+skill/references/third-party-ratings.md
+post-launch: clean

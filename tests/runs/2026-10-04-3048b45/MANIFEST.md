@@ -1,0 +1,11 @@
+# Manifest
+- run_id: 2026-10-04-3048b45
+- date: 2026-10-04
+- skill_commit: 3048b45
+- model: claude-sonnet-5
+- model_reported: claude-sonnet-5 (with claude-haiku-4-5-20251001 CLI side calls)
+- staging_root: /tmp/acc-stage-3048b45
+- fixtures: 77
+- n_entry: 5
+- n_adversarial: 5
+- notes: run 12 per run-12. The account weekly usage limit was hit at TE-10-1.1 (2026-10-04T10:39:05Z): 180 samples (TE-10-1.1 through VRQ-03.5) got only a usage-limit reply with no model_reported, launcher exited at 205/385. After a test call outside the run confirmed the limit had cleared, resumed 2026-10-04 under usage-limit-resume with --skip-done, the 205 done samples standing and the 180 samples relaunched fresh, their evidence kept as .attempt0. A container restart (launcher dead after CLR-03.2, ~13:31Z; container back 14:58:55Z) killed the resume at 272/385; resumed again under infra-kill-resume with --skip-done, the 272 done samples standing and the 4 killed samples (CLR-03.3, CLR-03.4, CLR-03.5, CNF-02.1) relaunched fresh, their evidence kept as .attempt0b. No fixes of any kind were made.
