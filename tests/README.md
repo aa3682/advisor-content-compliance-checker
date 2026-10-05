@@ -24,7 +24,7 @@ Adversarial test set for skill/SKILL.md. Specification: RULINGS.md entries phase
 - tests/.scratch/<id>/ — single-fixture staging directory (git-ignored) for hand checks, created by tools/stage_fixture.py; recorded runs never stage inside the repository.
 - tools/stage_fixture.py <id> — stages one fixture for a hand check; prints the scratch path.
 - tools/isolation.py — the staging rule, the listing, and the ISOLATION.txt reader and writer shared by prepare_run.py, launch_sample.py and score_run.py.
-- tools/score_run.py — scores a run directory against tests/expected/ and writes RESULTS.md (phase6-pass-criteria, phase6-majority-bar).
+- tools/score_run.py — scores a run directory against tests/expected/ and writes RESULTS.md (phase6-pass-criteria, phase6-majority-bar, hard-check-tiers).
 - tools/check_fixtures.py [--final] — validates the fixture set and coverage without running anything (phase6-fixture-format, phase6-adversarial-categories).
 - tools/check_static.py — the static assertions: index drift (check-index-generator), paragraph-set/Pattern uniqueness (entries-to-checks), reference-file and index consistency (reference-file-shape), closing line and verified date, expected-file IDs.
 - tools/prepare_run.py --model <id> --staging-root <dir> [--dry-run] — creates tests/runs/<run-id>/ with MANIFEST.md, RUNLIST.tsv and the prompt copy, and stages every sample outside the repository (phase6-run-method, run-isolation), verifying each staged directory holds only skill/ and content.md.
@@ -37,11 +37,12 @@ Adversarial test set for skill/SKILL.md. Specification: RULINGS.md entries phase
 ## Samples
 
 - Every fixture is drawn N=5, entry fixtures included (phase6-majority-bar, amended by majority-bar-n5).
-- A fixture passes when no sample violates a hard check and a strict majority of its samples are clean on the rest (phase6-majority-bar).
-  - Hard checks, any single violation fails the fixture: the universal checks U1 through U5, the forbidden list in P3, isolation, contamination, a missing output (U0), a missing expected file (P0).
+- A fixture passes when no sample violates a Tier 1 check, fewer than 2 of its samples violate a Tier 2 check, and a strict majority of its samples are clean on the majority checks (phase6-majority-bar, amended by hard-check-tiers).
+  - Tier 1, run validity and the project's hard rules; any single violation fails the fixture and the run (hard-check-tiers): isolation, contamination, a missing output (U0), a missing expected file (P0), U1 closing line, U2 clearance language. hard-check-tiers ratifies contamination, U0 and P0 as hard, which no earlier ruling had done.
+  - Tier 2, precision (hard-check-tiers): U3 contract structure, U4 cite resolution in all its limbs (ID, paragraph set, source, What equal to the catalog Pattern, Confirm Cite token, Would apply IDs), U5 provenance (every Where quote is a substring of the fixture, normalized per u5-terminal-punctuation, u5-initial-case and escaped-quote-where), and the forbidden list in P3. A fixture fails when 2 or more of its samples violate any Tier 2 check. A fixture whose Tier 2 violations fall on exactly one sample is a single-draw precision violation: it is listed under "Single-draw precision" in RESULTS.md, its sample counts as failed against the 95 percent floor, and it does not by itself fail the fixture. A run fails when it has more than 2 single-draw precision violations, counted once per fixture.
   - U0 reasons: `escaped: <paths>` when the ISOLATION.txt post-launch section records a sandbox escape (sandbox-escape-handling); `api-error` when the sample's last LAUNCH.log line carries `attempt` and status `api-error` (api-error-relaunch: three attempts, all CLI-reported API errors); `missing output` otherwise. LAUNCH.log lines without `attempt` (run 7 and earlier) never yield `api-error`.
   - Majority checks, 3 of 5 suffices (majority-bar-n5): P1 elements, P2 required, P4 confirm, P5 conditional lines.
-- A run additionally requires at least 95 percent of all samples to pass, so a suite of fixtures each sitting at 3 of 5 is not green (phase6-majority-bar, majority-bar-n5).
+- A run additionally requires at least 95 percent of all samples to pass, so a suite of fixtures each sitting at 3 of 5 is not green (phase6-majority-bar, majority-bar-n5), and at most 2 single-draw precision violations (hard-check-tiers).
 
 ## Staging rule
 

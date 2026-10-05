@@ -25,11 +25,16 @@ The catalog parser is imported from tools/build_check_index.py; there is no
 second parser.
 
 Per phase6-majority-bar, as amended by 2026-10-03 · majority-bar-n5 (5 samples per
-fixture, 3 of 5), a fixture passes when no sample violates a hard check (the universal
-checks, the forbidden list in P3, isolation, contamination, a missing output or a missing
-expectation) and a strict majority of its samples are clean on the remaining per-fixture
-assertions. A run additionally requires MIN_SAMPLE_PASS_RATE of all samples to pass, so
-that a suite of fixtures each sitting at 3 of 5 is not green.
+fixture, 3 of 5) and 2026-10-05 · hard-check-tiers, a fixture passes when no sample
+violates a Tier 1 check (isolation, contamination, a missing output, a missing
+expectation, U1 closing line, U2 clearance language), fewer than TIER2_FIXTURE_FAIL of
+its samples violate a Tier 2 check (U3, U4, U5, the forbidden list in P3), and a strict
+majority of its samples are clean on the remaining per-fixture assertions. A fixture whose
+Tier 2 violations fall on exactly one sample is a single-draw precision violation, listed
+under "## Single-draw precision" in RESULTS.md; a run fails when it has more than
+SINGLE_DRAW_CAP of them. A run additionally requires MIN_SAMPLE_PASS_RATE of all samples
+to pass, so that a suite of fixtures each sitting at 3 of 5 is not green; every sample
+with any violation, single-draw ones included, counts as failed against that floor.
 
 Per 2026-10-03 · escaped-quote-where, a straight-quoted Where span may contain
 backslash-escaped quotes; U5 and P2 match against the unescaped text, and every Where
@@ -122,9 +127,15 @@ FLAG_FIELDS = ["Where", "What", "Cite", "Fix"]
 CONFIRM_FIELDS = ["Where", "Depends on", "Cite", "Would apply"]
 UNIVERSAL = ["U1", "U2", "U3", "U4", "U5"]
 PER_FIXTURE = ["P1", "P2", "P3", "P4", "P5"]
-# phase6-majority-bar: one violation of a hard check fails the fixture; the rest
-# need only a strict majority of the fixture's samples.
-HARD = ["isolation", "contaminated", "U0", "U1", "U2", "U3", "U4", "U5", "P0", "P3"]
+# hard-check-tiers (amends phase6-majority-bar and majority-bar-n5): one Tier 1 violation
+# fails the fixture and the run; Tier 2 (precision) fails the fixture when
+# TIER2_FIXTURE_FAIL or more samples violate it, and the run when more than
+# SINGLE_DRAW_CAP fixtures have Tier 2 violations on exactly one sample. The majority
+# checks need only a strict majority of the fixture's samples.
+TIER1 = ["isolation", "contaminated", "U0", "P0", "U1", "U2"]
+TIER2 = ["U3", "U4", "U5", "P3"]
+TIER2_FIXTURE_FAIL = 2
+SINGLE_DRAW_CAP = 2
 MAJORITY = ["P1", "P2", "P4", "P5"]
 MIN_SAMPLE_PASS_RATE = 0.95
 
@@ -674,19 +685,23 @@ def score_dir(run_dir, expected_dir, ctx):
 
 
 def fixture_verdicts(rows):
-    """Per-fixture verdict under phase6-majority-bar: no hard violation in any sample,
-    and a strict majority of the fixture's samples clean on the majority checks."""
+    """Per-fixture verdict under hard-check-tiers: no Tier 1 violation in any sample, fewer
+    than TIER2_FIXTURE_FAIL samples with a Tier 2 violation, and a strict majority of the
+    fixture's samples clean on the majority checks. single_draw marks a fixture whose
+    Tier 2 violations fall on exactly one sample."""
     by = {}
     for r in rows:
         by.setdefault((r["class"], r["fixture"]), []).append(r)
     verdicts = {}
     for key, rs in by.items():
         n = len(rs)
-        hard = [r for r in rs if any(c in HARD for c in r["failed"])]
+        tier1 = [r for r in rs if any(c in TIER1 for c in r["failed"])]
+        tier2 = [r for r in rs if any(c in TIER2 for c in r["failed"])]
         p_ok = sum(1 for r in rs if not any(c in MAJORITY for c in r["failed"]))
         need = n // 2 + 1
-        verdicts[key] = {"n": n, "hard": len(hard), "p_ok": p_ok, "need": need,
-                         "ok": not hard and p_ok >= need}
+        verdicts[key] = {"n": n, "tier1": len(tier1), "tier2": len(tier2), "p_ok": p_ok,
+                         "need": need, "single_draw": tier2 if len(tier2) == 1 else [],
+                         "ok": not tier1 and len(tier2) < TIER2_FIXTURE_FAIL and p_ok >= need}
     return verdicts
 
 
@@ -702,11 +717,22 @@ def write_results(run_dir, manifest, rows):
 
     verdicts = fixture_verdicts(rows)
     out += ["", "## Per fixture", "",
-            "| fixture | class | n | hard failures | P-assertions clean | needs | verdict |",
-            "|---|---|---|---|---|---|---|"]
+            "| fixture | class | n | tier 1 failures | tier 2 failures | P-assertions clean | needs | verdict |",
+            "|---|---|---|---|---|---|---|---|"]
     for (cls, fid), v in sorted(verdicts.items(), key=lambda kv: (kv[0][0], kv[0][1])):
-        out.append(f"| {fid} | {cls} | {v['n']} | {v['hard']} | {v['p_ok']}/{v['n']} | "
+        out.append(f"| {fid} | {cls} | {v['n']} | {v['tier1']} | {v['tier2']} | {v['p_ok']}/{v['n']} | "
                    f"{v['need']}/{v['n']} | {'PASS' if v['ok'] else 'FAIL'} |")
+
+    # hard-check-tiers: fixtures whose Tier 2 violations fall on exactly one sample
+    single = [r for (_, _), v in sorted(verdicts.items(), key=lambda kv: (kv[0][0], kv[0][1]))
+              for r in v["single_draw"]]
+    out += ["", "## Single-draw precision", ""]
+    for r in single:
+        checks = "; ".join(f"{n}: {' / '.join(v)}" for n, v in r["failed"].items() if n in TIER2)
+        out.append(f"- {r['fixture']}.{r['k']}: {checks}")
+    cap_ok = len(single) <= SINGLE_DRAW_CAP
+    out.append(f"- count: {len(single)}; cap: {SINGLE_DRAW_CAP} (more than {SINGLE_DRAW_CAP} fails the run); "
+               f"cap {'met' if cap_ok else 'NOT met'}")
 
     out += ["", "## Notes", ""]  # escaped-quote-where: Where lines carrying a backslash; they fail nothing
     notes = [f"- {manifest.get('run_id', run_dir.name)} {r['fixture']}.{r['k']} L{n}: {line}"
@@ -726,8 +752,10 @@ def write_results(run_dir, manifest, rows):
     out.append(f"- samples: {n_pass}/{n_samples} pass ({rate * 100:.1f}%); "
                f"floor {MIN_SAMPLE_PASS_RATE * 100:.0f}% {'met' if floor_ok else 'NOT met'}")
     out.append(f"- fixtures: {sum(v['ok'] for v in verdicts.values())}/{len(verdicts)} pass "
-               f"(hard checks {', '.join(HARD)}; majority checks {', '.join(MAJORITY)})")
-    passed = bool(rows) and all(v["ok"] for v in verdicts.values()) and floor_ok
+               f"(tier 1 checks {', '.join(TIER1)}; tier 2 checks {', '.join(TIER2)}, fail at "
+               f"{TIER2_FIXTURE_FAIL}+ samples; majority checks {', '.join(MAJORITY)})")
+    out.append(f"- single-draw precision: {len(single)}; cap {SINGLE_DRAW_CAP} {'met' if cap_ok else 'NOT met'}")
+    passed = bool(rows) and all(v["ok"] for v in verdicts.values()) and floor_ok and cap_ok
     out += ["", "RUN: PASS" if passed else "RUN: FAIL"]
     (run_dir / "RESULTS.md").write_text("\n".join(out) + "\n", encoding="utf-8")
     return passed
