@@ -2,6 +2,6 @@ id: TPR-05-1
 category: entry
 targets: [TPR-05]
 elements: [third-party rating]
-required:
-  - id: TPR-05
-    where: ["annual badge-licensing fee", "the badge and reprint stay up all year"]
+required: []
+confirm:
+  - would_apply: [TPR-05]
