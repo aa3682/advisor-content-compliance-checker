@@ -40,12 +40,16 @@
 
 ## Per fixture
 
-| fixture | class | n | hard failures | P-assertions clean | needs | verdict |
-|---|---|---|---|---|---|---|
-| CLR-01 | adversarial | 2 | 1 | 2/2 | 2/2 | FAIL |
-| SCP-01 | adversarial | 2 | 0 | 1/2 | 2/2 | FAIL |
-| GP-01-1 | entry | 20 | 17 | 17/20 | 11/20 | FAIL |
-| GP-02-1 | entry | 2 | 0 | 1/2 | 2/2 | FAIL |
+| fixture | class | n | tier 1 failures | tier 2 failures | P-assertions clean | needs | verdict |
+|---|---|---|---|---|---|---|---|
+| CLR-01 | adversarial | 2 | 1 | 0 | 2/2 | 2/2 | FAIL |
+| SCP-01 | adversarial | 2 | 0 | 0 | 1/2 | 2/2 | FAIL |
+| GP-01-1 | entry | 20 | 7 | 10 | 17/20 | 11/20 | FAIL |
+| GP-02-1 | entry | 2 | 0 | 0 | 1/2 | 2/2 | FAIL |
+
+## Single-draw precision
+
+- count: 0; cap: 2 (more than 2 fails the run); cap met
 
 ## Notes
 
@@ -56,6 +60,7 @@ none
 - entry: samples 3/22 pass; fixtures 0/2 pass
 - adversarial: samples 2/4 pass; fixtures 0/2 pass
 - samples: 5/26 pass (19.2%); floor 95% NOT met
-- fixtures: 0/4 pass (hard checks isolation, contaminated, U0, U1, U2, U3, U4, U5, P0, P3; majority checks P1, P2, P4, P5)
+- fixtures: 0/4 pass (tier 1 checks isolation, contaminated, U0, P0, U1, U2; tier 2 checks U3, U4, U5, P3, fail at 2+ samples; majority checks P1, P2, P4, P5)
+- single-draw precision: 0; cap 2 met
 
 RUN: FAIL
