@@ -1,0 +1,17 @@
+sample: PERF-13-1.5
+cwd: /tmp/acc-run-2026-10-05-d36f695-m_a9m5g4/PERF-13-1.5
+launched: 2026-10-05T10:04:07Z
+launcher: tests/harness/launch_sample.py
+tools: Read,Glob,Grep,Write
+model: claude-sonnet-5
+files:
+content.md
+skill/.gitkeep
+skill/SKILL.md
+skill/references/.gitkeep
+skill/references/definitions.md
+skill/references/general-prohibitions.md
+skill/references/performance.md
+skill/references/testimonials-endorsements.md
+skill/references/third-party-ratings.md
+post-launch: clean
