@@ -259,3 +259,5 @@ Cited by date and slug.
   The close model stays pinned to claude-sonnet-5 and does not follow the default alias to claude-sonnet-5-5. Basis: the passing run is on claude-sonnet-5; the only run on claude-sonnet-5-5 (2026-09-28) logged 6 hard violations. Moving the pin requires a new passing run on the target model and a new ruling.
 - 2026-10-06 · gp-01-paragraph-set-watch
   Watch item, not a fix. Two runs printed GP-01's paragraph set "(a)(1), (a)(2)" where the catalog set is "(a)(1)": GP-15-1.2 in run 12 and PERF-04-1.4 in run 14. hard-check-tiers absorbed both as single-draw precision. No catalog change and no fix round on low-q fixtures. Revisit only if a run fails on this pattern.
+- 2026-10-06 · pre-public-audit
+  A read-only release-readiness audit runs on the repo before its visibility changes. The audit result is advisory: a GO does not make the repo public. Making it public still waits for Alex's explicit instruction (repo-name-visibility). A NO-GO findings list is triaged by Alex finding by finding before any fix is made.
