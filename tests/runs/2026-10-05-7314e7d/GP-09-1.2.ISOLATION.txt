@@ -1,0 +1,17 @@
+sample: GP-09-1.2
+cwd: /tmp/acc-run-2026-10-05-7314e7d-iu5nrdaj/GP-09-1.2
+launched: 2026-10-05T22:32:09Z
+launcher: tests/harness/launch_sample.py
+tools: Read,Glob,Grep,Write
+model: claude-sonnet-5
+files:
+content.md
+skill/.gitkeep
+skill/SKILL.md
+skill/references/.gitkeep
+skill/references/definitions.md
+skill/references/general-prohibitions.md
+skill/references/performance.md
+skill/references/testimonials-endorsements.md
+skill/references/third-party-ratings.md
+post-launch: clean
