@@ -13,6 +13,7 @@ Layout:
 - catalog/ — failure catalog built from SEC risk alerts, sweep actions, and enforcement releases
 - tests/ — adversarial test set
 - tools/ — check-index builder, fixture and static checks, and test-run tooling
+- demo/ — synthetic before/after example (fictional firm)
 - RULINGS.md — dated rulings, cited by date and slug
 - OPEN.md — open questions
 
