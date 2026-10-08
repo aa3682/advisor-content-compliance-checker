@@ -27,4 +27,6 @@ Requirements: tools need Python 3 and PyYAML.
 
 License: MIT (see LICENSE).
 
+Background: The Adoption Path (https://advisor-ai-guide.vercel.app), a guide to using AI in a small advisory firm, uses this checker as a worked example.
+
 Every skill output ends with: "Pre-review only. Not legal or compliance advice. Confirm with your CCO or counsel."
